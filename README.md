@@ -47,7 +47,8 @@ USAGE
   $ qcli backtests:list
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/backtests/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/list.ts)_
@@ -61,7 +62,8 @@ USAGE
   $ qcli backtests:new
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/backtests/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/new.ts)_
@@ -75,7 +77,8 @@ USAGE
   $ qcli backtests:report
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/backtests/report.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/report.ts)_
@@ -89,7 +92,8 @@ USAGE
   $ qcli backtests:show
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/backtests/show.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/show.ts)_
@@ -120,7 +124,8 @@ USAGE
   $ qcli init
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/init.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/init.ts)_
@@ -134,7 +139,8 @@ USAGE
   $ qcli projects:compile
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/projects/compile.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/compile.ts)_
@@ -148,7 +154,8 @@ USAGE
   $ qcli projects:delete
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/projects/delete.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/delete.ts)_
@@ -162,7 +169,8 @@ USAGE
   $ qcli projects:list
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/projects/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/list.ts)_
@@ -176,7 +184,8 @@ USAGE
   $ qcli projects:new
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/projects/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/new.ts)_
@@ -190,7 +199,8 @@ USAGE
   $ qcli sync:pull
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/sync/pull.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/sync/pull.ts)_
@@ -204,7 +214,8 @@ USAGE
   $ qcli sync:push
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/sync/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/sync/push.ts)_
@@ -218,7 +229,8 @@ USAGE
   $ qcli sync:watch
 
 OPTIONS
-  -h, --help  show CLI help
+  -h, --help     display usage information
+  -v, --version  display version information
 ```
 
 _See code: [src/commands/sync/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/sync/watch.ts)_

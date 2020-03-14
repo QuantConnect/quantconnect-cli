@@ -3,7 +3,14 @@ import { OutputArgs, OutputFlags } from '@oclif/parser';
 
 export abstract class BaseCommand extends Command {
   public static flags = {
-    help: flags.help({ char: 'h' }),
+    help: flags.help({
+      char: 'h',
+      description: 'display usage information',
+    }),
+    version: flags.version({
+      char: 'v',
+      description: 'display version information',
+    }),
   };
 
   protected args: OutputArgs<any>;

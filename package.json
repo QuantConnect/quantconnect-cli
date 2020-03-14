@@ -116,7 +116,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "oclif-dev readme && git add README.md && lint-staged"
     }
   },
   "lint-staged": {
