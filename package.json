@@ -69,7 +69,7 @@
       "@oclif/plugin-help",
       "@oclif/plugin-warn-if-update-available"
     ],
-    "repositoryPrefix": "./<%- commandPath %>",
+    "repositoryPrefix": "<%- repo %>/blob/master/<%- commandPath %>",
     "topics": {
       "backtests": {
         "description": "manage backtests"
