@@ -1,5 +1,18 @@
 #!/usr/bin/env node
 
-require('@oclif/command').run()
-.then(require('@oclif/command/flush'))
-.catch(require('@oclif/errors/handle'))
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const flush = require('@oclif/command/flush');
+const handle = require('@oclif/errors/handle');
+const { logger } = require('../lib/utils/logger');
+
+require('@oclif/command')
+  .run()
+  .then(flush)
+  .catch(err => {
+    if (err.oclif && err.code !== 'EEXIT' && typeof err.render === 'function') {
+      err.render = () => logger.error(`${err.name}: ${err.message}`);
+    }
+
+    return handle(err);
+  });
