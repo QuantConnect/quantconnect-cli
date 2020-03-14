@@ -39,6 +39,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "@typescript-eslint/parser": "^2.23.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.2",
     "globby": "^11.0.0",
     "husky": "^4.2.3",
@@ -64,8 +66,23 @@
     "commands": "./lib/commands",
     "bin": "qcli",
     "plugins": [
-      "@oclif/plugin-help"
-    ]
+      "@oclif/plugin-help",
+      "@oclif/plugin-warn-if-update-available"
+    ],
+    "topics": {
+      "backtests": {
+        "description": "manage backtests"
+      },
+      "projects": {
+        "description": "manage projects"
+      },
+      "sync": {
+        "description": "manage synchronizing local files with QuantConnect"
+      }
+    },
+    "warn-if-update-available": {
+      "timeoutInDays": 7
+    }
   },
   "np": {
     "tests": false
@@ -76,11 +93,13 @@
       "eslint:recommended",
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended",
-      "prettier"
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript",
+      "plugin:prettier/recommended"
     ],
     "plugins": [
-      "@typescript-eslint",
-      "prettier"
+      "@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
     "env": {
@@ -90,7 +109,8 @@
       "lib/"
     ],
     "rules": {
-      "prettier/prettier": "error"
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-member-accessibility": "error"
     }
   },
   "husky": {
