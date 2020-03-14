@@ -1,0 +1,113 @@
+{
+  "name": "quantconnect-cli",
+  "version": "0.0.0",
+  "description": "CLI aimed at making local development of QuantConnect algorithms easier",
+  "repository": "jmerle/quantconnect-cli",
+  "homepage": "https://github.com/jmerle/quantconnect-cli",
+  "bugs": "https://github.com/jmerle/quantconnect-cli/issues",
+  "author": "Jasper van Merle",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "bin": {
+    "qcli": "./bin/run"
+  },
+  "keywords": [
+    "oclif",
+    "quantconnect"
+  ],
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "scripts": {
+    "build": "rm -rf lib && tsc -b",
+    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "lint:eslint": "eslint --format codeframe 'src/**'",
+    "lint:prettier": "prettier --check --ignore-path .gitignore '**/*.{yml,json}'",
+    "fix": "yarn fix:eslint && yarn fix:prettier",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "prettier --write --ignore-path .gitignore '**/*.{yml,json}'",
+    "release": "np",
+    "version": "oclif-dev readme && git add README.md",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "yarn build && oclif-dev manifest && oclif-dev readme"
+  },
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@types/node": "^13.9.1",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "globby": "^11.0.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "np": "^6.2.0",
+    "prettier": "^1.19.1",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "qcli",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "np": {
+    "tests": false
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "env": {
+      "node": true
+    },
+    "ignorePatterns": [
+      "lib/"
+    ],
+    "rules": {
+      "prettier/prettier": "error"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --format codeframe --fix"
+    ],
+    "*.{yml,json}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}
