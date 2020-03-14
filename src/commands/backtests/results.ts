@@ -1,7 +1,7 @@
 import { BaseCommand } from '../../BaseCommand';
 
-export default class ShowBacktestCommand extends BaseCommand {
-  public static description = 'show results of a given backtest';
+export default class ShowBacktestResultsCommand extends BaseCommand {
+  public static description = 'show the results of a given backtest';
 
   public static flags = {
     ...BaseCommand.flags,

@@ -27,7 +27,7 @@ TBD.
 * [`qcli backtests:list`](#qcli-backtestslist)
 * [`qcli backtests:new`](#qcli-backtestsnew)
 * [`qcli backtests:report`](#qcli-backtestsreport)
-* [`qcli backtests:show`](#qcli-backtestsshow)
+* [`qcli backtests:results`](#qcli-backtestsresults)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
 * [`qcli projects:compile`](#qcli-projectscompile)
@@ -83,20 +83,20 @@ OPTIONS
 
 _See code: [src/commands/backtests/report.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/report.ts)_
 
-## `qcli backtests:show`
+## `qcli backtests:results`
 
-show results of a given backtest
+show the results of a given backtest
 
 ```
 USAGE
-  $ qcli backtests:show
+  $ qcli backtests:results
 
 OPTIONS
   -h, --help     display usage information
   -v, --version  display version information
 ```
 
-_See code: [src/commands/backtests/show.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/show.ts)_
+_See code: [src/commands/backtests/results.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/results.ts)_
 
 ## `qcli help [COMMAND]`
 
