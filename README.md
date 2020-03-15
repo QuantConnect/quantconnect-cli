@@ -28,7 +28,7 @@ TBD.
 * [`qcli api:post ENDPOINT`](#qcli-apipost-endpoint)
 * [`qcli backtests:list`](#qcli-backtestslist)
 * [`qcli backtests:new`](#qcli-backtestsnew)
-* [`qcli backtests:report`](#qcli-backtestsreport)
+* [`qcli backtests:report [PATH]`](#qcli-backtestsreport-path)
 * [`qcli backtests:results`](#qcli-backtestsresults)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
@@ -131,26 +131,31 @@ USAGE
 OPTIONS
   -h, --help             display usage information
   -n, --name=name        name of the backtest (optional, a random one is generated if not specified)
-  -o, --open             open the backtest results in the browser
+  -o, --open             open the backtest results in the browser when done
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
 ```
 
 _See code: [src/commands/backtests/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/new.ts)_
 
-## `qcli backtests:report`
+## `qcli backtests:report [PATH]`
 
 download the report of a given backtest
 
 ```
 USAGE
-  $ qcli backtests:report
+  $ qcli backtests:report [PATH]
+
+ARGUMENTS
+  PATH  path to save report to (optional, the backtest name is used if not specified)
 
 OPTIONS
   -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
   -h, --help               display usage information
   -p, --project=project    project id or name (optional, interactive selector opens if not specified)
   -v, --version            display version information
+  --open                   open the report in the browser when done
+  --overwrite              overwrite the file if it already exists
 ```
 
 _See code: [src/commands/backtests/report.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/report.ts)_

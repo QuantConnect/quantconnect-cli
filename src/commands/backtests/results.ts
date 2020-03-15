@@ -14,6 +14,7 @@ export default class ShowBacktestResultsCommand extends BaseCommand {
     open: flags.boolean({
       char: 'o',
       description: 'open the backtest results in the browser',
+      default: false,
     }),
   };
 
@@ -24,6 +25,6 @@ export default class ShowBacktestResultsCommand extends BaseCommand {
     const api = new APIClient();
     const fullBacktest = await api.backtests.get(project.projectId, backtest.backtestId);
 
-    await logBacktestInformation(project, fullBacktest, this.flags.open === true);
+    await logBacktestInformation(project, fullBacktest, this.flags.open);
   }
 }

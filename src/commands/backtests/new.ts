@@ -18,7 +18,8 @@ export default class RunBacktestCommand extends BaseCommand {
     }),
     open: flags.boolean({
       char: 'o',
-      description: 'open the backtest results in the browser',
+      description: 'open the backtest results in the browser when done',
+      default: false,
     }),
   };
 
@@ -46,7 +47,7 @@ export default class RunBacktestCommand extends BaseCommand {
       await new Promise(resolve => setTimeout(resolve, 250));
     }
 
-    await logBacktestInformation(project, backtest, this.flags.open === true);
+    await logBacktestInformation(project, backtest, this.flags.open);
 
     if (backtest.error !== null) {
       process.exit(1);
