@@ -44,13 +44,13 @@ export default class InitCommand extends BaseCommand {
       const apiToken = await logger.askPassword('API token');
 
       const api = new APIClient(userId, apiToken);
+      const authenticated = await api.isAuthenticated();
 
-      try {
-        await api.get('authenticate');
+      if (authenticated) {
         return { userId, apiToken };
-      } catch (err) {
-        logger.warn('Could not validate credentials, try again');
       }
+
+      logger.warn('Could not validate credentials, try again');
     }
   }
 }

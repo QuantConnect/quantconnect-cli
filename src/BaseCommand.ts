@@ -2,7 +2,6 @@ import Command, { flags } from '@oclif/command';
 import { OutputArgs, OutputFlags } from '@oclif/parser';
 import { logger } from './utils/logger';
 import { config } from './utils/config';
-import { APIClient } from './api/APIClient';
 
 export abstract class BaseCommand extends Command {
   public static flags = {

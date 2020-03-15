@@ -50,6 +50,6 @@ ${highlight(`{
     const { data } = await api.axios.post(this.args.endpoint, this.flags.body);
     const json = JSON.stringify(data, null, 2);
 
-    console.log(highlight(json));
+    console.log(highlight(json, { language: 'json' }));
   }
 }

@@ -1,11 +1,21 @@
 import * as crypto from 'crypto';
 import axios from 'axios';
 import { config } from '../utils/config';
+import { mutateObjectRecursively } from '../utils/objects';
+import { FileClient } from './FileClient';
+import { ProjectClient } from './ProjectClient';
+import { CompileClient } from './CompileClient';
+import { BacktestClient } from './BacktestClient';
 
 export class APIClient {
   public axios = axios.create({
     baseURL: 'https://www.quantconnect.com/api/v2',
   });
+
+  public files = new FileClient(this);
+  public projects = new ProjectClient(this);
+  public compiles = new CompileClient(this);
+  public backtests = new BacktestClient(this);
 
   public constructor(userId: string = config.get('userId'), apiToken: string = config.get('apiToken')) {
     this.axios.interceptors.request.use(config => {
@@ -30,8 +40,17 @@ export class APIClient {
     });
   }
 
-  public get(endpoint: string): Promise<any> {
-    return this.request('GET', endpoint);
+  public async isAuthenticated(): Promise<boolean> {
+    try {
+      await this.get('authenticated');
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  public get(endpoint: string, parameters: any = {}): Promise<any> {
+    return this.request('GET', endpoint, { params: parameters });
   }
 
   public post(endpoint: string, data: any = {}): Promise<any> {
@@ -55,21 +74,27 @@ export class APIClient {
       }
 
       if (data.success) {
+        mutateObjectRecursively(data, (key, value) => {
+          if (key === 'modified' || key === 'created') {
+            return new Date(Date.parse(value + ' UTC'));
+          }
+
+          return value;
+        });
+
         return data;
       }
 
       if (data.errors !== undefined && data.errors.length > 0) {
-        const error = data.errors[0];
-
-        if (error.startsWith("Hash doesn't match.")) {
+        if (data.errors[0].startsWith("Hash doesn't match.")) {
           throw this.createAuthenticationError();
         }
 
-        throw new Error(error);
+        throw new Error(data.errors.join('\n'));
       }
 
       if (data.messages !== undefined && data.messages.length > 0) {
-        throw new Error(data.messages[0]);
+        throw new Error(data.messages.join('\n'));
       }
 
       return data;

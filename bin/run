@@ -2,20 +2,16 @@
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const flush = require('@oclif/command/flush');
-const handle = require('@oclif/errors/handle');
-const { logger } = require('../lib/utils/logger');
-
 require('@oclif/command')
   .run()
-  .then(flush)
+  .then(require('@oclif/command/flush'))
   .catch(err => {
     if (err.oclif && err.code !== 'EEXIT' && typeof err.render === 'function') {
       err.render = () => {
-        logger.error(err.message);
+        require('../lib/utils/logger').logger.error(err.message);
         return null;
       };
     }
 
-    return handle(err);
+    return require('@oclif/errors/handle')(err);
   });
