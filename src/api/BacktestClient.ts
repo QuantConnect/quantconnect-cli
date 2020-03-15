@@ -22,8 +22,8 @@ export class BacktestClient {
     });
   }
 
-  public update(projectId: number, backtestId: string, name: string, note: string): Promise<void> {
-    return this.api.post('backtests/update', {
+  public async update(projectId: number, backtestId: string, name: string, note: string): Promise<void> {
+    await this.api.post('backtests/update', {
       projectId,
       backtestId,
       name,
@@ -31,8 +31,8 @@ export class BacktestClient {
     });
   }
 
-  public delete(projectId: number, backtestId: string): Promise<void> {
-    return this.api.post('backtests/delete', {
+  public async delete(projectId: number, backtestId: string): Promise<void> {
+    await this.api.post('backtests/delete', {
       projectId,
       backtestId,
     });

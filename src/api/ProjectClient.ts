@@ -22,7 +22,7 @@ export class ProjectClient {
     return data.projects[0];
   }
 
-  public delete(projectId: number): Promise<void> {
-    return this.api.post('projects/delete', { projectId });
+  public async delete(projectId: number): Promise<void> {
+    await this.api.post('projects/delete', { projectId });
   }
 }
