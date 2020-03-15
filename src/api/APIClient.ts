@@ -70,7 +70,7 @@ export class APIClient {
       }
 
       if (status < 200 || status >= 300) {
-        throw new Error(`${method} request failed (status code ${status})`);
+        throw new Error(`${method} request to ${endpoint} failed (status code ${status})`);
       }
 
       if (data.success) {
