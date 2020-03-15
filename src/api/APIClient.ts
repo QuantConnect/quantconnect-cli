@@ -1,7 +1,6 @@
 import * as crypto from 'crypto';
 import axios from 'axios';
 import { config } from '../utils/config';
-import { mutateObjectRecursively } from '../utils/objects';
 import { FileClient } from './FileClient';
 import { ProjectClient } from './ProjectClient';
 import { CompileClient } from './CompileClient';
@@ -78,15 +77,7 @@ export class APIClient {
       }
 
       if (data.success) {
-        mutateObjectRecursively(data, (key, value) => {
-          if (key === 'modified' || key === 'created') {
-            return new Date(Date.parse(value + ' UTC'));
-          }
-
-          return value;
-        });
-
-        return data;
+        return this.processData(data);
       }
 
       if (data.errors !== undefined && data.errors.length > 0) {
@@ -109,6 +100,20 @@ export class APIClient {
 
       throw err;
     }
+  }
+
+  private processData(obj: any): any {
+    for (const key of Object.keys(obj)) {
+      if (obj[key] !== null && typeof obj[key] === 'object') {
+        this.processData(obj[key]);
+      } else {
+        if (key === 'modified' || key === 'created') {
+          obj[key] = new Date(Date.parse(obj[key] + ' UTC'));
+        }
+      }
+    }
+
+    return obj;
   }
 
   private createAuthenticationError(): Error {

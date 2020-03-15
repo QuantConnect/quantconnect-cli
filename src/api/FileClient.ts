@@ -17,12 +17,14 @@ export class FileClient {
     return data.files;
   }
 
-  public async create(projectId: number, filename: string, content: string): Promise<void> {
-    await this.api.post('files/create', {
+  public async create(projectId: number, filename: string, content: string): Promise<QCFile> {
+    const data = await this.api.post('files/create', {
       projectId,
       name: filename,
       content,
     });
+
+    return data.files[0];
   }
 
   public async rename(projectId: number, oldFilename: string, newFilename: string): Promise<void> {

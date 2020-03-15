@@ -33,12 +33,15 @@ class Logger {
   public progress(total: number = 100): ProgressBar {
     const prefix = chalk.cyan(this.padPrefix('progress'));
 
-    return new ProgressBar(prefix + '[:bar] :percent', {
+    const bar = new ProgressBar(prefix + '[:bar] :percent', {
       complete: '=',
       incomplete: ' ',
       width: 50,
       total,
     });
+
+    bar.update(0.0);
+    return bar;
   }
 
   public table(rows: any[][]): void {
@@ -48,7 +51,7 @@ class Logger {
       },
     };
 
-    this.info(table(rows, options).trim());
+    this.info(table(rows, options));
   }
 
   public askBoolean(message: string, defaultValue: boolean = true): Promise<boolean> {

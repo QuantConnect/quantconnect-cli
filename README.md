@@ -130,6 +130,8 @@ USAGE
 
 OPTIONS
   -h, --help             display usage information
+  -n, --name=name        name of the backtest (optional, a random one is generated if not specified)
+  -o, --open             open the backtest results in the browser
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
 ```
@@ -164,6 +166,7 @@ USAGE
 OPTIONS
   -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
   -h, --help               display usage information
+  -o, --open               open the backtest results in the browser
   -p, --project=project    project id or name (optional, interactive selector opens if not specified)
   -v, --version            display version information
 ```

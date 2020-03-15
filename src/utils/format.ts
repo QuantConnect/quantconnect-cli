@@ -9,7 +9,7 @@ export function formatString(thing: any): string {
     return 'undefined';
   }
 
-  return thing;
+  return thing.toString().trim();
 }
 
 export function formatLanguage(language: QCLanguage): string {

@@ -15,6 +15,14 @@ export class BacktestClient {
     return data.backtests;
   }
 
+  public create(projectId: number, compileId: string, name: string): Promise<QCBacktest> {
+    return this.api.post('backtests/create', {
+      projectId,
+      compileId,
+      backtestName: name,
+    });
+  }
+
   public getReport(projectId: number, backtestId: string): Promise<QCBacktestReport> {
     return this.api.post('backtests/read/report', {
       projectId,
