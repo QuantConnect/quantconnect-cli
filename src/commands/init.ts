@@ -13,14 +13,9 @@ export default class InitCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    if (config.fileExists()) {
-      logger.error('This directory already contains a QuantConnect CLI project');
-      this.exit(1);
-    }
-
     if (fs.readdirSync(process.cwd()).length > 0) {
       logger.error('Please run this command in an empty directory');
-      this.exit(1);
+      process.exit(1);
     }
 
     const { userId, apiToken } = await this.askCredentials();
@@ -29,7 +24,7 @@ export default class InitCommand extends BaseCommand {
     config.set('userId', userId);
     config.set('apiToken', apiToken);
 
-    logger.success('Successfully stored user ID and API token in quantconnect-cli.json');
+    logger.info('Successfully stored user ID and API token in quantconnect-cli.json');
 
     await PullCommand.run([]);
   }

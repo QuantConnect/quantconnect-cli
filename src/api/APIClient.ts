@@ -42,7 +42,7 @@ export class APIClient {
 
   public async isAuthenticated(): Promise<boolean> {
     try {
-      await this.get('authenticated');
+      await this.get('projects/read');
       return true;
     } catch (err) {
       return false;
@@ -113,7 +113,7 @@ export class APIClient {
 
   private createAuthenticationError(): Error {
     return new Error(
-      'Invalid credentials, please make sure the user ID and the API token in quantconnect-cli.json are valid.',
+      'Invalid credentials, please make sure the user ID and the API token in quantconnect-cli.json are valid',
     );
   }
 }

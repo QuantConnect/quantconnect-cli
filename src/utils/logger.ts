@@ -1,6 +1,7 @@
 import * as chalk from 'chalk';
 import * as ProgressBar from 'progress';
 import * as inquirer from 'inquirer';
+import { table } from 'table';
 
 inquirer.registerPrompt(
   'autocomplete',
@@ -9,6 +10,8 @@ inquirer.registerPrompt(
 );
 
 class Logger {
+  public forceYes = false;
+
   private prefixLength = 8;
 
   public info(message: any): void {
@@ -23,12 +26,7 @@ class Logger {
 
   public error(message: any): void {
     const prefix = chalk.red(this.padPrefix('error'));
-    console.log(this.prefixMessage(prefix, message));
-  }
-
-  public success(message: any): void {
-    const prefix = chalk.green(this.padPrefix('success'));
-    console.log(this.prefixMessage(prefix, message));
+    console.error(this.prefixMessage(prefix, message));
   }
 
   public progress(total: number = 100): ProgressBar {
@@ -42,7 +40,22 @@ class Logger {
     });
   }
 
+  public table(rows: any[][], additionalOptions: any = {}): void {
+    const options = {
+      ...additionalOptions,
+      drawHorizontalLine: (index: number, size: number): boolean => {
+        return index === 0 || index === 1 || index === size;
+      },
+    };
+
+    this.info(table(rows, options).trim());
+  }
+
   public askBoolean(message: string, defaultValue: boolean = true): Promise<boolean> {
+    if (this.forceYes) {
+      return Promise.resolve(true);
+    }
+
     return this.promptInquirer('confirm', {
       message,
       default: defaultValue,

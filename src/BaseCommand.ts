@@ -42,7 +42,7 @@ export abstract class BaseCommand extends Command {
         logger.error(err.message);
       }
 
-      this.exit(1);
+      process.exit(1);
     }
   }
 }

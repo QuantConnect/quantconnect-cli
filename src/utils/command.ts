@@ -2,6 +2,9 @@ import { flags } from '@oclif/command';
 import { OutputFlags } from '@oclif/parser';
 import { APIClient } from '../api/APIClient';
 import { logger } from './logger';
+import { formatDate } from './format';
+
+type Flag<T> = { [key: string]: flags.IOptionFlag<T> };
 
 export function formatExamples(examples: string[]): string[] {
   return examples.map((example, index) => {
@@ -10,7 +13,7 @@ export function formatExamples(examples: string[]): string[] {
   });
 }
 
-export function createProjectFlag(): { [key: string]: flags.IOptionFlag<string> } {
+export function createProjectFlag(): Flag<string> {
   return {
     project: flags.string({
       char: 'p',
@@ -19,7 +22,7 @@ export function createProjectFlag(): { [key: string]: flags.IOptionFlag<string> 
   };
 }
 
-export function createBacktestFlag(): { [key: string]: flags.IOptionFlag<string> } {
+export function createBacktestFlag(): Flag<string> {
   return {
     backtest: flags.string({
       char: 'b',
@@ -28,7 +31,7 @@ export function createBacktestFlag(): { [key: string]: flags.IOptionFlag<string>
   };
 }
 
-export async function selectProject(flags: OutputFlags<any>): Promise<QCProject> {
+export async function parseProjectFlag(flags: OutputFlags<any>): Promise<QCProject> {
   const api = new APIClient();
   const projects = await api.projects.getAll();
 
@@ -63,7 +66,7 @@ export async function selectProject(flags: OutputFlags<any>): Promise<QCProject>
   return options.find(option => option[0] === selectedOption)[1];
 }
 
-export async function selectBacktest(projectId: number, flags: OutputFlags<any>): Promise<QCBacktest> {
+export async function parseBacktestFlag(projectId: number, flags: OutputFlags<any>): Promise<QCBacktest> {
   const api = new APIClient();
   const backtests = await api.backtests.getAll(projectId);
 
@@ -83,12 +86,12 @@ export async function selectBacktest(projectId: number, flags: OutputFlags<any>)
   }
 
   if (backtests.length === 0) {
-    throw new Error(`Project ${projectId} has no backtests`);
+    throw new Error(`Project has no backtests`);
   }
 
   const options: Array<[string, QCBacktest]> = backtests
     .sort((a, b) => b.created.getTime() - a.created.getTime())
-    .map(backtest => [`${backtest.backtestId} - ${backtest.created.toISOString()} - ${backtest.name}`, backtest]);
+    .map(backtest => [`${backtest.backtestId} - ${formatDate(backtest.created)} - ${backtest.name}`, backtest]);
 
   const selectedOption = await logger.askAutocomplete(
     'Select a backtest',

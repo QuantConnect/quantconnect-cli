@@ -236,7 +236,7 @@ _See code: [src/commands/projects/delete.ts](https://github.com/jmerle/quantconn
 
 ## `qcli projects:list`
 
-list all projects and libraries
+list all projects
 
 ```
 USAGE

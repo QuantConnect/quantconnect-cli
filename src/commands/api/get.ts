@@ -27,7 +27,6 @@ ${highlight(`{
 
   protected async execute(): Promise<void> {
     const api = new APIClient();
-    await api.projects.create('Test Project', 'C#');
     const { data } = await api.axios.get(this.args.endpoint);
     const json = JSON.stringify(data, null, 2);
 

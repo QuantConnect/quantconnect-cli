@@ -1,5 +1,5 @@
 import { BaseCommand } from '../../BaseCommand';
-import { createProjectFlag, selectProject } from '../../utils/command';
+import { createProjectFlag, parseProjectFlag } from '../../utils/command';
 
 export default class RunBacktestCommand extends BaseCommand {
   public static description = 'run a backtest for a project';
@@ -10,7 +10,7 @@ export default class RunBacktestCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    const project = await selectProject(this.flags);
+    const project = await parseProjectFlag(this.flags);
 
     // TODO(jmerle): Implement
   }
