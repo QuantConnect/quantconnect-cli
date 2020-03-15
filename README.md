@@ -35,7 +35,6 @@ TBD.
 * [`qcli projects:compile`](#qcli-projectscompile)
 * [`qcli projects:delete`](#qcli-projectsdelete)
 * [`qcli projects:list`](#qcli-projectslist)
-* [`qcli projects:new`](#qcli-projectsnew)
 * [`qcli sync:pull`](#qcli-syncpull)
 * [`qcli sync:push`](#qcli-syncpush)
 * [`qcli sync:watch`](#qcli-syncwatch)
@@ -254,21 +253,6 @@ OPTIONS
 ```
 
 _See code: [src/commands/projects/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/list.ts)_
-
-## `qcli projects:new`
-
-create a new project
-
-```
-USAGE
-  $ qcli projects:new
-
-OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
-```
-
-_See code: [src/commands/projects/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/new.ts)_
 
 ## `qcli sync:pull`
 

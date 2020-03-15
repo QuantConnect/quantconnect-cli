@@ -23,5 +23,7 @@ export default class DeleteProjectCommand extends BaseCommand {
     await api.projects.delete(project.projectId);
 
     logger.info(`Successfully deleted project '${project.name}'`);
+
+    // TODO(jmerle): Delete local directory if project was synced
   }
 }
