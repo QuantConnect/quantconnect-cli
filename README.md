@@ -1,7 +1,7 @@
 # QuantConnect CLI
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Build Status](https://dev.azure.com/jmerle/quantconnect-cli/_apis/build/status/Build?branchName=master)](https://dev.azure.com/jmerle/quantconnect-cli/_build/latest?definitionId=25&branchName=master)
+[![Build Status](https://dev.azure.com/jmerle/quantconnect-cli/_apis/build/status/Build?branchName=master)](https://dev.azure.com/jmerle/quantconnect-cli/_build/latest?definitionId=26&branchName=master)
 [![Version](https://img.shields.io/npm/v/quantconnect-cli.svg)](https://npmjs.org/package/quantconnect-cli)
 [![License](https://img.shields.io/npm/l/quantconnect-cli.svg)](https://github.com/jmerle/quantconnect-cli/blob/master/LICENSE)
 
