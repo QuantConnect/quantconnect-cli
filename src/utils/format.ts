@@ -1,5 +1,17 @@
 import { formatDistanceToNow } from 'date-fns';
 
+export function formatString(thing: any): string {
+  if (thing === null) {
+    return 'null';
+  }
+
+  if (thing === undefined) {
+    return 'undefined';
+  }
+
+  return thing;
+}
+
 export function formatLanguage(language: QCLanguage): string {
   switch (language) {
     case 'Py':
@@ -19,4 +31,9 @@ export function formatDate(date: Date): string {
 
 export function formatNumber(num: number, fractionDigits: number = 0): string {
   return num.toFixed(fractionDigits).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+export function formatAmount(word: string, num: number): string {
+  const suffix = num !== 1 ? 's' : '';
+  return `${formatNumber(num)} ${word}${suffix}`;
 }

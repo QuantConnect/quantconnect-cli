@@ -1,7 +1,7 @@
 import { BaseCommand } from '../../BaseCommand';
 import { APIClient } from '../../api/APIClient';
 import { logger } from '../../utils/logger';
-import { formatDate, formatLanguage } from '../../utils/format';
+import { formatAmount, formatDate, formatLanguage } from '../../utils/format';
 
 export default class ListProjectsCommand extends BaseCommand {
   public static description = 'list all projects';
@@ -14,7 +14,11 @@ export default class ListProjectsCommand extends BaseCommand {
     const api = new APIClient();
     const projects = await api.projects.getAll();
 
-    logger.info(`Found ${projects.length} projects`);
+    logger.info(`Found ${formatAmount('project', projects.length)}`);
+
+    if (projects.length === 0) {
+      return;
+    }
 
     const rows: any[][] = [['ID', 'Language', 'Name', 'Created', 'Modified']];
 

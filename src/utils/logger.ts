@@ -2,6 +2,7 @@ import * as chalk from 'chalk';
 import * as ProgressBar from 'progress';
 import * as inquirer from 'inquirer';
 import { table } from 'table';
+import { formatString } from './format';
 
 inquirer.registerPrompt(
   'autocomplete',
@@ -40,9 +41,8 @@ class Logger {
     });
   }
 
-  public table(rows: any[][], additionalOptions: any = {}): void {
+  public table(rows: any[][]): void {
     const options = {
-      ...additionalOptions,
       drawHorizontalLine: (index: number, size: number): boolean => {
         return index === 0 || index === 1 || index === size;
       },
@@ -131,15 +131,7 @@ class Logger {
   }
 
   private prefixMessage(prefix: string, message: string): string {
-    if (message === null) {
-      message = 'null';
-    }
-
-    if (message === undefined) {
-      message = 'undefined';
-    }
-
-    return message
+    return formatString(message)
       .toString()
       .split('\n')
       .map(line => prefix + line)
