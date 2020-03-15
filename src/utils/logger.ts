@@ -106,7 +106,7 @@ class Logger {
         ...options,
         type,
         name: 'answer',
-        prefix: chalk.magenta(this.padPrefix('question').trim()),
+        prefix: chalk.magenta(this.padPrefix('input').trimRight()),
       },
     ]);
 
@@ -118,6 +118,14 @@ class Logger {
   }
 
   private prefixMessage(prefix: string, message: string): string {
+    if (message === null) {
+      message = 'null';
+    }
+
+    if (message === undefined) {
+      message = 'undefined';
+    }
+
     return message
       .toString()
       .split('\n')

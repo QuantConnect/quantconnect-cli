@@ -58,19 +58,23 @@ export class APIClient {
   }
 
   private async request(method: string, endpoint: string, requestOptions: any = {}): Promise<any> {
+    const axiosConfig = {
+      ...requestOptions,
+      method,
+      url: endpoint,
+    };
+
+    const url = this.axios.getUri(axiosConfig);
+
     try {
-      const { status, data } = await this.axios.request({
-        ...requestOptions,
-        method,
-        url: endpoint,
-      });
+      const { status, data } = await this.axios.request(axiosConfig);
 
       if (status === 500) {
         throw this.createAuthenticationError();
       }
 
       if (status < 200 || status >= 300) {
-        throw new Error(`${method} request to ${endpoint} failed (status code ${status})`);
+        throw new Error(`${method} request to ${url} failed (status code ${status})`);
       }
 
       if (data.success) {
@@ -97,10 +101,10 @@ export class APIClient {
         throw new Error(data.messages.join('\n'));
       }
 
-      throw new Error(`${method} request to ${endpoint} failed (status code ${status})`);
+      throw new Error(`${method} request to ${url} failed (status code ${status})`);
     } catch (err) {
       if (err.isAxiosError) {
-        throw new Error(`${method} request to ${endpoint} failed (status code ${err.response.status})`);
+        throw new Error(`${method} request to ${url} failed (status code ${err.response.status})`);
       }
 
       throw err;

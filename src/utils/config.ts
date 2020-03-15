@@ -21,7 +21,7 @@ class Config {
     }
 
     if (key in this.defaults) {
-      return this.defaults[key];
+      return this.defaults[key] as any;
     }
 
     throw new Error(`There is no default value for config item with key '${key}'`);

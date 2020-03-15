@@ -113,8 +113,9 @@ USAGE
   $ qcli backtests:list
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -h, --help             display usage information
+  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
+  -v, --version          display version information
 ```
 
 _See code: [src/commands/backtests/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/list.ts)_
@@ -128,8 +129,9 @@ USAGE
   $ qcli backtests:new
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -h, --help             display usage information
+  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
+  -v, --version          display version information
 ```
 
 _See code: [src/commands/backtests/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/new.ts)_
@@ -143,8 +145,10 @@ USAGE
   $ qcli backtests:report
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
+  -h, --help               display usage information
+  -p, --project=project    project id or name (optional, interactive selector opens if not specified)
+  -v, --version            display version information
 ```
 
 _See code: [src/commands/backtests/report.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/report.ts)_
@@ -158,8 +162,10 @@ USAGE
   $ qcli backtests:results
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
+  -h, --help               display usage information
+  -p, --project=project    project id or name (optional, interactive selector opens if not specified)
+  -v, --version            display version information
 ```
 
 _See code: [src/commands/backtests/results.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/results.ts)_
@@ -205,8 +211,9 @@ USAGE
   $ qcli projects:compile
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -h, --help             display usage information
+  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
+  -v, --version          display version information
 ```
 
 _See code: [src/commands/projects/compile.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/compile.ts)_
@@ -220,8 +227,9 @@ USAGE
   $ qcli projects:delete
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -h, --help             display usage information
+  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
+  -v, --version          display version information
 ```
 
 _See code: [src/commands/projects/delete.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/delete.ts)_

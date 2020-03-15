@@ -35,9 +35,9 @@ export default class InitCommand extends BaseCommand {
   }
 
   private async askCredentials(): Promise<{ userId: string; apiToken: string }> {
-    logger.info('Your user ID and API token are needed to make authenticated requests to the QuantConnect API.');
-    logger.info('You can request these credentials on https://www.quantconnect.com/account.');
-    logger.info('Both will be saved in a file named quantconnect-cli.json in the current directory.');
+    logger.info('Your user ID and API token are needed to make authenticated requests to the QuantConnect API');
+    logger.info('You can request these credentials on https://www.quantconnect.com/account');
+    logger.info('Both will be saved in a file named quantconnect-cli.json in the current directory');
 
     while (true) {
       const userId = await logger.askInput('User ID');
