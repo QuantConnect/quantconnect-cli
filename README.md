@@ -28,7 +28,7 @@ TBD.
 * [`qcli api:post ENDPOINT`](#qcli-apipost-endpoint)
 * [`qcli backtests:list`](#qcli-backtestslist)
 * [`qcli backtests:new`](#qcli-backtestsnew)
-* [`qcli backtests:report [PATH]`](#qcli-backtestsreport-path)
+* [`qcli backtests:report`](#qcli-backtestsreport)
 * [`qcli backtests:results`](#qcli-backtestsresults)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
@@ -138,16 +138,13 @@ OPTIONS
 
 _See code: [src/commands/backtests/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/new.ts)_
 
-## `qcli backtests:report [PATH]`
+## `qcli backtests:report`
 
 download the report of a given backtest
 
 ```
 USAGE
-  $ qcli backtests:report [PATH]
-
-ARGUMENTS
-  PATH  path to save report to (optional, the backtest name is used if not specified)
+  $ qcli backtests:report
 
 OPTIONS
   -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
@@ -156,6 +153,7 @@ OPTIONS
   -v, --version            display version information
   --open                   open the report in the browser when done
   --overwrite              overwrite the file if it already exists
+  --path=path              path to save report to (optional, backtest name is used if not specified)
 ```
 
 _See code: [src/commands/backtests/report.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/report.ts)_

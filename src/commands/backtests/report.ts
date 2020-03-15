@@ -14,6 +14,9 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
     ...BaseCommand.flags,
     ...createProjectFlag(),
     ...createBacktestFlag(),
+    path: flags.string({
+      description: 'path to save report to (optional, backtest name is used if not specified)',
+    }),
     overwrite: flags.boolean({
       description: 'overwrite the file if it already exists',
       default: false,
@@ -24,19 +27,11 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
     }),
   };
 
-  public static args = [
-    {
-      name: 'path',
-      description: 'path to save report to (optional, the backtest name is used if not specified)',
-      required: false,
-    },
-  ];
-
   protected async execute(): Promise<void> {
     const project = await parseProjectFlag(this.flags);
     const backtest = await parseBacktestFlag(project.projectId, this.flags);
 
-    const outputPath = path.resolve(process.cwd(), this.args.path || `${backtest.name}.html`);
+    const outputPath = path.resolve(process.cwd(), this.flags.path || `${backtest.name}.html`);
     const fileExists = fs.existsSync(outputPath);
 
     if (fileExists && !this.flags.overwrite) {
