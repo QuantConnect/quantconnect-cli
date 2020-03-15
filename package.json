@@ -40,7 +40,9 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
+    "axios": "^0.19.2",
     "chalk": "^3.0.0",
+    "cli-highlight": "^2.1.4",
     "inquirer": "^7.1.0",
     "inquirer-autocomplete-prompt": "^1.0.2",
     "progress": "^2.0.3",
@@ -77,6 +79,9 @@
     ],
     "repositoryPrefix": "<%- repo %>/blob/master/<%- commandPath %>",
     "topics": {
+      "api": {
+        "description": "make authenticated requests to the QuantConnect API"
+      },
       "backtests": {
         "description": "manage backtests"
       },
@@ -118,7 +123,14 @@
     "rules": {
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/explicit-member-accessibility": "error",
-      "@typescript-eslint/no-inferrable-types": "off"
+      "@typescript-eslint/no-inferrable-types": "off",
+      "import/order": "error",
+      "no-constant-condition": [
+        "error",
+        {
+          "checkLoops": false
+        }
+      ]
     }
   },
   "husky": {
@@ -136,6 +148,7 @@
   },
   "prettier": {
     "singleQuote": true,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "printWidth": 120
   }
 }

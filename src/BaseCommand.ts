@@ -1,5 +1,8 @@
 import Command, { flags } from '@oclif/command';
 import { OutputArgs, OutputFlags } from '@oclif/parser';
+import { logger } from './utils/logger';
+import { config } from './utils/config';
+import { APIClient } from './api/APIClient';
 
 export abstract class BaseCommand extends Command {
   public static flags = {
@@ -16,6 +19,8 @@ export abstract class BaseCommand extends Command {
   protected args: OutputArgs<any>;
   protected flags: OutputFlags<any>;
 
+  protected abstract execute(): Promise<void>;
+
   protected async init(): Promise<void> {
     super.init();
 
@@ -23,5 +28,22 @@ export abstract class BaseCommand extends Command {
 
     this.args = data.args;
     this.flags = data.flags;
+  }
+
+  public async run(): Promise<void> {
+    if (this.constructor.name !== 'InitCommand' && !config.fileExists()) {
+      logger.error("You're not in a QuantConnect CLI project.");
+      logger.error("You can create one by running 'qcli init' in an empty directory.");
+    }
+
+    try {
+      await this.execute();
+    } catch (err) {
+      if (err.code !== 'EEXIT') {
+        logger.error(err.message);
+      }
+
+      this.exit(1);
+    }
   }
 }

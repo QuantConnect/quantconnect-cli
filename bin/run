@@ -11,7 +11,10 @@ require('@oclif/command')
   .then(flush)
   .catch(err => {
     if (err.oclif && err.code !== 'EEXIT' && typeof err.render === 'function') {
-      err.render = () => logger.error(`${err.name}: ${err.message}`);
+      err.render = () => {
+        logger.error(err.message);
+        return null;
+      };
     }
 
     return handle(err);

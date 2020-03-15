@@ -7,7 +7,7 @@ export default class PushCommand extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  public async run(): Promise<void> {
+  protected async execute(): Promise<void> {
     // TODO(jmerle): Implement
   }
 }

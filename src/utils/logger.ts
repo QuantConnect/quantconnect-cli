@@ -42,10 +42,7 @@ class Logger {
     });
   }
 
-  public askBoolean(
-    message: string,
-    defaultValue: boolean = true,
-  ): Promise<boolean> {
+  public askBoolean(message: string, defaultValue: boolean = true): Promise<boolean> {
     return this.promptInquirer('confirm', {
       message,
       default: defaultValue,
@@ -79,11 +76,7 @@ class Logger {
     });
   }
 
-  public askOption(
-    message: string,
-    options: string[],
-    defaultOption?: string,
-  ): Promise<string> {
+  public askOption(message: string, options: string[], defaultOption?: string): Promise<string> {
     const defaultIndex = options.indexOf(defaultOption);
 
     return this.promptInquirer('list', {

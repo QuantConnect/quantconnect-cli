@@ -7,7 +7,7 @@ export default class ShowBacktestResultsCommand extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  public async run(): Promise<void> {
+  protected async execute(): Promise<void> {
     // TODO(jmerle): Implement
   }
 }
