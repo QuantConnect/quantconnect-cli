@@ -40,7 +40,7 @@ export async function parseProjectFlag(flags: OutputFlags<any>): Promise<QCProje
     const matchingProjects = projects.filter(p => p.projectId === Number(input) || p.name === input);
 
     if (matchingProjects.length === 0) {
-      throw new Error('No project with the given name found');
+      throw new Error('No project with the given id or name found');
     }
 
     if (matchingProjects.length > 1) {
