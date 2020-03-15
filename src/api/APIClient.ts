@@ -97,10 +97,10 @@ export class APIClient {
         throw new Error(data.messages.join('\n'));
       }
 
-      return data;
+      throw new Error(`${method} request to ${endpoint} failed (status code ${status})`);
     } catch (err) {
       if (err.isAxiosError) {
-        throw new Error(`${method} request failed (status code ${err.response.status})`);
+        throw new Error(`${method} request to ${endpoint} failed (status code ${err.response.status})`);
       }
 
       throw err;
