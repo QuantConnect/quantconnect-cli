@@ -31,9 +31,10 @@
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "prettier --write --ignore-path .gitignore '**/*.{yml,json}'",
     "release": "np",
-    "version": "oclif-dev readme && git add README.md",
+    "readme": "oclif-dev readme --multi && git add README.md docs/",
+    "version": "yarn readme",
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "yarn build && oclif-dev manifest && oclif-dev readme"
+    "prepack": "yarn build && oclif-dev manifest && yarn readme"
   },
   "dependencies": {
     "@oclif/command": "^1",
@@ -139,7 +140,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "oclif-dev readme && git add README.md && lint-staged"
+      "pre-commit": "yarn readme && lint-staged"
     }
   },
   "lint-staged": {

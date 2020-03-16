@@ -5,7 +5,7 @@ import { logger } from '../../utils/logger';
 import { formatAmount, formatDate } from '../../utils/format';
 
 export default class ListBacktestsCommand extends BaseCommand {
-  public static description = 'list all backtest ran for a project';
+  public static description = 'list all backtest for a project';
 
   public static flags = {
     ...BaseCommand.flags,
