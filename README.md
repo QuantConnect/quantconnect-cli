@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/quantconnect-cli.svg)](https://npmjs.org/package/quantconnect-cli)
 [![License](https://img.shields.io/npm/l/quantconnect-cli.svg)](https://github.com/jmerle/quantconnect-cli/blob/master/LICENSE)
 
-A CLI aimed at making local development of QuantConnect algorithms easier. It supports syncing projects between your local drive and QuantConnect and makes it easy to run backtests from the terminal.
+QuantConnect CLI is a CLI aimed at making local development of QuantConnect algorithms easier. It makes it easy to synchronize projects between your local drive and QuantConnect and supports running backtests from the terminal.
 
 ![](./media/backtest.png)
 
