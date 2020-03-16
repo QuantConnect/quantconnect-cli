@@ -30,14 +30,14 @@ After installing using the instructions above, simply `cd` into an empty directo
 * [`qcli backtests:new`](#qcli-backtestsnew)
 * [`qcli backtests:report`](#qcli-backtestsreport)
 * [`qcli backtests:results`](#qcli-backtestsresults)
+* [`qcli files:pull`](#qcli-filespull)
+* [`qcli files:push`](#qcli-filespush)
+* [`qcli files:watch`](#qcli-fileswatch)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
 * [`qcli projects:compile`](#qcli-projectscompile)
 * [`qcli projects:delete`](#qcli-projectsdelete)
 * [`qcli projects:list`](#qcli-projectslist)
-* [`qcli sync:pull`](#qcli-syncpull)
-* [`qcli sync:push`](#qcli-syncpush)
-* [`qcli sync:watch`](#qcli-syncwatch)
 
 ## `qcli api:get ENDPOINT`
 
@@ -175,6 +175,51 @@ OPTIONS
 
 _See code: [src/commands/backtests/results.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/results.ts)_
 
+## `qcli files:pull`
+
+pull all files from QuantConnect to the current directory
+
+```
+USAGE
+  $ qcli files:pull
+
+OPTIONS
+  -h, --help     display usage information
+  -v, --version  display version information
+```
+
+_See code: [src/commands/files/pull.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/pull.ts)_
+
+## `qcli files:push`
+
+push locally updated files to QuantConnect
+
+```
+USAGE
+  $ qcli files:push
+
+OPTIONS
+  -h, --help     display usage information
+  -v, --version  display version information
+```
+
+_See code: [src/commands/files/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/push.ts)_
+
+## `qcli files:watch`
+
+watch for local file changes and push them to QuantConnect
+
+```
+USAGE
+  $ qcli files:watch
+
+OPTIONS
+  -h, --help     display usage information
+  -v, --version  display version information
+```
+
+_See code: [src/commands/files/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/watch.ts)_
+
 ## `qcli help [COMMAND]`
 
 display help for qcli
@@ -253,49 +298,4 @@ OPTIONS
 ```
 
 _See code: [src/commands/projects/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/list.ts)_
-
-## `qcli sync:pull`
-
-pull all files from QuantConnect to the current directory
-
-```
-USAGE
-  $ qcli sync:pull
-
-OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
-```
-
-_See code: [src/commands/sync/pull.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/sync/pull.ts)_
-
-## `qcli sync:push`
-
-push locally updated files to QuantConnect
-
-```
-USAGE
-  $ qcli sync:push
-
-OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
-```
-
-_See code: [src/commands/sync/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/sync/push.ts)_
-
-## `qcli sync:watch`
-
-watch for local file changes and push them to QuantConnect
-
-```
-USAGE
-  $ qcli sync:watch
-
-OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
-```
-
-_See code: [src/commands/sync/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/sync/watch.ts)_
 <!-- commandsstop -->

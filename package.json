@@ -90,11 +90,11 @@
       "backtests": {
         "description": "manage backtests"
       },
+      "files": {
+        "description": "manage synchronizing local files with QuantConnect"
+      },
       "projects": {
         "description": "manage projects"
-      },
-      "sync": {
-        "description": "manage synchronizing local files with QuantConnect"
       }
     },
     "warn-if-update-available": {

@@ -3,7 +3,7 @@ import { BaseCommand } from '../BaseCommand';
 import { config } from '../utils/config';
 import { logger } from '../utils/logger';
 import { APIClient } from '../api/APIClient';
-import PullCommand from './sync/pull';
+import PullCommand from './files/pull';
 
 export default class InitCommand extends BaseCommand {
   public static description = 'create a new QuantConnect CLI project';
