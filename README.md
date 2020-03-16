@@ -32,6 +32,8 @@ A workflow with QuantConnect CLI may look like this:
 
 Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli push --watch` command, run `qcli pull` and run `qcli push --watch` again.
 
+Both `qcli pull` and `qcli push` also accept a `--project` flag to pull/push only a single project. The value of the flag can be either the id of the project or its name.
+
 # Commands
 
 <!-- commands -->
