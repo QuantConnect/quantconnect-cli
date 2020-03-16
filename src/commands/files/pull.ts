@@ -82,9 +82,9 @@ export default class PullCommand extends BaseCommand {
     const remoteFiles = await this.api.files.getAll(project.projectId);
     for (const remoteFile of remoteFiles) {
       const filePath = getProjectFilePath(project, remoteFile);
-      const localContent = fs.existsSync(filePath) ? fs.readFileSync(filePath).toString() : null;
+      const localContent = fs.existsSync(filePath) ? fs.readFileSync(filePath).toString() : '';
 
-      if (remoteFile.content !== localContent) {
+      if (remoteFile.content.trim() !== localContent.trim()) {
         await fs.outputFileSync(filePath, remoteFile.content);
         logger.info(`Successfully pulled '${project.name}/${remoteFile.name}'`);
       }

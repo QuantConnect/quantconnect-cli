@@ -70,7 +70,7 @@ export default class PushCommand extends BaseCommand {
 
       if (remoteFile === undefined) {
         await this.api.files.create(project.projectId, localFile, localContent);
-      } else if (remoteFile.content !== localContent) {
+      } else if (remoteFile.content.trim() !== localContent.trim()) {
         await this.api.files.update(project.projectId, localFile, localContent);
       } else {
         continue;
@@ -84,8 +84,8 @@ export default class PushCommand extends BaseCommand {
     const glob = projectToWatch !== null ? path.join(getProjectPath(projectToWatch), '**/*') : '**/*';
     const watcher = chokidar.watch(glob, {
       ignoreInitial: true,
-      ignored: 'quantconnect-cli.json',
       cwd: process.cwd(),
+      usePolling: true,
     });
 
     const queue = new PromiseQueue(1, Infinity);
@@ -105,6 +105,10 @@ export default class PushCommand extends BaseCommand {
     const projectName = getProjectName(file);
     const projectId = config.get('projectIndex')[projectName];
 
+    if (projectId === undefined) {
+      return;
+    }
+
     const absolutePath = path.resolve(process.cwd(), file);
     const relativePath = getFilePathRelativeToProject(projectName, absolutePath);
 
@@ -114,9 +118,12 @@ export default class PushCommand extends BaseCommand {
       return;
     }
 
-    await this.api.files.update(projectId, relativePath, fileContent);
-
-    logger.info(`Successfully pushed update to '${file}'`);
+    try {
+      await this.api.files.update(projectId, relativePath, fileContent);
+      logger.info(`Successfully pushed update to '${file}'`);
+    } catch (err) {
+      logger.error(`Could not push update to '${file}': ${err.message}`);
+    }
   }
 
   private async onDelete(file: string): Promise<void> {
@@ -127,12 +134,19 @@ export default class PushCommand extends BaseCommand {
     const projectName = getProjectName(file);
     const projectId = config.get('projectIndex')[projectName];
 
+    if (projectId === undefined) {
+      return;
+    }
+
     const absolutePath = path.resolve(process.cwd(), file);
     const relativePath = getFilePathRelativeToProject(projectName, absolutePath);
 
-    await this.api.files.delete(projectId, relativePath);
-
-    logger.info(`Successfully pushed deletion of '${file}'`);
+    try {
+      await this.api.files.delete(projectId, relativePath);
+      logger.info(`Successfully pushed deletion of '${file}'`);
+    } catch (err) {
+      logger.error(`Could not push deletion of '${file}': ${err.message}`);
+    }
   }
 
   private isDirectory(file: string): boolean {
