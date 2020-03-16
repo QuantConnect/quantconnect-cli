@@ -32,7 +32,6 @@ After installing using the instructions above, simply `cd` into an empty directo
 * [`qcli backtests:results`](#qcli-backtestsresults)
 * [`qcli files:pull`](#qcli-filespull)
 * [`qcli files:push`](#qcli-filespush)
-* [`qcli files:watch`](#qcli-fileswatch)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
 * [`qcli projects:compile`](#qcli-projectscompile)
@@ -184,8 +183,9 @@ USAGE
   $ qcli files:pull
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -h, --help       display usage information
+  -o, --overwrite  overwrite local files even if local version is newer
+  -v, --version    display version information
 ```
 
 _See code: [src/commands/files/pull.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/pull.ts)_
@@ -199,26 +199,13 @@ USAGE
   $ qcli files:push
 
 OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
+  -h, --help       display usage information
+  -o, --overwrite  overwrite remote files even if remote version is newer
+  -v, --version    display version information
+  -w, --watch      watch for local file changes and push them to QuantConnect after initial push
 ```
 
 _See code: [src/commands/files/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/push.ts)_
-
-## `qcli files:watch`
-
-watch for local file changes and push them to QuantConnect
-
-```
-USAGE
-  $ qcli files:watch
-
-OPTIONS
-  -h, --help     display usage information
-  -v, --version  display version information
-```
-
-_See code: [src/commands/files/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/watch.ts)_
 
 ## `qcli help [COMMAND]`
 
