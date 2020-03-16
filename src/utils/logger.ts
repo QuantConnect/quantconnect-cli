@@ -92,16 +92,6 @@ class Logger {
     });
   }
 
-  public askOption(message: string, options: string[], defaultOption?: string): Promise<string> {
-    const defaultIndex = options.indexOf(defaultOption);
-
-    return this.promptInquirer('list', {
-      message,
-      choices: options,
-      default: defaultIndex > -1 ? defaultIndex : 0,
-    });
-  }
-
   public askAutocomplete(message: string, options: string[]): Promise<string> {
     return this.promptInquirer('autocomplete', {
       message,
