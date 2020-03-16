@@ -36,7 +36,7 @@ export abstract class BaseCommand extends Command {
   }
 
   public async run(): Promise<void> {
-    if (this.constructor.name !== 'InitCommand' && !config.fileExists()) {
+    if (this.constructor.name !== 'InitCommand') {
       if (config.fileExists()) {
         this.api = new APIClient(config.get('userId'), config.get('apiToken'));
       } else {
