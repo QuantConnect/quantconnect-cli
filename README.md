@@ -25,14 +25,14 @@ After installing using the instructions above, simply `cd` into an empty directo
 
 A workflow with QuantConnect CLI may look like this:
 1. `cd` into the QuantConnect CLI project.
-2. Run `qcli pull` to pull all remote changes.
-3. Run `qcli push --watch` to push all local changes and start watching for file changes which will be pushed to QuantConnect when they happen.
-4. Open a new terminal/tab and `cd` into the QuantConnect CLI project again (keep `qcli push --watch` running in the other terminal/tab).
+2. Run `qcli files:pull` to pull all remote files.
+3. Run `qcli files:push --watch` to push all local files and start watching for file changes which will be pushed to QuantConnect when they happen.
+4. Open a new terminal/tab and `cd` into the QuantConnect CLI project again (keep `qcli files:push --watch` running in the other terminal/tab).
 5. Start programming and run backtests with `qcli backtests:new --open` whenever there is something to backtest. The `--open` flag means that the backtest results will be opened in the browser when done. Additionally, you can specify the project id or name with `--project` if you don't want the interactive selector to open every time.
 
-Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli push --watch` command, run `qcli pull` and run `qcli push --watch` again.
+Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli files:push --watch` command, run `qcli files:pull` and run `qcli files:push --watch` again.
 
-Both `qcli pull` and `qcli push` also accept a `--project` flag to pull/push only a single project. The value of the flag can be either the id of the project or its name.
+Both `qcli files:pull` and `qcli files:push` also accept a `--project` flag to pull/push only a single project. The value of the flag can be either the id of the project or its name.
 
 # Commands
 
