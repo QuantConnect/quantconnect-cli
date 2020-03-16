@@ -3,17 +3,15 @@ import * as path from 'path';
 import * as open from 'open';
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { createBacktestFlag, createProjectFlag, parseBacktestFlag, parseProjectFlag } from '../../utils/command';
 import { logger } from '../../utils/logger';
-import { APIClient } from '../../api/APIClient';
 
 export default class DownloadBacktestReportCommand extends BaseCommand {
   public static description = 'download the report of a given backtest';
 
   public static flags = {
     ...BaseCommand.flags,
-    ...createProjectFlag(),
-    ...createBacktestFlag(),
+    ...BaseCommand.createProjectFlag(),
+    ...BaseCommand.createBacktestFlag(),
     path: flags.string({
       description: 'path to save report to (optional, backtest name is used if not specified)',
     }),
@@ -28,8 +26,8 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    const project = await parseProjectFlag(this.flags);
-    const backtest = await parseBacktestFlag(project.projectId, this.flags);
+    const project = await this.parseProjectFlag();
+    const backtest = await this.parseBacktestFlag(project.projectId);
 
     const outputPath = path.resolve(process.cwd(), this.flags.path || `${backtest.name}.html`);
     const fileExists = fs.existsSync(outputPath);
@@ -39,12 +37,11 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
       process.exit(1);
     }
 
-    const api = new APIClient();
     let generationStarted = false;
 
     while (true) {
       try {
-        const report = await api.backtests.getReport(project.projectId, backtest.backtestId);
+        const report = await this.api.backtests.getReport(project.projectId, backtest.backtestId);
         fs.writeFileSync(outputPath, report.report);
         break;
       } catch (err) {

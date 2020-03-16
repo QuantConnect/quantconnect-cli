@@ -1,13 +1,11 @@
 import highlight from 'cli-highlight';
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { APIClient } from '../../api/APIClient';
-import { formatExamples } from '../../utils/command';
 
 export default class APIPostCommand extends BaseCommand {
   public static description = 'make an authenticated POST request to the QuantConnect API';
 
-  public static examples = formatExamples([
+  public static examples = BaseCommand.formatExamples([
     `$ qcli api:post files/create --body '{ "projectId": 1234567, "name": "Empty.cs", "content": "// Empty file" }'
 ${highlight(`{
   "files": [
@@ -46,8 +44,7 @@ ${highlight(`{
   ];
 
   protected async execute(): Promise<void> {
-    const api = new APIClient();
-    const { data } = await api.axios.post(this.args.endpoint, this.flags.body);
+    const { data } = await this.api.axios.post(this.args.endpoint, this.flags.body);
     const json = JSON.stringify(data, null, 2);
 
     console.log(highlight(json, { language: 'json' }));

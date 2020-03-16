@@ -1,5 +1,4 @@
 import { BaseCommand } from '../../BaseCommand';
-import { createProjectFlag, parseProjectFlag } from '../../utils/command';
 import { compileProject } from '../../utils/api';
 
 export default class CompileProjectCommand extends BaseCommand {
@@ -7,12 +6,12 @@ export default class CompileProjectCommand extends BaseCommand {
 
   public static flags = {
     ...BaseCommand.flags,
-    ...createProjectFlag(),
+    ...BaseCommand.createProjectFlag(),
   };
 
   protected async execute(): Promise<void> {
-    const project = await parseProjectFlag(this.flags);
+    const project = await this.parseProjectFlag();
 
-    await compileProject(project);
+    await compileProject(this.api, project);
   }
 }

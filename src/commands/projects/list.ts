@@ -1,5 +1,4 @@
 import { BaseCommand } from '../../BaseCommand';
-import { APIClient } from '../../api/APIClient';
 import { logger } from '../../utils/logger';
 import { formatAmount, formatDate, formatLanguage } from '../../utils/format';
 
@@ -11,9 +10,7 @@ export default class ListProjectsCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    const api = new APIClient();
-    const projects = await api.projects.getAll();
-
+    const projects = await this.api.projects.getAll();
     logger.info(`Found ${formatAmount('project', projects.length)}`);
 
     if (projects.length === 0) {

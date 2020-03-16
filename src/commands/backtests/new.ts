@@ -1,7 +1,5 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { createProjectFlag, parseProjectFlag } from '../../utils/command';
-import { APIClient } from '../../api/APIClient';
 import { compileProject } from '../../utils/api';
 import { logger } from '../../utils/logger';
 import { generateBacktestName, logBacktestInformation } from '../../utils/backtests';
@@ -11,7 +9,7 @@ export default class RunBacktestCommand extends BaseCommand {
 
   public static flags = {
     ...BaseCommand.flags,
-    ...createProjectFlag(),
+    ...BaseCommand.createProjectFlag(),
     name: flags.string({
       char: 'n',
       description: 'name of the backtest (optional, a random one is generated if not specified)',
@@ -24,12 +22,11 @@ export default class RunBacktestCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    const project = await parseProjectFlag(this.flags);
+    const project = await this.parseProjectFlag();
 
-    const compile = await compileProject(project);
+    const compile = await compileProject(this.api, project);
 
-    const api = new APIClient();
-    let backtest = await api.backtests.create(
+    let backtest = await this.api.backtests.create(
       project.projectId,
       compile.compileId,
       this.flags.name || generateBacktestName(),
@@ -38,7 +35,7 @@ export default class RunBacktestCommand extends BaseCommand {
     logger.info(`Started backtest named '${backtest.name}' for project '${project.name}'`);
 
     while (true) {
-      backtest = await api.backtests.get(project.projectId, backtest.backtestId);
+      backtest = await this.api.backtests.get(project.projectId, backtest.backtestId);
 
       if (backtest.completed) {
         break;

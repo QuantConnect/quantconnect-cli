@@ -1,7 +1,5 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { createBacktestFlag, createProjectFlag, parseBacktestFlag, parseProjectFlag } from '../../utils/command';
-import { APIClient } from '../../api/APIClient';
 import { logBacktestInformation } from '../../utils/backtests';
 
 export default class ShowBacktestResultsCommand extends BaseCommand {
@@ -9,8 +7,8 @@ export default class ShowBacktestResultsCommand extends BaseCommand {
 
   public static flags = {
     ...BaseCommand.flags,
-    ...createProjectFlag(),
-    ...createBacktestFlag(),
+    ...BaseCommand.createProjectFlag(),
+    ...BaseCommand.createBacktestFlag(),
     open: flags.boolean({
       char: 'o',
       description: 'open the backtest results in the browser',
@@ -19,11 +17,10 @@ export default class ShowBacktestResultsCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    const project = await parseProjectFlag(this.flags);
-    const backtest = await parseBacktestFlag(project.projectId, this.flags);
+    const project = await this.parseProjectFlag();
+    const backtest = await this.parseBacktestFlag(project.projectId);
 
-    const api = new APIClient();
-    const fullBacktest = await api.backtests.get(project.projectId, backtest.backtestId);
+    const fullBacktest = await this.api.backtests.get(project.projectId, backtest.backtestId);
 
     await logBacktestInformation(project, fullBacktest, this.flags.open);
   }

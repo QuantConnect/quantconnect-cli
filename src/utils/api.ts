@@ -1,8 +1,7 @@
 import { APIClient } from '../api/APIClient';
 import { logger } from './logger';
 
-export async function compileProject(project: QCProject): Promise<QCCompile> {
-  const api = new APIClient();
+export async function compileProject(api: APIClient, project: QCProject): Promise<QCCompile> {
   let compile = await api.compiles.create(project.projectId);
   logger.info(`Started compiling project '${project.name}'`);
 

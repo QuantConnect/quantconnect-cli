@@ -1,6 +1,5 @@
 import * as crypto from 'crypto';
 import axios from 'axios';
-import { config } from '../utils/config';
 import { FileClient } from './FileClient';
 import { ProjectClient } from './ProjectClient';
 import { CompileClient } from './CompileClient';
@@ -16,7 +15,7 @@ export class APIClient {
   public compiles = new CompileClient(this);
   public backtests = new BacktestClient(this);
 
-  public constructor(userId: string = config.get('userId'), apiToken: string = config.get('apiToken')) {
+  public constructor(userId: string, apiToken: string) {
     this.axios.interceptors.request.use(config => {
       const timestamp = Math.floor(new Date().getTime() / 1000);
       const hash = crypto

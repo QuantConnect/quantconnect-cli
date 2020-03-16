@@ -1,6 +1,4 @@
 import { BaseCommand } from '../../BaseCommand';
-import { createProjectFlag, parseProjectFlag } from '../../utils/command';
-import { APIClient } from '../../api/APIClient';
 import { logger } from '../../utils/logger';
 import { formatAmount, formatDate } from '../../utils/format';
 
@@ -9,15 +7,13 @@ export default class ListBacktestsCommand extends BaseCommand {
 
   public static flags = {
     ...BaseCommand.flags,
-    ...createProjectFlag(),
+    ...BaseCommand.createProjectFlag(),
   };
 
   protected async execute(): Promise<void> {
-    const project = await parseProjectFlag(this.flags);
+    const project = await this.parseProjectFlag();
 
-    const api = new APIClient();
-    const backtests = await api.backtests.getAll(project.projectId);
-
+    const backtests = await this.api.backtests.getAll(project.projectId);
     logger.info(`Found ${formatAmount('backtest', backtests.length)}`);
 
     if (backtests.length === 0) {
