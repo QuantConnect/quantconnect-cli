@@ -3,8 +3,8 @@ import * as fs from 'fs-extra';
 import * as klawSync from 'klaw-sync';
 import { config } from './config';
 
-function getName(item: QCProject | QCFile | string): string {
-  return typeof item === 'string' ? item : item.name;
+function getName(thing: { name: string } | string): string {
+  return typeof thing === 'string' ? thing : thing.name;
 }
 
 function normalizePath(filePath: string): string {

@@ -37,7 +37,3 @@ export function formatAmount(word: string, amount: number): string {
   const suffix = amount !== 1 ? 's' : '';
   return `${formatNumber(amount)} ${word}${suffix}`;
 }
-
-export function formatPath(project: QCProject, file: QCFile): string {
-  return `${project.name}/${file.name}`;
-}

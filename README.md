@@ -187,33 +187,33 @@ _See code: [src/commands/backtests/results.ts](https://github.com/jmerle/quantco
 
 ## `qcli files:pull`
 
-pull all projects from QuantConnect to the current directory
+pull files from QuantConnect to the current directory
 
 ```
 USAGE
   $ qcli files:pull
 
 OPTIONS
-  -h, --help       display usage information
-  -o, --overwrite  overwrite local files even if local version is newer
-  -v, --version    display version information
+  -h, --help             display usage information
+  -p, --project=project  project id or name of the project to pull (all projects if not specified)
+  -v, --version          display version information
 ```
 
 _See code: [src/commands/files/pull.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/pull.ts)_
 
 ## `qcli files:push`
 
-push locally updated files to QuantConnect
+push local files to QuantConnect
 
 ```
 USAGE
   $ qcli files:push
 
 OPTIONS
-  -h, --help       display usage information
-  -o, --overwrite  overwrite remote files even if remote version is newer
-  -v, --version    display version information
-  -w, --watch      watch for local file changes and push them to QuantConnect after initial push
+  -h, --help             display usage information
+  -p, --project=project  project id or name of the project to push (all projects if not specified)
+  -v, --version          display version information
+  -w, --watch            watch for local file changes and push them to QuantConnect after initial push
 ```
 
 _See code: [src/commands/files/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/push.ts)_

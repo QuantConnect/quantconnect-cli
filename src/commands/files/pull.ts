@@ -1,5 +1,5 @@
-import { flags } from '@oclif/command';
 import * as fs from 'fs-extra';
+import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
 import { config } from '../../utils/config';
 import { logger } from '../../utils/logger';
@@ -10,30 +10,33 @@ import {
   getProjectPath,
   pruneProjectIndex,
 } from '../../utils/sync';
-import { formatAmount, formatPath } from '../../utils/format';
 
 export default class PullCommand extends BaseCommand {
-  public static description = 'pull all projects from QuantConnect to the current directory';
+  public static description = 'pull files from QuantConnect to the current directory';
 
   public static flags = {
     ...BaseCommand.flags,
-    overwrite: flags.boolean({
-      char: 'o',
-      description: 'overwrite local files even if local version is newer',
-      default: false,
+    project: flags.string({
+      char: 'p',
+      description: 'project id or name of the project to pull (all projects if not specified)',
     }),
   };
-
-  private overwriteableCount = 0;
 
   protected async execute(): Promise<void> {
     pruneProjectIndex();
 
+    let projectToPull: QCProject = null;
+    if (this.flags.project !== undefined) {
+      projectToPull = await this.parseProjectFlag();
+    }
+
     const projects = await this.api.projects.getAll();
     for (const project of projects) {
-      const projectPath = getProjectPath(project);
+      if (projectToPull !== null && project.projectId !== projectToPull.projectId) {
+        continue;
+      }
 
-      if (fs.existsSync(projectPath)) {
+      if (fs.existsSync(getProjectPath(project))) {
         const existingId = config.get('projectIndex')[project.name];
 
         if (existingId === project.projectId) {
@@ -49,11 +52,6 @@ export default class PullCommand extends BaseCommand {
       } else {
         await this.createProject(project);
       }
-    }
-
-    if (this.overwriteableCount > 0) {
-      const amount = formatAmount('file', this.overwriteableCount);
-      logger.info(`Skipped ${amount} because the local file was newer (use --overwrite to overwrite them)`);
     }
 
     const projectIndex = config.get('projectIndex');
@@ -74,27 +72,26 @@ export default class PullCommand extends BaseCommand {
     for (const file of files) {
       const filePath = getProjectFilePath(project, file);
       fs.outputFileSync(filePath, file.content);
-      logger.info(`Successfully pulled '${formatPath(project, file)}'`);
+      logger.info(`Successfully pulled '${project.name}/${file.name}'`);
     }
   }
 
   private async updateProject(project: QCProject): Promise<void> {
-    const files = await this.api.files.getAll(project.projectId);
-    for (const file of files) {
-      const filePath = getProjectFilePath(project, file);
+    const remoteFiles = await this.api.files.getAll(project.projectId);
+    for (const remoteFile of remoteFiles) {
+      const filePath = getProjectFilePath(project, remoteFile);
+      const localContent = fs.existsSync(filePath) ? fs.readFileSync(filePath).toString() : null;
 
-      if (this.flags.overwrite || !fs.existsSync(filePath) || file.modified >= fs.statSync(filePath).mtime) {
-        await fs.outputFileSync(filePath, file.content);
-        logger.info(`Successfully pulled '${formatPath(project, file)}'`);
-      } else {
-        this.overwriteableCount++;
+      if (remoteFile.content !== localContent) {
+        await fs.outputFileSync(filePath, remoteFile.content);
+        logger.info(`Successfully pulled '${project.name}/${remoteFile.name}'`);
       }
     }
 
-    for (const file of getFilesInProject(project)) {
-      if (!files.some(f => f.name === file)) {
+    for (const localFile of getFilesInProject(project)) {
+      if (!remoteFiles.some(f => f.name === localFile)) {
         logger.warn(
-          `File '${project.name}/${file}' not found on QuantConnect, remove it or push it with 'qcli files:push'`,
+          `File '${project.name}/${localFile}' not found on QuantConnect, remove it or push it with 'qcli files:push'`,
         );
       }
     }
