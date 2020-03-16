@@ -30,6 +30,8 @@ export default class PullCommand extends BaseCommand {
       projectToPull = await this.parseProjectFlag();
     }
 
+    logger.info('Started looking for files to pull');
+
     const projects = await this.api.projects.getAll();
     for (const project of projects) {
       if (projectToPull !== null && project.projectId !== projectToPull.projectId) {

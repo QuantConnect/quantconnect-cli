@@ -4,6 +4,7 @@ import * as open from 'open';
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
 import { logger } from '../../utils/logger';
+import { sleep } from '../../utils/promises';
 
 export default class DownloadBacktestReportCommand extends BaseCommand {
   public static description = 'download the report of a given backtest';
@@ -51,7 +52,7 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
         }
       }
 
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await sleep(1000);
     }
 
     logger.info(`Saved report to ${outputPath}`);

@@ -213,9 +213,9 @@ USAGE
 
 OPTIONS
   -h, --help             display usage information
-  -p, --project=project  project id or name of the project to push (all projects if not specified)
+  -p, --project=project  project id or name of the project to push/watch (all projects if not specified)
   -v, --version          display version information
-  -w, --watch            watch for local file changes and push them to QuantConnect after initial push
+  -w, --watch            watch for local file changes and push them to QuantConnect after the initial push
 ```
 
 _See code: [src/commands/files/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/push.ts)_

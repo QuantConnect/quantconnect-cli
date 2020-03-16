@@ -7,10 +7,6 @@ function getName(thing: { name: string } | string): string {
   return typeof thing === 'string' ? thing : thing.name;
 }
 
-function normalizePath(filePath: string): string {
-  return path.normalize(filePath).replace(/\\/g, '/');
-}
-
 export function pruneProjectIndex(): void {
   const projectIndex = config.get('projectIndex');
 
@@ -41,6 +37,10 @@ export function removeFromProjectIndex(project: QCProject | string): boolean {
   }
 
   return false;
+}
+
+export function normalizePath(filePath: string): string {
+  return path.normalize(filePath).replace(/\\/g, '/');
 }
 
 export function getProjectPath(project: QCProject | string): string {

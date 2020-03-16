@@ -3,6 +3,7 @@ import { BaseCommand } from '../../BaseCommand';
 import { compileProject } from '../../utils/api';
 import { logger } from '../../utils/logger';
 import { generateBacktestName, logBacktestInformation } from '../../utils/backtests';
+import { sleep } from '../../utils/promises';
 
 export default class RunBacktestCommand extends BaseCommand {
   public static description = 'run a backtest for a project';
@@ -41,7 +42,7 @@ export default class RunBacktestCommand extends BaseCommand {
         break;
       }
 
-      await new Promise(resolve => setTimeout(resolve, 250));
+      await sleep(250);
     }
 
     await logBacktestInformation(project, backtest, this.flags.open);

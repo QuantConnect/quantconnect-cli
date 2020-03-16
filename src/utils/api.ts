@@ -1,5 +1,6 @@
 import { APIClient } from '../api/APIClient';
 import { logger } from './logger';
+import { sleep } from './promises';
 
 export async function compileProject(api: APIClient, project: QCProject): Promise<QCCompile> {
   let compile = await api.compiles.create(project.projectId);
@@ -12,7 +13,7 @@ export async function compileProject(api: APIClient, project: QCProject): Promis
       break;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 250));
+    await sleep(250);
   }
 
   logger.info(compile.logs.join('\n'));

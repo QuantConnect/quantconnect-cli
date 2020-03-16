@@ -1,7 +1,17 @@
+import * as path from 'path';
 import { flags } from '@oclif/command';
 import * as fs from 'fs-extra';
+import * as chokidar from 'chokidar';
+import * as PromiseQueue from 'promise-queue';
 import { BaseCommand } from '../../BaseCommand';
-import { getFilesInProject, getProjectFilePath, getProjectPath, pruneProjectIndex } from '../../utils/sync';
+import {
+  getFilePathRelativeToProject,
+  getFilesInProject,
+  getProjectFilePath,
+  getProjectName,
+  getProjectPath,
+  pruneProjectIndex,
+} from '../../utils/sync';
 import { config } from '../../utils/config';
 import { logger } from '../../utils/logger';
 
@@ -12,11 +22,11 @@ export default class PushCommand extends BaseCommand {
     ...BaseCommand.flags,
     project: flags.string({
       char: 'p',
-      description: 'project id or name of the project to push (all projects if not specified)',
+      description: 'project id or name of the project to push/watch (all projects if not specified)',
     }),
     watch: flags.boolean({
       char: 'w',
-      description: 'watch for local file changes and push them to QuantConnect after initial push',
+      description: 'watch for local file changes and push them to QuantConnect after the initial push',
       default: false,
     }),
   };
@@ -28,6 +38,8 @@ export default class PushCommand extends BaseCommand {
     if (this.flags.project !== undefined) {
       projectToPush = await this.parseProjectFlag();
     }
+
+    logger.info('Started looking for files to push');
 
     const projects = await this.api.projects.getAll();
     for (const project of projects) {
@@ -41,6 +53,10 @@ export default class PushCommand extends BaseCommand {
           await this.pushProject(project);
         }
       }
+    }
+
+    if (this.flags.watch) {
+      this.startWatching(projectToPush);
     }
   }
 
@@ -62,5 +78,64 @@ export default class PushCommand extends BaseCommand {
 
       logger.info(`Successfully pushed '${project.name}/${localFile}'`);
     }
+  }
+
+  private startWatching(projectToWatch: QCProject): void {
+    const glob = projectToWatch !== null ? path.join(getProjectPath(projectToWatch), '**/*') : '**/*';
+    const watcher = chokidar.watch(glob, {
+      ignoreInitial: true,
+      ignored: 'quantconnect-cli.json',
+      cwd: process.cwd(),
+    });
+
+    const queue = new PromiseQueue(1, Infinity);
+
+    watcher
+      .on('ready', () => logger.info('Started watcher'))
+      .on('add', file => queue.add(() => this.onChange(file)))
+      .on('change', file => queue.add(() => this.onChange(file)))
+      .on('unlink', file => queue.add(() => this.onDelete(file)));
+  }
+
+  private async onChange(file: string): Promise<void> {
+    if (this.isDirectory(file)) {
+      return;
+    }
+
+    const projectName = getProjectName(file);
+    const projectId = config.get('projectIndex')[projectName];
+
+    const absolutePath = path.resolve(process.cwd(), file);
+    const relativePath = getFilePathRelativeToProject(projectName, absolutePath);
+
+    const fileContent = fs.readFileSync(absolutePath).toString();
+
+    if (fileContent === '') {
+      return;
+    }
+
+    await this.api.files.update(projectId, relativePath, fileContent);
+
+    logger.info(`Successfully pushed update to '${file}'`);
+  }
+
+  private async onDelete(file: string): Promise<void> {
+    if (this.isDirectory(file)) {
+      return;
+    }
+
+    const projectName = getProjectName(file);
+    const projectId = config.get('projectIndex')[projectName];
+
+    const absolutePath = path.resolve(process.cwd(), file);
+    const relativePath = getFilePathRelativeToProject(projectName, absolutePath);
+
+    await this.api.files.delete(projectId, relativePath);
+
+    logger.info(`Successfully pushed deletion of '${file}'`);
+  }
+
+  private isDirectory(file: string): boolean {
+    return fs.existsSync(file) ? fs.statSync(file).isDirectory() : path.extname(file) === '';
   }
 }
