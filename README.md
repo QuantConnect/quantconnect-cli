@@ -17,7 +17,7 @@ $ npm install --global quantconnect-cli
 $ yarn global add quantconnect-cli
 ```
 
-After installing using the instructions above, `cd` into an empty directory and run `qcli` init to set-up a QuantConnect CLI project. This command will ask you for your API credentials and pull your current projects to the empty directory. After that's done, all the commands from the list down below are available to you.
+After installing using the instructions above, simply `cd` into an empty directory and run `qcli init` to set-up a QuantConnect CLI project. After that's done, all the commands from the list down below are available to you.
 
 # Commands
 
