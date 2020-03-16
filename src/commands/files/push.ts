@@ -1,5 +1,6 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
+import { pruneProjectIndex } from '../../utils/sync';
 
 export default class PushCommand extends BaseCommand {
   public static description = 'push locally updated files to QuantConnect';
@@ -19,6 +20,8 @@ export default class PushCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
+    pruneProjectIndex();
+
     // TODO(jmerle): Implement
   }
 }

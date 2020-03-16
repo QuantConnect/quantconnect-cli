@@ -1,15 +1,18 @@
-import * as fs from 'fs';
 import * as path from 'path';
+import * as fs from 'fs-extra';
 
 interface ConfigFile {
   userId: string;
   apiToken: string;
+  projectIndex: { [name: string]: number };
 }
 
 class Config {
   private cache: ConfigFile = null;
 
-  private defaults: Partial<ConfigFile> = {};
+  private defaults: Partial<ConfigFile> = {
+    projectIndex: {},
+  };
 
   public constructor(private configFilePath: string) {}
 

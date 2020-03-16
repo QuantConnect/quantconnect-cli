@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import * as path from 'path';
+import * as fs from 'fs-extra';
 import * as open from 'open';
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';

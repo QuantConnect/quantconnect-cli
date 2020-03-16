@@ -1,5 +1,7 @@
+import * as fs from 'fs-extra';
 import { BaseCommand } from '../../BaseCommand';
 import { logger } from '../../utils/logger';
+import { getProjectPath, removeFromProjectIndex } from '../../utils/sync';
 
 export default class DeleteProjectCommand extends BaseCommand {
   public static description = 'delete a project';
@@ -19,8 +21,10 @@ export default class DeleteProjectCommand extends BaseCommand {
 
     await this.api.projects.delete(project.projectId);
 
-    logger.info(`Successfully deleted project '${project.name}'`);
+    if (removeFromProjectIndex(project)) {
+      fs.removeSync(getProjectPath(project));
+    }
 
-    // TODO(jmerle): Delete local directory if project was synced
+    logger.info(`Successfully deleted project '${project.name}'`);
   }
 }

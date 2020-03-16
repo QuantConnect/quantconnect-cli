@@ -3,10 +3,10 @@ import { APIClient } from './APIClient';
 export class FileClient {
   public constructor(private api: APIClient) {}
 
-  public async get(projectId: number, filename: string): Promise<QCFile> {
+  public async get(projectId: number, fileName: string): Promise<QCFile> {
     const data = await this.api.get('files/read', {
       projectId,
-      name: filename,
+      name: fileName,
     });
 
     return data.files[0];
@@ -17,36 +17,36 @@ export class FileClient {
     return data.files;
   }
 
-  public async create(projectId: number, filename: string, content: string): Promise<QCFile> {
+  public async create(projectId: number, fileName: string, content: string): Promise<QCFile> {
     const data = await this.api.post('files/create', {
       projectId,
-      name: filename,
+      name: fileName,
       content,
     });
 
     return data.files[0];
   }
 
-  public async rename(projectId: number, oldFilename: string, newFilename: string): Promise<void> {
+  public async rename(projectId: number, oldFileName: string, newFileName: string): Promise<void> {
     await this.api.post('files/create', {
       projectId,
-      name: oldFilename,
-      newName: newFilename,
+      name: oldFileName,
+      newName: newFileName,
     });
   }
 
-  public async update(projectId: number, filename: string, content: string): Promise<void> {
+  public async update(projectId: number, fileName: string, content: string): Promise<void> {
     await this.api.post('files/update', {
       projectId,
-      name: filename,
+      name: fileName,
       content,
     });
   }
 
-  public async delete(projectId: number, filename: string): Promise<void> {
+  public async delete(projectId: number, fileName: string): Promise<void> {
     await this.api.post('files/delete', {
       projectId,
-      name: filename,
+      name: fileName,
     });
   }
 }

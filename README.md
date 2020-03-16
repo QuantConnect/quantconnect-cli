@@ -21,7 +21,7 @@ $ yarn global add quantconnect-cli
 
 After installing using the instructions above, simply `cd` into an empty directory and run `qcli init` to set-up a QuantConnect CLI project.
 
-# Workflow
+# Usage
 
 A workflow with QuantConnect CLI may look like this:
 1. `cd` into the QuantConnect CLI project.
@@ -187,7 +187,7 @@ _See code: [src/commands/backtests/results.ts](https://github.com/jmerle/quantco
 
 ## `qcli files:pull`
 
-pull all files from QuantConnect to the current directory
+pull all projects from QuantConnect to the current directory
 
 ```
 USAGE
