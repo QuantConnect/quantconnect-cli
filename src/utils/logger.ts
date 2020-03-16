@@ -1,5 +1,4 @@
 import * as chalk from 'chalk';
-import * as ProgressBar from 'progress';
 import * as inquirer from 'inquirer';
 import { table } from 'table';
 import { formatString } from './format';
@@ -11,9 +10,7 @@ inquirer.registerPrompt(
 );
 
 class Logger {
-  public forceYes = false;
-
-  private prefixLength = 8;
+  private prefixLength = 5;
 
   public info(message: any): void {
     const prefix = chalk.blue(this.padPrefix('info'));
@@ -30,20 +27,6 @@ class Logger {
     console.error(this.prefixMessage(prefix, message));
   }
 
-  public progress(total: number = 100): ProgressBar {
-    const prefix = chalk.cyan(this.padPrefix('progress'));
-
-    const bar = new ProgressBar(prefix + '[:bar] :percent', {
-      complete: '=',
-      incomplete: ' ',
-      width: 50,
-      total,
-    });
-
-    bar.update(0.0);
-    return bar;
-  }
-
   public table(rows: any[][]): void {
     const options = {
       drawHorizontalLine: (index: number, size: number): boolean => {
@@ -55,10 +38,6 @@ class Logger {
   }
 
   public askBoolean(message: string, defaultValue: boolean = true): Promise<boolean> {
-    if (this.forceYes) {
-      return Promise.resolve(true);
-    }
-
     return this.promptInquirer('confirm', {
       message,
       default: defaultValue,
