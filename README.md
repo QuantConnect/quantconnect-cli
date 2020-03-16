@@ -7,6 +7,8 @@
 
 A CLI aimed at making local development of QuantConnect algorithms easier. It supports syncing projects between your local drive and QuantConnect and makes it easy to run backtests from the terminal.
 
+![](./media/demo.gif)
+
 **This project is a work-in-progress at the moment. Not all features are implemented yet and links may not work yet. PR's are not accepted at this time.**
 
 # Install
