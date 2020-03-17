@@ -40,8 +40,7 @@ export abstract class BaseCommand extends Command {
       if (config.fileExists()) {
         this.api = new APIClient(config.get('userId'), config.get('apiToken'));
       } else {
-        logger.error("You're not in a QuantConnect CLI project");
-        logger.error("You can create one by running 'qcli init' in an empty directory");
+        logger.error("You're not in a QuantConnect CLI project, you can create one by running 'qcli init'");
         process.exit(1);
       }
     }
