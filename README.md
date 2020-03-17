@@ -26,13 +26,13 @@ After installing using the instructions above, simply `cd` into an empty directo
 A workflow with QuantConnect CLI may look like this:
 1. `cd` into the QuantConnect CLI project.
 2. Run `qcli files:pull` to pull all remote files.
-3. Run `qcli files:push --watch` to push all local files and start watching for file changes which will be pushed to QuantConnect when they happen.
-4. Open a new terminal/tab and `cd` into the QuantConnect CLI project again (keep `qcli files:push --watch` running in the other terminal/tab).
+3. Run `qcli files:watch` to start watching for file changes which will be pushed to QuantConnect when they happen.
+4. Open a new terminal/tab and `cd` into the QuantConnect CLI project again (keep `qcli files:watch` running in the other terminal/tab).
 5. Start programming and run backtests with `qcli backtests:new --open` whenever there is something to backtest. The `--open` flag means that the backtest results will be opened in the browser when done. Additionally, you can specify the project id or name with `--project` if you don't want the interactive selector to open every time.
 
-Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli files:push --watch` command, run `qcli files:pull` and run `qcli files:push --watch` again.
+Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli files:watch` command, run `qcli files:pull` and run `qcli files:watch` again.
 
-Both `qcli files:pull` and `qcli files:push` also accept a `--project` flag to pull/push only a single project. The value of the flag can be either the id of the project or its name.
+Both `qcli files:pull`, `qcli files:push` and `qcli files:watch` all accept a `--project` flag to only pull/push/watch a single project. The value of the flag can be either the id of the project or its name.
 
 # Commands
 
@@ -45,6 +45,7 @@ Both `qcli files:pull` and `qcli files:push` also accept a `--project` flag to p
 * [`qcli backtests:results`](#qcli-backtestsresults)
 * [`qcli files:pull`](#qcli-filespull)
 * [`qcli files:push`](#qcli-filespush)
+* [`qcli files:watch`](#qcli-fileswatch)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
 * [`qcli projects:compile`](#qcli-projectscompile)
@@ -213,12 +214,27 @@ USAGE
 
 OPTIONS
   -h, --help             display usage information
-  -p, --project=project  project id or name of the project to push/watch (all projects if not specified)
+  -p, --project=project  project id or name of the project to push (all projects if not specified)
   -v, --version          display version information
-  -w, --watch            watch for local file changes and push them to QuantConnect after the initial push
 ```
 
 _See code: [src/commands/files/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/push.ts)_
+
+## `qcli files:watch`
+
+watch for local file changes and push them to QuantConnect
+
+```
+USAGE
+  $ qcli files:watch
+
+OPTIONS
+  -h, --help             display usage information
+  -p, --project=project  project id or name of the project to watch (all projects if not specified)
+  -v, --version          display version information
+```
+
+_See code: [src/commands/files/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/watch.ts)_
 
 ## `qcli help [COMMAND]`
 
