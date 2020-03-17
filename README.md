@@ -30,9 +30,9 @@ A workflow with QuantConnect CLI may look like this:
 4. Open a new terminal and `cd` into the QuantConnect CLI project again (keep `qcli files:watch` running in the other terminal).
 5. Start programming and run backtests with `qcli backtests:new --open` whenever there is something to backtest. The `--open` flag means that the backtest results will be opened in the browser when done. Additionally, you can specify the project id or name with `--project` if you don't want the interactive selector to open every time.
 
-Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli files:watch` command, run `qcli files:pull` and run `qcli files:watch` again.
+Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli files:watch` command, run `qcli files:pull` and start `qcli files:watch` again.
 
-Both `qcli files:pull`, `qcli files:push` and `qcli files:watch` all accept a `--project` flag to only pull/push/watch a single project. The value of the flag can be either the id of the project or its name.
+`qcli files:pull`, `qcli files:push` and `qcli files:watch` all accept a `--project` flag to only pull/push/watch a single project. The value of this flag can be either the id of the project or its name.
 
 # Commands
 
