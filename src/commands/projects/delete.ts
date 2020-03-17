@@ -14,7 +14,7 @@ export default class DeleteProjectCommand extends BaseCommand {
   protected async execute(): Promise<void> {
     const project = await this.parseProjectFlag();
 
-    const confirmation = await logger.askBoolean(`Are you sure you want to delete project '${project.name}'`, false);
+    const confirmation = await logger.askBoolean(`Are you sure you want to delete project '${project.name}'?`, false);
     if (!confirmation) {
       return;
     }

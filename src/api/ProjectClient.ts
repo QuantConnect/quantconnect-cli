@@ -1,3 +1,4 @@
+import { config } from '../utils/config';
 import { APIClient } from './APIClient';
 
 export class ProjectClient {
@@ -5,12 +6,24 @@ export class ProjectClient {
 
   public async get(projectId: number): Promise<QCProject> {
     const data = await this.api.get('projects/read', { projectId });
-    return data.projects[0];
+    const project: QCProject = data.projects[0];
+
+    if (config.get('hideBootCampProjects') && project.name.startsWith('Boot Camp/')) {
+      throw new Error('Boot Camp projects are ignored');
+    }
+
+    return project;
   }
 
   public async getAll(): Promise<QCProject[]> {
     const data = await this.api.get('projects/read');
-    return data.projects;
+    const projects: QCProject[] = data.projects;
+
+    if (!config.get('hideBootCampProjects')) {
+      return projects;
+    }
+
+    return projects.filter(project => !project.name.startsWith('Boot Camp/'));
   }
 
   public async create(name: string, language: QCLanguage): Promise<QCProject> {

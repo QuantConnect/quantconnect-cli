@@ -4,6 +4,7 @@ import * as fs from 'fs-extra';
 interface ConfigFile {
   userId: string;
   apiToken: string;
+  hideBootCampProjects: boolean;
   projectIndex: { [name: string]: number };
 }
 

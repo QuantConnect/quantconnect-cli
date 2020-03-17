@@ -19,10 +19,15 @@ export default class InitCommand extends BaseCommand {
     }
 
     const { userId, apiToken } = await this.askCredentials();
+    const hideBootCampProjects = await logger.askBoolean(
+      'Do you want to hide Boot Camp projects when using QuantConnect CLI?',
+      true,
+    );
 
     config.createFile();
     config.set('userId', userId);
     config.set('apiToken', apiToken);
+    config.set('hideBootCampProjects', hideBootCampProjects);
 
     logger.info('Successfully stored user ID and API token in quantconnect-cli.json');
 
