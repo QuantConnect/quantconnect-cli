@@ -14,8 +14,8 @@ export default class InitCommand extends BaseCommand {
 
   protected async execute(): Promise<void> {
     if (fs.readdirSync(process.cwd()).length > 0) {
-      logger.error('Please run this command in an empty directory');
-      process.exit(1);
+      logger.warn('This directory is not empty');
+      logger.warn('Please be aware that all projects will be pulled into the current directory');
     }
 
     const { userId, apiToken } = await this.askCredentials();
