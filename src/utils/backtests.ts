@@ -60,11 +60,11 @@ function addStatistic(rows: any[][], statistic: string, value: string): void {
   }
 }
 
-function createStatisticsTable(backtest: QCBacktest): string {
+function createStatisticsTable(result: any): string {
   const rows: any[][] = [['Statistic', 'Value', 'Statistic', 'Value']];
 
-  for (const key of Object.keys(backtest.result.RuntimeStatistics)) {
-    let value = backtest.result.RuntimeStatistics[key];
+  for (const key of Object.keys(result.RuntimeStatistics)) {
+    let value = result.RuntimeStatistics[key];
 
     if (value.includes('-')) {
       value = chalk.red(value);
@@ -77,8 +77,8 @@ function createStatisticsTable(backtest: QCBacktest): string {
 
   const splitIndex = rows.length;
 
-  for (const key of Object.keys(backtest.result.Statistics)) {
-    const value = backtest.result.Statistics[key];
+  for (const key of Object.keys(result.Statistics)) {
+    const value = result.Statistics[key];
     addStatistic(rows, key, value);
   }
 
@@ -103,7 +103,7 @@ export async function logBacktestInformation(
   const url = `https://www.quantconnect.com/terminal/#open/${project.projectId}/${backtest.backtestId}`;
 
   if (backtest.result !== null) {
-    logger.info(createStatisticsTable(backtest));
+    logger.info(createStatisticsTable(backtest.result));
   }
 
   logger.info(`Backtest id: ${backtest.backtestId}`);

@@ -134,7 +134,7 @@ _See code: [src/commands/backtests/list.ts](https://github.com/jmerle/quantconne
 
 ## `qcli backtests:new`
 
-run a backtest for a project
+launch a backtest for a project
 
 ```
 USAGE

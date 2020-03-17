@@ -5,8 +5,8 @@ import { logger } from '../../utils/logger';
 import { generateBacktestName, logBacktestInformation } from '../../utils/backtests';
 import { sleep } from '../../utils/promises';
 
-export default class RunBacktestCommand extends BaseCommand {
-  public static description = 'run a backtest for a project';
+export default class NewBacktestCommand extends BaseCommand {
+  public static description = 'launch a backtest for a project';
 
   public static flags = {
     ...BaseCommand.flags,

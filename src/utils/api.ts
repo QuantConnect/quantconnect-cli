@@ -16,12 +16,12 @@ export async function compileProject(api: APIClient, project: QCProject): Promis
     await sleep(250);
   }
 
-  logger.info(compile.logs.join('\n'));
-
   if (compile.state === 'BuildError') {
+    logger.error(compile.logs.join('\n'));
     throw new Error(`Something went wrong while compiling project '${project.name}'`);
   }
 
+  logger.info(compile.logs.join('\n'));
   logger.info(`Successfully compiled project '${project.name}'`);
 
   return compile;
