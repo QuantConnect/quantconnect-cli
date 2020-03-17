@@ -102,7 +102,9 @@ export async function logBacktestInformation(
 ): Promise<void> {
   const url = `https://www.quantconnect.com/terminal/#open/${project.projectId}/${backtest.backtestId}`;
 
-  logger.info(createStatisticsTable(backtest));
+  if (backtest.result !== null) {
+    logger.info(createStatisticsTable(backtest));
+  }
 
   logger.info(`Backtest id: ${backtest.backtestId}`);
   logger.info(`Backtest name: ${backtest.name}`);

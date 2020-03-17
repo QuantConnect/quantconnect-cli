@@ -17,6 +17,10 @@ export default class WatchCommand extends BaseCommand {
       char: 'p',
       description: 'project id or name of the project to watch (all projects if not specified)',
     }),
+    poll: flags.boolean({
+      description: 'use polling to watch for file changes',
+      default: false,
+    }),
   };
 
   protected async execute(): Promise<void> {
@@ -31,7 +35,7 @@ export default class WatchCommand extends BaseCommand {
     const watcher = chokidar.watch(glob, {
       ignoreInitial: true,
       cwd: process.cwd(),
-      usePolling: true,
+      usePolling: this.flags.poll,
     });
 
     const queue = new PromiseQueue(1, Infinity);

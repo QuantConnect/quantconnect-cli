@@ -232,6 +232,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name of the project to watch (all projects if not specified)
   -v, --version          display version information
+  --poll                 use polling to watch for file changes
 ```
 
 _See code: [src/commands/files/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/watch.ts)_
