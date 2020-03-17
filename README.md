@@ -74,7 +74,7 @@ EXAMPLE
   }
 ```
 
-_See code: [src/commands/api/get.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/api/get.ts)_
+_See code: [src/commands/api/get.ts](src/commands/api/get.ts)_
 
 ## `qcli api:post ENDPOINT`
 
@@ -114,7 +114,7 @@ EXAMPLE
   }
 ```
 
-_See code: [src/commands/api/post.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/api/post.ts)_
+_See code: [src/commands/api/post.ts](src/commands/api/post.ts)_
 
 ## `qcli backtests:list`
 
@@ -130,7 +130,7 @@ OPTIONS
   -v, --version          display version information
 ```
 
-_See code: [src/commands/backtests/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/list.ts)_
+_See code: [src/commands/backtests/list.ts](src/commands/backtests/list.ts)_
 
 ## `qcli backtests:new`
 
@@ -148,7 +148,7 @@ OPTIONS
   -v, --version          display version information
 ```
 
-_See code: [src/commands/backtests/new.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/new.ts)_
+_See code: [src/commands/backtests/new.ts](src/commands/backtests/new.ts)_
 
 ## `qcli backtests:report`
 
@@ -168,7 +168,7 @@ OPTIONS
   --path=path              path to save report to (optional, backtest name is used if not specified)
 ```
 
-_See code: [src/commands/backtests/report.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/report.ts)_
+_See code: [src/commands/backtests/report.ts](src/commands/backtests/report.ts)_
 
 ## `qcli backtests:results`
 
@@ -186,7 +186,7 @@ OPTIONS
   -v, --version            display version information
 ```
 
-_See code: [src/commands/backtests/results.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/backtests/results.ts)_
+_See code: [src/commands/backtests/results.ts](src/commands/backtests/results.ts)_
 
 ## `qcli files:pull`
 
@@ -202,7 +202,7 @@ OPTIONS
   -v, --version          display version information
 ```
 
-_See code: [src/commands/files/pull.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/pull.ts)_
+_See code: [src/commands/files/pull.ts](src/commands/files/pull.ts)_
 
 ## `qcli files:push`
 
@@ -218,7 +218,7 @@ OPTIONS
   -v, --version          display version information
 ```
 
-_See code: [src/commands/files/push.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/push.ts)_
+_See code: [src/commands/files/push.ts](src/commands/files/push.ts)_
 
 ## `qcli files:watch`
 
@@ -235,7 +235,7 @@ OPTIONS
   --poll                 use polling to watch for file changes
 ```
 
-_See code: [src/commands/files/watch.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/files/watch.ts)_
+_See code: [src/commands/files/watch.ts](src/commands/files/watch.ts)_
 
 ## `qcli help [COMMAND]`
 
@@ -267,7 +267,7 @@ OPTIONS
   -v, --version  display version information
 ```
 
-_See code: [src/commands/init.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/init.ts)_
+_See code: [src/commands/init.ts](src/commands/init.ts)_
 
 ## `qcli projects:compile`
 
@@ -283,7 +283,7 @@ OPTIONS
   -v, --version          display version information
 ```
 
-_See code: [src/commands/projects/compile.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/compile.ts)_
+_See code: [src/commands/projects/compile.ts](src/commands/projects/compile.ts)_
 
 ## `qcli projects:delete`
 
@@ -299,7 +299,7 @@ OPTIONS
   -v, --version          display version information
 ```
 
-_See code: [src/commands/projects/delete.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/delete.ts)_
+_See code: [src/commands/projects/delete.ts](src/commands/projects/delete.ts)_
 
 ## `qcli projects:list`
 
@@ -314,5 +314,5 @@ OPTIONS
   -v, --version  display version information
 ```
 
-_See code: [src/commands/projects/list.ts](https://github.com/jmerle/quantconnect-cli/blob/master/src/commands/projects/list.ts)_
+_See code: [src/commands/projects/list.ts](src/commands/projects/list.ts)_
 <!-- commandsstop -->

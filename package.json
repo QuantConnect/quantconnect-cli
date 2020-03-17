@@ -87,7 +87,7 @@
       "@oclif/plugin-help",
       "@oclif/plugin-warn-if-update-available"
     ],
-    "repositoryPrefix": "<%- repo %>/blob/master/<%- commandPath %>",
+    "repositoryPrefix": "<%- commandPath %>",
     "topics": {
       "api": {
         "description": "make authenticated requests to the QuantConnect API"
