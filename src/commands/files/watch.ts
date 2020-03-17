@@ -41,7 +41,7 @@ export default class WatchCommand extends BaseCommand {
     const queue = new PromiseQueue(1, Infinity);
 
     watcher
-      .on('ready', () => logger.info('Started watcher'))
+      .on('ready', () => logger.info('Started watching for changes'))
       .on('add', file => queue.add(() => this.onChange(file)))
       .on('change', file => queue.add(() => this.onChange(file)))
       .on('unlink', file => queue.add(() => this.onDelete(file)));
