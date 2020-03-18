@@ -52,6 +52,22 @@ export function generateBacktestName(): string {
   return `${verb} ${color} ${animal}`;
 }
 
+export function isBacktestComplete(backtest: QCBacktest): boolean {
+  if (!backtest.completed) {
+    return false;
+  }
+
+  if (backtest.error !== null) {
+    return true;
+  }
+
+  return backtest.result !== null && Object.keys(backtest.result.Statistics).length > 0;
+}
+
+export function getBacktestUrl(project: QCProject, backtest: QCBacktest): string {
+  return `https://www.quantconnect.com/terminal/#open/${project.projectId}/${backtest.backtestId}`;
+}
+
 function addStatistic(rows: any[][], statistic: string, value: string): void {
   if (rows[rows.length - 1].length === 4) {
     rows.push([statistic, value]);
@@ -100,7 +116,7 @@ export async function logBacktestInformation(
   backtest: QCBacktest,
   openInBrowser: boolean,
 ): Promise<void> {
-  const url = `https://www.quantconnect.com/terminal/#open/${project.projectId}/${backtest.backtestId}`;
+  const url = getBacktestUrl(project, backtest);
 
   if (backtest.result !== null) {
     logger.info(createStatisticsTable(backtest.result));

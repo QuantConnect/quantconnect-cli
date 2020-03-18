@@ -2,7 +2,12 @@ import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
 import { compileProject } from '../../utils/api';
 import { logger } from '../../utils/logger';
-import { generateBacktestName, logBacktestInformation } from '../../utils/backtests';
+import {
+  generateBacktestName,
+  getBacktestUrl,
+  isBacktestComplete,
+  logBacktestInformation,
+} from '../../utils/backtests';
 import { sleep } from '../../utils/promises';
 
 export default class NewBacktestCommand extends BaseCommand {
@@ -35,10 +40,14 @@ export default class NewBacktestCommand extends BaseCommand {
 
     logger.info(`Started backtest named '${backtest.name}' for project '${project.name}'`);
 
-    while (true) {
+    if (!isBacktestComplete(backtest)) {
+      logger.info(`Backtest url: ${getBacktestUrl(project, backtest)}`);
+    }
+
+    while (!isBacktestComplete(backtest)) {
       backtest = await this.api.backtests.get(project.projectId, backtest.backtestId);
 
-      if (backtest.completed) {
+      if (isBacktestComplete(backtest)) {
         break;
       }
 
