@@ -25,10 +25,10 @@ After installing using the instructions above, simply `cd` into an empty directo
 
 A workflow with QuantConnect CLI may look like this:
 1. `cd` into the QuantConnect CLI project.
-2. Run `qcli files:pull` to pull all remote files.
+2. Run `qcli files:pull` to pull remotely changed files.
 3. Run `qcli files:watch` to start watching for file changes which will be pushed to QuantConnect when they happen.
 4. Open a new terminal and `cd` into the QuantConnect CLI project again (keep `qcli files:watch` running in the other terminal).
-5. Start programming and run backtests with `qcli backtests:new --open` whenever there is something to backtest. The `--open` flag means that the backtest results will be opened in the browser when done. Additionally, you can specify the project id or name with `--project` if you don't want the interactive selector to open every time.
+5. Start programming and run backtests with `qcli backtests:new --open` whenever there is something to backtest. The `--open` flag means that the backtest results will be opened in the browser when done. Additionally, you can specify the project id or name with `--project <project id or name>` if you don't want the interactive selector to open every time.
 
 Whenever you create a new algorithm or Alpha Stream via the web interface, quit the `qcli files:watch` command, run `qcli files:pull` and start `qcli files:watch` again.
 
