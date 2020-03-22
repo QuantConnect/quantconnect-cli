@@ -9,8 +9,6 @@ QuantConnect CLI is a CLI aimed at making local development of QuantConnect algo
 
 ![](./media/backtest.png)
 
-**This project is a work-in-progress at the moment. Not all features are implemented yet and links may not work yet. PR's are not accepted at this time.**
-
 # Install
 
 ```
