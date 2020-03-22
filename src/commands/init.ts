@@ -29,7 +29,7 @@ export default class InitCommand extends BaseCommand {
     config.set('apiToken', apiToken);
     config.set('hideBootCampProjects', hideBootCampProjects);
 
-    logger.info('Successfully stored user ID and API token in quantconnect-cli.json');
+    logger.info('Successfully stored configuration in quantconnect-cli.json');
 
     await PullCommand.run([]);
   }
