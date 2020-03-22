@@ -6,7 +6,7 @@ Thank you for your interest! Contributions are very welcome.
 
 This project uses
 - [Yarn](https://yarnpkg.com/) as package manager
-- [Oclif](https://oclif.io/) as CLI framework
+- [oclif](https://oclif.io/) as CLI framework
 - [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) to check for and automatically fix code style issues
 - [Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged) to create a pre-commit hook which automatically fixes code style issues in changed files on commit
 
