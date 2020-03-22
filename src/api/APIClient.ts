@@ -18,10 +18,7 @@ export class APIClient {
   public constructor(userId: string, apiToken: string) {
     this.axios.interceptors.request.use(config => {
       const timestamp = Math.floor(new Date().getTime() / 1000);
-      const hash = crypto
-        .createHash('sha256')
-        .update(`${apiToken}:${timestamp}`)
-        .digest('hex');
+      const hash = crypto.createHash('sha256').update(`${apiToken}:${timestamp}`).digest('hex');
 
       return {
         ...config,
