@@ -316,3 +316,7 @@ OPTIONS
 
 _See code: [src/commands/projects/list.ts](src/commands/projects/list.ts)_
 <!-- commandsstop -->
+
+# Contributing
+
+All contributions are welcome. Please read the [Contributing Guide](CONTRIBUTING.md) first as it contains information regarding the tools used by the project and instructions on how to set up a development environment.
