@@ -103,7 +103,8 @@
       }
     },
     "warn-if-update-available": {
-      "timeoutInDays": 7
+      "timeoutInDays": 7,
+      "message": "<%= chalk.blue(' info') %> <%= config.name %> update available from <%= chalk.greenBright(config.version) %> to <%= chalk.greenBright(latest) %>"
     }
   },
   "np": {
