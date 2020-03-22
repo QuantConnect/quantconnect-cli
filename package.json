@@ -1,6 +1,6 @@
 {
   "name": "quantconnect-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI aimed at making local development of QuantConnect algorithms easier",
   "repository": "jmerle/quantconnect-cli",
   "homepage": "https://github.com/jmerle/quantconnect-cli",
