@@ -116,7 +116,7 @@ _See code: [src/commands/api/post.ts](src/commands/api/post.ts)_
 
 ## `qcli backtests:list`
 
-list all backtest for a project
+list all backtests for a project
 
 ```
 USAGE
