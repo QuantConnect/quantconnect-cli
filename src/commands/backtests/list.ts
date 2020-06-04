@@ -4,7 +4,7 @@ import { formatAmount, formatDate } from '../../utils/format';
 import { isBacktestComplete } from '../../utils/backtests';
 
 export default class ListBacktestsCommand extends BaseCommand {
-  public static description = 'list all backtest for a project';
+  public static description = 'list all backtests for a project';
 
   public static flags = {
     ...BaseCommand.flags,
