@@ -85,7 +85,7 @@ class Logger {
     });
   }
 
-  private async promptInquirer(type: string, options: object): Promise<any> {
+  private async promptInquirer(type: string, options: any): Promise<any> {
     const { answer } = await inquirer.prompt([
       {
         ...options,
