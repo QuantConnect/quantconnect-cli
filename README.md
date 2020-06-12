@@ -1,8 +1,8 @@
 # QuantConnect CLI
 
-[![Build Status](https://github.com/jmerle/quantconnect-cli/workflows/Build/badge.svg)](https://github.com/jmerle/quantconnect-cli/actions?query=workflow%3ABuild)
+[![Build Status](https://github.com/QuantConnect/quantconnect-cli/workflows/Build/badge.svg)](https://github.com/QuantConnect/quantconnect-cli/actions?query=workflow%3ABuild)
 [![Version](https://img.shields.io/npm/v/quantconnect-cli.svg)](https://npmjs.org/package/quantconnect-cli)
-[![License](https://img.shields.io/npm/l/quantconnect-cli.svg)](https://github.com/jmerle/quantconnect-cli/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/quantconnect-cli.svg)](https://github.com/QuantConnect/quantconnect-cli/blob/master/LICENSE)
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 QuantConnect CLI is a CLI aimed at making local development of QuantConnect algorithms easier. It makes it easy to synchronize projects between your local drive and QuantConnect and supports running backtests from the terminal.
