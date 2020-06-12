@@ -3,7 +3,7 @@ import { table } from 'table';
 import * as open from 'open';
 import { logger } from './logger';
 
-// Name generation logic is based on https://github.com/QuantConnect/Lean/blob/master/VisualStudioPlugin/BacktestNameProvider.cs
+// Name generation logic is based on https://github.com/QuantConnect/Lean/blob/5034c28c2efb4691a148b2c4a59f1c7ceb5f3b7e/VisualStudioPlugin/BacktestNameProvider.cs
 
 // prettier-ignore
 const verbs = [
