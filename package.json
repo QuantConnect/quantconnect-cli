@@ -6,7 +6,7 @@
   "homepage": "https://github.com/QuantConnect/quantconnect-cli",
   "bugs": "https://github.com/QuantConnect/quantconnect-cli/issues",
   "author": "Jasper van Merle",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
