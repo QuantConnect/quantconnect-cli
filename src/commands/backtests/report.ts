@@ -34,8 +34,7 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
     const fileExists = fs.existsSync(outputPath);
 
     if (fileExists && !this.flags.overwrite) {
-      logger.error('Output file already exists, use --overwrite to overwrite');
-      process.exit(1);
+      throw new Error('Output file already exists, use --overwrite to overwrite');
     }
 
     let generationStarted = false;

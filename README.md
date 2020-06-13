@@ -37,6 +37,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 <!-- commands -->
 * [`qcli api:get ENDPOINT`](#qcli-apiget-endpoint)
 * [`qcli api:post ENDPOINT`](#qcli-apipost-endpoint)
+* [`qcli backtests:delete`](#qcli-backtestsdelete)
 * [`qcli backtests:list`](#qcli-backtestslist)
 * [`qcli backtests:new`](#qcli-backtestsnew)
 * [`qcli backtests:report`](#qcli-backtestsreport)
@@ -114,6 +115,23 @@ EXAMPLE
 ```
 
 _See code: [src/commands/api/post.ts](src/commands/api/post.ts)_
+
+## `qcli backtests:delete`
+
+delete a backtest
+
+```
+USAGE
+  $ qcli backtests:delete
+
+OPTIONS
+  -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
+  -h, --help               display usage information
+  -p, --project=project    project id or name (optional, interactive selector opens if not specified)
+  -v, --version            display version information
+```
+
+_See code: [src/commands/backtests/delete.ts](src/commands/backtests/delete.ts)_
 
 ## `qcli backtests:list`
 
