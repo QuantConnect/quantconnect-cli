@@ -1,5 +1,6 @@
 import * as crypto from 'crypto';
 import axios from 'axios';
+import { logger } from '../utils/logger';
 import { FileClient } from './FileClient';
 import { ProjectClient } from './ProjectClient';
 import { CompileClient } from './CompileClient';
@@ -15,8 +16,21 @@ export class APIClient {
   public compiles = new CompileClient(this);
   public backtests = new BacktestClient(this);
 
-  public constructor(userId: string, apiToken: string) {
+  public constructor(userId: string, apiToken: string, verbose: boolean) {
     this.axios.interceptors.request.use(config => {
+      if (verbose) {
+        const method = config.method.toUpperCase();
+        const url = config.baseURL + '/' + config.url;
+        const destination = method + ' ' + url;
+
+        const data = config.data;
+        if (data !== undefined) {
+          logger.info(`${destination} - ${JSON.stringify(data)}`);
+        } else {
+          logger.info(destination);
+        }
+      }
+
       const timestamp = Math.floor(new Date().getTime() / 1000);
       const hash = crypto.createHash('sha256').update(`${apiToken}:${timestamp}`).digest('hex');
 

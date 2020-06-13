@@ -17,6 +17,10 @@ export abstract class BaseCommand extends Command {
       char: 'v',
       description: 'display version information',
     }),
+    verbose: flags.boolean({
+      description: 'display the API requests as they happen',
+      default: false,
+    }),
   };
 
   protected args: OutputArgs<any>;
@@ -38,7 +42,7 @@ export abstract class BaseCommand extends Command {
   public async run(): Promise<void> {
     if (this.constructor.name !== 'InitCommand') {
       if (config.fileExists()) {
-        this.api = new APIClient(config.get('userId'), config.get('apiToken'));
+        this.api = new APIClient(config.get('userId'), config.get('apiToken'), this.flags.verbose);
       } else {
         logger.error("You're not in a QuantConnect CLI project, you can create one by running 'qcli init'");
         process.exit(1);
