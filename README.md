@@ -41,6 +41,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 * [`qcli backtests:new`](#qcli-backtestsnew)
 * [`qcli backtests:report`](#qcli-backtestsreport)
 * [`qcli backtests:results`](#qcli-backtestsresults)
+* [`qcli backtests:update`](#qcli-backtestsupdate)
 * [`qcli files:pull`](#qcli-filespull)
 * [`qcli files:push`](#qcli-filespush)
 * [`qcli files:watch`](#qcli-fileswatch)
@@ -185,6 +186,25 @@ OPTIONS
 ```
 
 _See code: [src/commands/backtests/results.ts](src/commands/backtests/results.ts)_
+
+## `qcli backtests:update`
+
+change the name and/or the note of a given backtest
+
+```
+USAGE
+  $ qcli backtests:update
+
+OPTIONS
+  -b, --backtest=backtest  backtest id or name (optional, interactive selector opens if not specified)
+  -h, --help               display usage information
+  -p, --project=project    project id or name (optional, interactive selector opens if not specified)
+  -v, --version            display version information
+  --name=name              the new name to assign to the given backtest (default: current name)
+  --note=note              the new note to assign to the given backtest (default: current note)
+```
+
+_See code: [src/commands/backtests/update.ts](src/commands/backtests/update.ts)_
 
 ## `qcli files:pull`
 

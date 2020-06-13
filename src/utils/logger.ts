@@ -37,7 +37,7 @@ class Logger {
     this.info(table(rows, options));
   }
 
-  public askBoolean(message: string, defaultValue: boolean = true): Promise<boolean> {
+  public askBoolean(message: string, defaultValue: boolean): Promise<boolean> {
     return this.promptInquirer('confirm', {
       message,
       default: defaultValue,
