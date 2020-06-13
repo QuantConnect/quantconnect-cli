@@ -43,7 +43,7 @@ export default class InitCommand extends BaseCommand {
       const userId = await logger.askInput('User ID');
       const apiToken = await logger.askPassword('API token');
 
-      const api = new APIClient(userId, apiToken);
+      const api = new APIClient(userId, apiToken, this.flags.verbose);
       const authenticated = await api.isAuthenticated();
 
       if (authenticated) {
