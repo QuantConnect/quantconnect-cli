@@ -21,6 +21,6 @@ export class DeleteBacktestCommand extends BaseCommand {
 
     await this.api.backtests.delete(project.projectId, backtest.backtestId);
 
-    logger.info(`Successfully deleted project '${backtest.name}'`);
+    logger.info(`Successfully deleted backtest '${backtest.name}'`);
   }
 }
