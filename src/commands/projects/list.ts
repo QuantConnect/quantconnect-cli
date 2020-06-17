@@ -24,7 +24,7 @@ export default class ListProjectsCommand extends BaseCommand {
         project.projectId,
         formatLanguage(project.language),
         project.name,
-        project.liveResults && project.liveResults.eStatus === 'Running' ? 'Yes' : 'No',
+        project.liveResults.eStatus === 'Running' ? 'Yes' : 'No',
         formatDate(project.created),
         formatDate(project.modified),
       ]);
