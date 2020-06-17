@@ -17,4 +17,4 @@ After installing all dependencies, it's time to get to work. The following comma
 - `lint`: lint the code using ESLint and Prettier
 - `fix`: auto-fix code style issues using ESLint and Prettier
 
-To test changes, run `./bin/run`. Make sure you have ran `yarn build` at least one before doing so, because the `./bin/run` script depends on the logger to have been built so it can log errors properly.
+To test changes, run `./bin/run`. Make sure you have ran `yarn build` at least once before doing so, because the `./bin/run` script depends on the logger to have been built so it can log errors properly.
