@@ -7,6 +7,7 @@ interface QCProject {
   created: Date;
   modified: Date;
   language: QCLanguage;
+  liveResults: any;
 }
 
 interface QCFile {

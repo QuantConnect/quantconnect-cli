@@ -17,13 +17,14 @@ export default class ListProjectsCommand extends BaseCommand {
       return;
     }
 
-    const rows: any[][] = [['ID', 'Language', 'Name', 'Created', 'Modified']];
+    const rows: any[][] = [['ID', 'Language', 'Name', 'Live', 'Created', 'Modified']];
 
     for (const project of projects) {
       rows.push([
         project.projectId,
         formatLanguage(project.language),
         project.name,
+        project.liveResults && project.liveResults.eStatus === 'Running' ? 'Yes' : 'No',
         formatDate(project.created),
         formatDate(project.modified),
       ]);
