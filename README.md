@@ -47,7 +47,6 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 * [`qcli files:watch`](#qcli-fileswatch)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
-* [`qcli live:liquidate`](#qcli-liveliquidate)
 * [`qcli live:stop`](#qcli-livestop)
 * [`qcli projects:compile`](#qcli-projectscompile)
 * [`qcli projects:delete`](#qcli-projectsdelete)
@@ -300,23 +299,6 @@ OPTIONS
 
 _See code: [src/commands/init.ts](src/commands/init.ts)_
 
-## `qcli live:liquidate`
-
-liquidate and stop live trading for a project
-
-```
-USAGE
-  $ qcli live:liquidate
-
-OPTIONS
-  -h, --help             display usage information
-  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
-  -v, --version          display version information
-  --verbose              display the API requests as they happen
-```
-
-_See code: [src/commands/live/liquidate.ts](src/commands/live/liquidate.ts)_
-
 ## `qcli live:stop`
 
 stop live trading for a project
@@ -329,6 +311,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
+  --liquidate            liquidate existing holdings (optional, defaults to false)
   --verbose              display the API requests as they happen
 ```
 

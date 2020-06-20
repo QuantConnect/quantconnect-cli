@@ -96,12 +96,13 @@ export abstract class BaseCommand extends Command {
       return matchingProjects[0];
     }
 
-    if (projects.length === 0) {
+    const availableProjects = projects.filter(p => projectSelector === undefined || projectSelector(p));
+
+    if (availableProjects.length === 0) {
       throw new Error('There are no projects for the used command');
     }
 
-    const options: Array<[string, QCProject]> = projects
-      .filter(project => projectSelector === undefined || projectSelector(project))
+    const options: Array<[string, QCProject]> = availableProjects
       .sort((a, b) => b.modified.getTime() - a.modified.getTime())
       .map(project => [`${project.projectId} - ${project.name}`, project]);
 

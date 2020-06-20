@@ -99,7 +99,7 @@
         "description": "manage synchronizing local files with QuantConnect"
       },
       "live": {
-        "description": "manage projects which are trading live"
+        "description": "manage live trading"
       },
       "projects": {
         "description": "manage projects"
