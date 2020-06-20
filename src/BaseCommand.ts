@@ -78,7 +78,7 @@ export abstract class BaseCommand extends Command {
     };
   }
 
-  protected async parseProjectFlag(): Promise<QCProject> {
+  protected async parseProjectFlag(projectSelector?: (project: QCProject) => boolean): Promise<QCProject> {
     const projects = await this.api.projects.getAll();
 
     if (this.flags.project !== undefined) {
@@ -97,10 +97,11 @@ export abstract class BaseCommand extends Command {
     }
 
     if (projects.length === 0) {
-      throw new Error('There are no projects');
+      throw new Error('There are no projects for the used command');
     }
 
     const options: Array<[string, QCProject]> = projects
+      .filter(project => projectSelector === undefined || projectSelector(project))
       .sort((a, b) => b.modified.getTime() - a.modified.getTime())
       .map(project => [`${project.projectId} - ${project.name}`, project]);
 
