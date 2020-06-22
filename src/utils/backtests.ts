@@ -2,6 +2,7 @@ import * as chalk from 'chalk';
 import { table } from 'table';
 import * as open from 'open';
 import { logger } from './logger';
+import { formatString } from './format';
 
 // Name generation logic is based on https://github.com/QuantConnect/Lean/blob/5034c28c2efb4691a148b2c4a59f1c7ceb5f3b7e/VisualStudioPlugin/BacktestNameProvider.cs
 
@@ -115,8 +116,16 @@ export async function logBacktestInformation(
   logger.info(`Backtest url: ${url}`);
 
   if (backtest.error !== null) {
+    const error = formatString(backtest.stacktrace || backtest.error);
+
     logger.error('An error occurred during this backtest:');
-    logger.error(backtest.stacktrace);
+    logger.error(error);
+
+    // Don't open the results in the browser if the error happened during initialization
+    // In the browser the logs won't show these errors, you'll just get empty charts and empty logs
+    if (error.startsWith('During the algorithm initialization, the following exception has occurred:')) {
+      return;
+    }
   }
 
   if (openInBrowser) {
