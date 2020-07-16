@@ -48,6 +48,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
 * [`qcli live:stop`](#qcli-livestop)
+* [`qcli nodes:delete`](#qcli-nodesdelete)
 * [`qcli nodes:list`](#qcli-nodeslist)
 * [`qcli nodes:stop`](#qcli-nodesstop)
 * [`qcli nodes:update`](#qcli-nodesupdate)
@@ -319,6 +320,24 @@ OPTIONS
 ```
 
 _See code: [src/commands/live/stop.ts](src/commands/live/stop.ts)_
+
+## `qcli nodes:delete`
+
+delete a node
+
+```
+USAGE
+  $ qcli nodes:delete
+
+OPTIONS
+  -h, --help                       display usage information
+  -n, --node=node                  node id or name (optional, interactive selector opens if not specified)
+  -o, --organization=organization  organization id (optional, interactive selector opens if not specified)
+  -v, --version                    display version information
+  --verbose                        display the API requests as they happen
+```
+
+_See code: [src/commands/nodes/delete.ts](src/commands/nodes/delete.ts)_
 
 ## `qcli nodes:list`
 
