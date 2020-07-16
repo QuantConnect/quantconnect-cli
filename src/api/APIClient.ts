@@ -5,6 +5,7 @@ import { FileClient } from './FileClient';
 import { ProjectClient } from './ProjectClient';
 import { CompileClient } from './CompileClient';
 import { BacktestClient } from './BacktestClient';
+import { NodeClient } from './NodeClient';
 
 export class APIClient {
   public axios = axios.create({
@@ -15,6 +16,7 @@ export class APIClient {
   public projects = new ProjectClient(this);
   public compiles = new CompileClient(this);
   public backtests = new BacktestClient(this);
+  public nodes = new NodeClient(this);
 
   public constructor(userId: string, apiToken: string, verbose: boolean) {
     this.axios.interceptors.request.use(config => {

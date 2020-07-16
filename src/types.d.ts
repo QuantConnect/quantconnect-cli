@@ -56,3 +56,28 @@ interface QCBacktest {
 interface QCBacktestReport {
   report: string;
 }
+
+interface QCNode {
+  id: string;
+  name: string;
+  projectName: string;
+  description: string;
+  usedBy: string;
+  sku: string;
+  busy: boolean;
+  price: QCNodePrice;
+  speed: number;
+  cpu: number;
+  ram: number;
+}
+
+interface QCNodePrice {
+  monthly: number;
+  yearly: number;
+}
+
+interface QCNodeList {
+  backtest: QCNode[];
+  research: QCNode[];
+  live: QCNode[];
+}
