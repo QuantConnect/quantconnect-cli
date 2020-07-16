@@ -148,7 +148,25 @@ export abstract class BaseCommand extends Command {
       this.flags.node,
       (node, input) => node.id === input || node.name === input,
       (a, b) => a.sku.localeCompare(b.sku),
-      node => `${node.name}`,
+      node => {
+        let type;
+        switch (node.sku[0]) {
+          case 'B':
+            type = 'Backtest';
+            break;
+          case 'R':
+            type = 'Research';
+            break;
+          case 'L':
+            type = 'Live';
+            break;
+          default:
+            type = 'Unknown';
+            break;
+        }
+
+        return `${type} node - ${node.id} - ${node.name} - ${node.description}`;
+      },
     );
   }
 
