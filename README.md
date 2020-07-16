@@ -50,6 +50,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 * [`qcli live:stop`](#qcli-livestop)
 * [`qcli nodes:list`](#qcli-nodeslist)
 * [`qcli nodes:stop`](#qcli-nodesstop)
+* [`qcli nodes:update`](#qcli-nodesupdate)
 * [`qcli projects:compile`](#qcli-projectscompile)
 * [`qcli projects:delete`](#qcli-projectsdelete)
 * [`qcli projects:list`](#qcli-projectslist)
@@ -353,6 +354,25 @@ OPTIONS
 ```
 
 _See code: [src/commands/nodes/stop.ts](src/commands/nodes/stop.ts)_
+
+## `qcli nodes:update`
+
+update the name of a node
+
+```
+USAGE
+  $ qcli nodes:update
+
+OPTIONS
+  -h, --help                       display usage information
+  -n, --node=node                  node id or name (optional, interactive selector opens if not specified)
+  -o, --organization=organization  organization id (optional, interactive selector opens if not specified)
+  -v, --version                    display version information
+  --name=name                      (required) new name for the node
+  --verbose                        display the API requests as they happen
+```
+
+_See code: [src/commands/nodes/update.ts](src/commands/nodes/update.ts)_
 
 ## `qcli projects:compile`
 

@@ -127,7 +127,7 @@ export abstract class BaseCommand extends Command {
     const projects = await this.api.projects.getAll();
     const organizations = [...new Set(projects.map(project => project.organizationId))];
 
-    // TODO(jmerle): Improve selector to show names instead of ids when the API endpoint for organizations is live
+    // TODO(jmerle): Improve selector to show names alongside ids when the API endpoint for organizations is live
     return await this.selectItem(
       'organization',
       organizations,
