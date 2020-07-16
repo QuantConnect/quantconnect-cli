@@ -4,7 +4,7 @@ export class NodeClient {
   public constructor(private api: APIClient) {}
 
   public async getAll(organizationId: string): Promise<QCNodeList> {
-    return this.api.post('projects/read', {
+    return this.api.post('nodes/read', {
       organizationId,
     });
   }

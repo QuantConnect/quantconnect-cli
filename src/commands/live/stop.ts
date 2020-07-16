@@ -15,7 +15,7 @@ export class StopLiveCommand extends BaseCommand {
   };
 
   protected async execute(): Promise<void> {
-    const project = await this.parseProjectFlag(p => p.liveResults.eStatus === 'Running');
+    const project = await this.parseProjectFlag();
 
     if (project.liveResults.eStatus !== 'Running') {
       throw new Error('Project is not running live');

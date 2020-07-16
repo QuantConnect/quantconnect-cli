@@ -22,6 +22,7 @@ interface QCLiveResults {
 
 interface QCProject {
   projectId: number;
+  organizationId: string;
   name: string;
   created: Date;
   modified: Date;

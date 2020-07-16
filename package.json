@@ -101,6 +101,9 @@
       "live": {
         "description": "manage live trading"
       },
+      "nodes": {
+        "description": "manage nodes"
+      },
       "projects": {
         "description": "manage projects"
       }
