@@ -1,4 +1,5 @@
 import * as crypto from 'crypto';
+import * as querystring from 'querystring';
 import axios from 'axios';
 import { logger } from '../utils/logger';
 import { FileClient } from './FileClient';
@@ -23,13 +24,20 @@ export class APIClient {
       if (verbose) {
         const method = config.method.toUpperCase();
         const url = config.baseURL + '/' + config.url;
-        const destination = method + ' ' + url;
+        let destination = method + ' ' + url;
+
+        if (config.params !== undefined) {
+          const query = querystring.stringify(config.params);
+          if (query.length > 0) {
+            destination += '?' + query;
+          }
+        }
 
         const data = config.data;
         if (data !== undefined) {
-          logger.info(`${destination} - ${JSON.stringify(data)}`);
+          logger.debug(`${destination} - ${JSON.stringify(data)}`);
         } else {
-          logger.info(destination);
+          logger.debug(destination);
         }
       }
 

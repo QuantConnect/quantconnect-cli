@@ -12,6 +12,11 @@ inquirer.registerPrompt(
 class Logger {
   private prefixLength = 5;
 
+  public debug(message: any): void {
+    const prefix = chalk.cyan(this.padPrefix('debug'));
+    console.log(this.prefixMessage(prefix, message));
+  }
+
   public info(message: any): void {
     const prefix = chalk.blue(this.padPrefix('info'));
     console.log(this.prefixMessage(prefix, message));
