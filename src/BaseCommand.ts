@@ -18,7 +18,7 @@ export abstract class BaseCommand extends Command {
       description: 'display version information',
     }),
     verbose: flags.boolean({
-      description: 'display the API requests as they happen',
+      description: 'display API requests as they happen',
       default: false,
     }),
   };

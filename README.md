@@ -70,7 +70,7 @@ ARGUMENTS
 OPTIONS
   -h, --help     display usage information
   -v, --version  display version information
-  --verbose      display the API requests as they happen
+  --verbose      display API requests as they happen
 
 EXAMPLE
   $ qcli api:get authenticate
@@ -96,7 +96,7 @@ OPTIONS
   -b, --body=body  JSON string containing the data to use as body of the request
   -h, --help       display usage information
   -v, --version    display version information
-  --verbose        display the API requests as they happen
+  --verbose        display API requests as they happen
 
 EXAMPLE
   $ qcli api:post files/create --body '{ "projectId": 1234567, "name": "Empty.cs", "content": "// Empty file" }'
@@ -134,7 +134,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/backtests/list.ts](src/commands/backtests/list.ts)_
@@ -153,7 +153,7 @@ OPTIONS
   -o, --open             open the backtest results in the browser when done
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/backtests/new.ts](src/commands/backtests/new.ts)_
@@ -174,7 +174,7 @@ OPTIONS
   --open                   open the report in the browser when done
   --overwrite              overwrite the file if it already exists
   --path=path              path to save report to (optional, backtest name is used if not specified)
-  --verbose                display the API requests as they happen
+  --verbose                display API requests as they happen
 ```
 
 _See code: [src/commands/backtests/report.ts](src/commands/backtests/report.ts)_
@@ -193,7 +193,7 @@ OPTIONS
   -o, --open               open the backtest results in the browser
   -p, --project=project    project id or name (optional, interactive selector opens if not specified)
   -v, --version            display version information
-  --verbose                display the API requests as they happen
+  --verbose                display API requests as they happen
 ```
 
 _See code: [src/commands/backtests/results.ts](src/commands/backtests/results.ts)_
@@ -213,7 +213,7 @@ OPTIONS
   -v, --version            display version information
   --name=name              the new name to assign to the given backtest (default: current name)
   --note=note              the new note to assign to the given backtest (default: current note)
-  --verbose                display the API requests as they happen
+  --verbose                display API requests as they happen
 ```
 
 _See code: [src/commands/backtests/update.ts](src/commands/backtests/update.ts)_
@@ -230,7 +230,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name of the project to pull (all projects if not specified)
   -v, --version          display version information
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/files/pull.ts](src/commands/files/pull.ts)_
@@ -247,7 +247,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name of the project to push (all projects if not specified)
   -v, --version          display version information
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/files/push.ts](src/commands/files/push.ts)_
@@ -265,7 +265,7 @@ OPTIONS
   -p, --project=project  project id or name of the project to watch (all projects if not specified)
   -v, --version          display version information
   --poll                 use polling to watch for file changes
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/files/watch.ts](src/commands/files/watch.ts)_
@@ -298,7 +298,7 @@ USAGE
 OPTIONS
   -h, --help     display usage information
   -v, --version  display version information
-  --verbose      display the API requests as they happen
+  --verbose      display API requests as they happen
 ```
 
 _See code: [src/commands/init.ts](src/commands/init.ts)_
@@ -316,7 +316,7 @@ OPTIONS
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
   --liquidate            liquidate existing holdings (optional, defaults to false)
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/live/stop.ts](src/commands/live/stop.ts)_
@@ -334,7 +334,7 @@ OPTIONS
   -n, --node=node                  node id or name (optional, interactive selector opens if not specified)
   -o, --organization=organization  organization id (optional, interactive selector opens if not specified)
   -v, --version                    display version information
-  --verbose                        display the API requests as they happen
+  --verbose                        display API requests as they happen
 ```
 
 _See code: [src/commands/nodes/delete.ts](src/commands/nodes/delete.ts)_
@@ -351,7 +351,7 @@ OPTIONS
   -h, --help                       display usage information
   -o, --organization=organization  organization id (optional, interactive selector opens if not specified)
   -v, --version                    display version information
-  --verbose                        display the API requests as they happen
+  --verbose                        display API requests as they happen
 ```
 
 _See code: [src/commands/nodes/list.ts](src/commands/nodes/list.ts)_
@@ -369,7 +369,7 @@ OPTIONS
   -n, --node=node                  node id or name (optional, interactive selector opens if not specified)
   -o, --organization=organization  organization id (optional, interactive selector opens if not specified)
   -v, --version                    display version information
-  --verbose                        display the API requests as they happen
+  --verbose                        display API requests as they happen
 ```
 
 _See code: [src/commands/nodes/stop.ts](src/commands/nodes/stop.ts)_
@@ -388,7 +388,7 @@ OPTIONS
   -o, --organization=organization  organization id (optional, interactive selector opens if not specified)
   -v, --version                    display version information
   --name=name                      (required) new name for the node
-  --verbose                        display the API requests as they happen
+  --verbose                        display API requests as they happen
 ```
 
 _See code: [src/commands/nodes/update.ts](src/commands/nodes/update.ts)_
@@ -405,7 +405,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/projects/compile.ts](src/commands/projects/compile.ts)_
@@ -422,7 +422,7 @@ OPTIONS
   -h, --help             display usage information
   -p, --project=project  project id or name (optional, interactive selector opens if not specified)
   -v, --version          display version information
-  --verbose              display the API requests as they happen
+  --verbose              display API requests as they happen
 ```
 
 _See code: [src/commands/projects/delete.ts](src/commands/projects/delete.ts)_
@@ -438,7 +438,7 @@ USAGE
 OPTIONS
   -h, --help     display usage information
   -v, --version  display version information
-  --verbose      display the API requests as they happen
+  --verbose      display API requests as they happen
 ```
 
 _See code: [src/commands/projects/list.ts](src/commands/projects/list.ts)_
