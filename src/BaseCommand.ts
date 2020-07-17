@@ -31,7 +31,7 @@ export abstract class BaseCommand extends Command {
   protected abstract execute(): Promise<void>;
 
   protected async init(): Promise<void> {
-    super.init();
+    await super.init();
 
     const data = this.parse(this.constructor as any);
 
