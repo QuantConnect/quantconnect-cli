@@ -9,7 +9,9 @@ import {
   getProjectFilePath,
   getProjectPath,
   pruneProjectIndex,
+  warnAboutLibraryFiles,
 } from '../../utils/sync';
+import { pluralize } from '../../utils/format';
 
 export default class PullCommand extends BaseCommand {
   public static description = 'pull files from QuantConnect to the current directory';
@@ -21,6 +23,8 @@ export default class PullCommand extends BaseCommand {
       description: 'project id or name of the project to pull (all projects if not specified)',
     }),
   };
+
+  private libraryFiles: string[] = [];
 
   protected async execute(): Promise<void> {
     pruneProjectIndex();
@@ -62,6 +66,8 @@ export default class PullCommand extends BaseCommand {
         logger.warn(`Local project '${name}' with id ${projectIndex[name]} does not exist on QuantConnect`);
       }
     }
+
+    warnAboutLibraryFiles(this.libraryFiles, 'pulled');
   }
 
   private async createProject(project: QCProject): Promise<void> {
@@ -72,20 +78,35 @@ export default class PullCommand extends BaseCommand {
 
     const files = await this.api.files.getAll(project.projectId);
     for (const file of files) {
+      if (file.isLibrary) {
+        continue;
+      }
+
       const filePath = getProjectFilePath(project, file);
       fs.outputFileSync(filePath, file.content);
+
       logger.info(`Successfully pulled '${project.name}/${file.name}'`);
     }
   }
 
   private async updateProject(project: QCProject): Promise<void> {
     const remoteFiles = await this.api.files.getAll(project.projectId);
+
     for (const remoteFile of remoteFiles) {
       const filePath = getProjectFilePath(project, remoteFile);
       const localContent = fs.existsSync(filePath) ? fs.readFileSync(filePath).toString() : '';
 
       if (remoteFile.content.trim() !== localContent.trim()) {
+        if (remoteFile.isLibrary) {
+          if (fs.existsSync(filePath)) {
+            this.libraryFiles.push(`${project.name}/${remoteFile.name}`);
+          }
+
+          continue;
+        }
+
         await fs.outputFileSync(filePath, remoteFile.content);
+
         logger.info(`Successfully pulled '${project.name}/${remoteFile.name}'`);
       }
     }

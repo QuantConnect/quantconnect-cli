@@ -14,7 +14,7 @@ export default class ListBacktestsCommand extends BaseCommand {
     const project = await this.parseProjectFlag();
 
     const backtests = await this.api.backtests.getAll(project.projectId);
-    logger.info(`Found ${formatAmount('backtest', backtests.length)}`);
+    logger.info(`Found ${formatAmount(backtests.length, 'backtest')}`);
 
     if (backtests.length === 0) {
       return;

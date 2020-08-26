@@ -1,7 +1,13 @@
 import { flags } from '@oclif/command';
 import * as fs from 'fs-extra';
 import { BaseCommand } from '../../BaseCommand';
-import { getFilesInProject, getProjectFilePath, getProjectPath, pruneProjectIndex } from '../../utils/sync';
+import {
+  getFilesInProject,
+  getProjectFilePath,
+  getProjectPath,
+  pruneProjectIndex,
+  warnAboutLibraryFiles,
+} from '../../utils/sync';
 import { config } from '../../utils/config';
 import { logger } from '../../utils/logger';
 
@@ -15,6 +21,8 @@ export default class PushCommand extends BaseCommand {
       description: 'project id or name of the project to push (all projects if not specified)',
     }),
   };
+
+  private libraryFiles: string[] = [];
 
   protected async execute(): Promise<void> {
     pruneProjectIndex();
@@ -39,6 +47,8 @@ export default class PushCommand extends BaseCommand {
         }
       }
     }
+
+    warnAboutLibraryFiles(this.libraryFiles, 'pushed');
   }
 
   private async pushProject(project: QCProject): Promise<void> {
@@ -52,6 +62,11 @@ export default class PushCommand extends BaseCommand {
       if (remoteFile === undefined) {
         await this.api.files.create(project.projectId, localFile, localContent);
       } else if (remoteFile.content.trim() !== localContent.trim()) {
+        if (remoteFile.isLibrary) {
+          this.libraryFiles.push(`${project.name}/${remoteFile.name}`);
+          continue;
+        }
+
         await this.api.files.update(project.projectId, localFile, localContent);
       } else {
         continue;

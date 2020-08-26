@@ -33,7 +33,10 @@ export function formatNumber(num: number, fractionDigits: number = 0): string {
   return num.toFixed(fractionDigits).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-export function formatAmount(word: string, amount: number): string {
-  const suffix = amount !== 1 ? 's' : '';
-  return `${formatNumber(amount)} ${word}${suffix}`;
+export function pluralize(amount: number, single: string, multiple: string = single + 's'): string {
+  return amount === 1 ? single : multiple;
+}
+
+export function formatAmount(amount: number, single: string, multiple?: string): string {
+  return `${formatNumber(amount)} ${pluralize(amount, single, multiple)}`;
 }

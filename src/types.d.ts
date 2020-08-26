@@ -34,6 +34,7 @@ interface QCFile {
   name: string;
   content: string;
   modified: Date;
+  isLibrary: boolean;
 }
 
 interface QCCompile {

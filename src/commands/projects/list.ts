@@ -11,7 +11,7 @@ export default class ListProjectsCommand extends BaseCommand {
 
   protected async execute(): Promise<void> {
     const projects = await this.api.projects.getAll();
-    logger.info(`Found ${formatAmount('project', projects.length)}`);
+    logger.info(`Found ${formatAmount(projects.length, 'project')}`);
 
     if (projects.length === 0) {
       return;
