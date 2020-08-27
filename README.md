@@ -430,7 +430,7 @@ _See code: [src/commands/projects/delete.ts](src/commands/projects/delete.ts)_
 
 ## `qcli projects:info`
 
-display information about a project
+display useful information about a project
 
 ```
 USAGE

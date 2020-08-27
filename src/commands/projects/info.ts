@@ -3,7 +3,7 @@ import { logger } from '../../utils/logger';
 import { formatDate, formatLanguage } from '../../utils/format';
 
 export default class InfoProjectCommand extends BaseCommand {
-  public static description = 'display information about a project';
+  public static description = 'display useful information about a project';
 
   public static flags = {
     ...BaseCommand.flags,
