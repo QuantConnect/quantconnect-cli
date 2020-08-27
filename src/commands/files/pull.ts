@@ -11,7 +11,6 @@ import {
   pruneProjectIndex,
   warnAboutLibraryFiles,
 } from '../../utils/sync';
-import { pluralize } from '../../utils/format';
 
 export default class PullCommand extends BaseCommand {
   public static description = 'pull files from QuantConnect to the current directory';
