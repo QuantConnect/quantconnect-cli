@@ -200,8 +200,10 @@ export abstract class BaseCommand extends Command {
       .sort((a, b) => itemSorter(a, b))
       .map(item => [itemLabeler(item), item]);
 
+    const aStr = 'aeiou'.split('').includes(itemName[0]) ? 'an' : 'a';
+
     const selectedOption = await logger.askAutocomplete(
-      `Select a ${itemName}`,
+      `Select ${aStr} ${itemName}`,
       options.map(option => option[0]),
     );
 
