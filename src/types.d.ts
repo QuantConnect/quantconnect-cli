@@ -10,6 +10,11 @@ interface QCCollaborator {
   name: string;
 }
 
+interface QCParameter {
+  key: string;
+  value: string;
+}
+
 interface QCLiveResults {
   eStatus: string;
   sDeployID: string;
@@ -39,6 +44,7 @@ interface QCProject {
   collaborators: QCCollaborator[];
   leanVersionId: number;
   leanPinnedToMaster: boolean;
+  parameters: QCParameter[];
   liveResults: QCLiveResults;
   libraries: number[];
 }

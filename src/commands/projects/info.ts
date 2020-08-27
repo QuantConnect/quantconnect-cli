@@ -43,5 +43,15 @@ export default class InfoProjectCommand extends BaseCommand {
         logger.info(`- ${libraryProject.name} (${libraryProject.projectId})`);
       }
     }
+
+    const parameterCount = project.parameters.length;
+    if (parameterCount === 0) {
+      logger.info('Parameters: none');
+    } else {
+      logger.info(`Parameters (${parameterCount}):`);
+      for (const parameter of project.parameters) {
+        logger.info(`- ${parameter.key} = '${parameter.value}'`);
+      }
+    }
   }
 }
