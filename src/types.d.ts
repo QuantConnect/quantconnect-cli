@@ -1,6 +1,15 @@
 type QCLanguage = 'C#' | 'F#' | 'VB' | 'Ja' | 'Py';
 type QCCompileState = 'InQueue' | 'BuildSuccess' | 'BuildError';
 
+interface QCCollaborator {
+  id: number;
+  uid: number;
+  blivecontrol: boolean;
+  epermission: string;
+  profileimage: string;
+  name: string;
+}
+
 interface QCLiveResults {
   eStatus: string;
   sDeployID: string;
@@ -27,7 +36,11 @@ interface QCProject {
   created: Date;
   modified: Date;
   language: QCLanguage;
+  collaborators: QCCollaborator[];
+  leanVersionId: number;
+  leanPinnedToMaster: boolean;
   liveResults: QCLiveResults;
+  libraries: number[];
 }
 
 interface QCFile {

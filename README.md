@@ -54,6 +54,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 * [`qcli nodes:update`](#qcli-nodesupdate)
 * [`qcli projects:compile`](#qcli-projectscompile)
 * [`qcli projects:delete`](#qcli-projectsdelete)
+* [`qcli projects:info`](#qcli-projectsinfo)
 * [`qcli projects:list`](#qcli-projectslist)
 
 ## `qcli api:get ENDPOINT`
@@ -426,6 +427,23 @@ OPTIONS
 ```
 
 _See code: [src/commands/projects/delete.ts](src/commands/projects/delete.ts)_
+
+## `qcli projects:info`
+
+display information about a project
+
+```
+USAGE
+  $ qcli projects:info
+
+OPTIONS
+  -h, --help             display usage information
+  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
+  -v, --version          display version information
+  --verbose              display API requests as they happen
+```
+
+_See code: [src/commands/projects/info.ts](src/commands/projects/info.ts)_
 
 ## `qcli projects:list`
 
