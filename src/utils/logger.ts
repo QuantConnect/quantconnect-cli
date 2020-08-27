@@ -11,8 +11,13 @@ inquirer.registerPrompt(
 
 class Logger {
   private prefixLength = 5;
+  private verbose = false;
 
   public debug(message: any): void {
+    if (!this.verbose) {
+      return;
+    }
+
     const prefix = chalk.cyan(this.padPrefix('debug'));
     console.log(this.prefixMessage(prefix, message));
   }
@@ -88,6 +93,14 @@ class Logger {
         return options.filter(option => option.toLowerCase().includes(input));
       },
     });
+  }
+
+  public isVerbose(): boolean {
+    return this.verbose;
+  }
+
+  public enableVerboseMessages(): void {
+    this.verbose = true;
   }
 
   private async promptInquirer(type: string, options: any): Promise<any> {

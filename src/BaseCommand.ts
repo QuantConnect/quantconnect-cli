@@ -40,9 +40,13 @@ export abstract class BaseCommand extends Command {
   }
 
   public async run(): Promise<void> {
+    if (this.flags.verbose) {
+      logger.enableVerboseMessages();
+    }
+
     if (this.constructor.name !== 'InitCommand') {
       if (config.fileExists()) {
-        this.api = new APIClient(config.get('userId'), config.get('apiToken'), this.flags.verbose);
+        this.api = new APIClient(config.get('userId'), config.get('apiToken'));
       } else {
         logger.error("You're not in a QuantConnect CLI project, you can create one by running 'qcli init'");
         process.exit(1);

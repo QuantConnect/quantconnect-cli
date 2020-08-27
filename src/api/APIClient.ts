@@ -19,9 +19,9 @@ export class APIClient {
   public backtests = new BacktestClient(this);
   public nodes = new NodeClient(this);
 
-  public constructor(userId: string, apiToken: string, verbose: boolean) {
+  public constructor(userId: string, apiToken: string) {
     this.axios.interceptors.request.use(config => {
-      if (verbose) {
+      if (logger.isVerbose()) {
         const method = config.method.toUpperCase();
         const url = config.baseURL + '/' + config.url;
         let destination = method + ' ' + url;
