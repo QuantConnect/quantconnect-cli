@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import * as querystring from 'querystring';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { logger } from '../utils/logger';
 import { FileClient } from './FileClient';
 import { ProjectClient } from './ProjectClient';
@@ -86,42 +86,41 @@ export class APIClient {
     };
 
     const url = this.axios.getUri(axiosConfig);
+    let response: AxiosResponse;
 
     try {
-      const { status, data } = await this.axios.request(axiosConfig);
+      response = await this.axios.request(axiosConfig);
+    } catch (err) {
+      throw new Error(`${method} request to ${url} failed (status code ${err.response.status})`);
+    }
 
-      if (status === 500) {
+    const { status, data } = response;
+
+    if (status === 500) {
+      throw this.createAuthenticationError();
+    }
+
+    if (status < 200 || status >= 300) {
+      throw new Error(`${method} request to ${url} failed (status code ${status})`);
+    }
+
+    if (data.success) {
+      return this.processData(data);
+    }
+
+    if (data.errors !== undefined && data.errors.length > 0) {
+      if (data.errors[0].startsWith("Hash doesn't match.")) {
         throw this.createAuthenticationError();
       }
 
-      if (status < 200 || status >= 300) {
-        throw new Error(`${method} request to ${url} failed (status code ${status})`);
-      }
-
-      if (data.success) {
-        return this.processData(data);
-      }
-
-      if (data.errors !== undefined && data.errors.length > 0) {
-        if (data.errors[0].startsWith("Hash doesn't match.")) {
-          throw this.createAuthenticationError();
-        }
-
-        throw new Error(data.errors.join('\n'));
-      }
-
-      if (data.messages !== undefined && data.messages.length > 0) {
-        throw new Error(data.messages.join('\n'));
-      }
-
-      throw new Error(`${method} request to ${url} failed (status code ${status})`);
-    } catch (err) {
-      if (err.isAxiosError) {
-        throw new Error(`${method} request to ${url} failed (status code ${err.response.status})`);
-      }
-
-      throw err;
+      throw new Error(data.errors.join('\n'));
     }
+
+    if (data.messages !== undefined && data.messages.length > 0) {
+      throw new Error(data.messages.join('\n'));
+    }
+
+    throw new Error(`${method} request to ${url} failed (status code ${status})`);
   }
 
   private processData(obj: any): any {

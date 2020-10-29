@@ -19,11 +19,11 @@ export class ProjectClient {
     const data = await this.api.get('projects/read');
     const projects: QCProject[] = data.projects;
 
-    if (!config.get('hideBootCampProjects')) {
-      return projects;
+    if (config.get('hideBootCampProjects')) {
+      return projects.filter(project => !project.name.startsWith('Boot Camp/'));
     }
 
-    return projects.filter(project => !project.name.startsWith('Boot Camp/'));
+    return projects;
   }
 
   public async create(name: string, language: QCLanguage): Promise<QCProject> {
