@@ -48,6 +48,8 @@ export class APIClient {
         ...config,
         headers: {
           ...config.headers,
+
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           Timestamp: timestamp,
         },
         auth: {
