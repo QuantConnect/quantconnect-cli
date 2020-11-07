@@ -15,7 +15,7 @@ export default class NewProjectCommand extends BaseCommand {
     language: flags.string({
       char: 'l',
       description: 'language of the project to create',
-      options: ['Py', 'C#', 'F#'],
+      options: ['Py', 'C#'],
       default: 'Py',
     }),
   };
