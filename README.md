@@ -56,6 +56,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface, quit 
 * [`qcli projects:delete`](#qcli-projectsdelete)
 * [`qcli projects:info`](#qcli-projectsinfo)
 * [`qcli projects:list`](#qcli-projectslist)
+* [`qcli projects:new PATH`](#qcli-projectsnew-path)
 
 ## `qcli api:get ENDPOINT`
 
@@ -460,6 +461,26 @@ OPTIONS
 ```
 
 _See code: [src/commands/projects/list.ts](src/commands/projects/list.ts)_
+
+## `qcli projects:new PATH`
+
+create a new project
+
+```
+USAGE
+  $ qcli projects:new PATH
+
+ARGUMENTS
+  PATH  path of the project to create
+
+OPTIONS
+  -h, --help               display usage information
+  -l, --language=Py|C#|F#  [default: Py] language of the project to create
+  -v, --version            display version information
+  --verbose                display API requests as they happen
+```
+
+_See code: [src/commands/projects/new.ts](src/commands/projects/new.ts)_
 <!-- commandsstop -->
 
 # Contributing
