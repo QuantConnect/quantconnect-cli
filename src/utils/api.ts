@@ -6,6 +6,23 @@ export async function compileProject(api: APIClient, project: QCProject): Promis
   let compile = await api.compiles.create(project.projectId);
   logger.info(`Started compiling project '${project.name}'`);
 
+  const parameters: string[] = [];
+  for (const container of compile.parameters) {
+    for (const parameter of container.parameters) {
+      parameters.push(`- ${container.file}:${parameter.line} :: ${parameter.type}`);
+    }
+  }
+
+  if (parameters.length > 0) {
+    logger.info(`Detected parameters:`);
+
+    for (const parameter of parameters) {
+      logger.info(parameter);
+    }
+  } else {
+    logger.info('Detected parameters: none');
+  }
+
   while (true) {
     compile = await api.compiles.get(project.projectId, compile.compileId);
 

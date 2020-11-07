@@ -56,10 +56,21 @@ interface QCFile {
   isLibrary: boolean;
 }
 
+interface QCCompileParameter {
+  line: number;
+  type: string;
+}
+
+interface QCCompileParameterContainer {
+  file: string;
+  parameters: QCCompileParameter[];
+}
+
 interface QCCompile {
   compileId: string;
   state: QCCompileState;
   logs: string[];
+  parameters?: QCCompileParameterContainer[];
 }
 
 interface QCBacktest {
