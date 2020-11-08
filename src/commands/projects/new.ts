@@ -15,8 +15,8 @@ export default class NewProjectCommand extends BaseCommand {
     language: flags.string({
       char: 'l',
       description: 'language of the project to create',
-      options: ['Py', 'C#'],
-      default: 'Py',
+      options: ['python', 'csharp', 'fsharp'],
+      default: 'python',
     }),
   };
 
@@ -38,9 +38,15 @@ export default class NewProjectCommand extends BaseCommand {
       throw new Error(`There already exists a project with the given path`);
     }
 
-    const newProject = await this.api.projects.create(this.args.path, this.flags.language);
+    const language = ({
+      python: 'Py',
+      csharp: 'C#',
+      fsharp: 'F#',
+    } as Record<string, QCLanguage>)[this.flags.language];
 
-    logger.info(`Successfully created ${formatLanguage(this.flags.language)} project '${this.args.path}'`);
+    const newProject = await this.api.projects.create(this.args.path, language);
+
+    logger.info(`Successfully created ${formatLanguage(language)} project '${this.args.path}'`);
 
     if (fs.existsSync(newAbsolutePath)) {
       addToProjectIndex(newProject);
