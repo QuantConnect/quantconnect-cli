@@ -14,7 +14,7 @@ export async function compileProject(api: APIClient, project: QCProject): Promis
   }
 
   if (parameters.length > 0) {
-    logger.info(`Detected parameters:`);
+    logger.info(`Detected parameters (${parameters.length}):`);
 
     for (const parameter of parameters) {
       logger.info(parameter);
