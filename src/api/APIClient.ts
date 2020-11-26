@@ -11,6 +11,8 @@ import { NodeClient } from './NodeClient';
 export class APIClient {
   public axios = axios.create({
     baseURL: 'https://www.quantconnect.com/api/v2',
+    maxBodyLength: 1_000_000_000,
+    maxContentLength: 1_000_000_000,
   });
 
   public files = new FileClient(this);
@@ -91,17 +93,18 @@ export class APIClient {
     try {
       response = await this.axios.request(axiosConfig);
     } catch (err) {
-      throw new Error(`${method} request to ${url} failed (status code ${err.response.status})`);
+      const { status, statusText } = err.response;
+      throw new Error(`${method} request to ${url} failed (${status} ${statusText})`);
     }
 
-    const { status, data } = response;
+    const { status, statusText, data } = response;
 
     if (status === 500) {
       throw this.createAuthenticationError();
     }
 
     if (status < 200 || status >= 300) {
-      throw new Error(`${method} request to ${url} failed (status code ${status})`);
+      throw new Error(`${method} request to ${url} failed (${status} ${statusText})`);
     }
 
     if (data.success) {
@@ -120,7 +123,7 @@ export class APIClient {
       throw new Error(data.messages.join('\n'));
     }
 
-    throw new Error(`${method} request to ${url} failed (status code ${status})`);
+    throw new Error(`${method} request to ${url} failed (${status} ${statusText})`);
   }
 
   private processData(obj: any): any {

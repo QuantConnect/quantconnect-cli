@@ -59,20 +59,24 @@ export default class PushCommand extends BaseCommand {
       const remoteFile = remoteFiles.find(f => f.name === localFile);
       const localContent = fs.readFileSync(getProjectFilePath(project, localFile)).toString();
 
-      if (remoteFile === undefined) {
-        await this.api.files.create(project.projectId, localFile, localContent);
-      } else if (remoteFile.content.trim() !== localContent.trim()) {
-        if (remoteFile.isLibrary) {
-          this.libraryFiles.push(`${project.name}/${remoteFile.name}`);
+      try {
+        if (remoteFile === undefined) {
+          await this.api.files.create(project.projectId, localFile, localContent);
+        } else if (remoteFile.content.trim() !== localContent.trim()) {
+          if (remoteFile.isLibrary) {
+            this.libraryFiles.push(`${project.name}/${remoteFile.name}`);
+            continue;
+          }
+
+          await this.api.files.update(project.projectId, localFile, localContent);
+        } else {
           continue;
         }
 
-        await this.api.files.update(project.projectId, localFile, localContent);
-      } else {
-        continue;
+        logger.info(`Successfully pushed '${project.name}/${localFile}'`);
+      } catch (err) {
+        logger.error(`Could not push '${project.name}/${localFile}': ${err.message}`);
       }
-
-      logger.info(`Successfully pushed '${project.name}/${localFile}'`);
     }
   }
 }
