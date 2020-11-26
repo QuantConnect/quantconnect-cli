@@ -15,7 +15,7 @@ export default class NewProjectCommand extends BaseCommand {
     language: flags.string({
       char: 'l',
       description: 'language of the project to create',
-      options: ['python', 'csharp', 'fsharp'],
+      options: ['python', 'csharp'],
       default: 'python',
     }),
   };
@@ -41,7 +41,6 @@ export default class NewProjectCommand extends BaseCommand {
     const language = ({
       python: 'Py',
       csharp: 'C#',
-      fsharp: 'F#',
     } as Record<string, QCLanguage>)[this.flags.language];
 
     const newProject = await this.api.projects.create(this.args.path, language);

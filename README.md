@@ -474,10 +474,10 @@ ARGUMENTS
   PATH  path of the project to create
 
 OPTIONS
-  -h, --help                           display usage information
-  -l, --language=python|csharp|fsharp  [default: python] language of the project to create
-  -v, --version                        display version information
-  --verbose                            display API requests as they happen
+  -h, --help                    display usage information
+  -l, --language=python|csharp  [default: python] language of the project to create
+  -v, --version                 display version information
+  --verbose                     display API requests as they happen
 ```
 
 _See code: [src/commands/projects/new.ts](src/commands/projects/new.ts)_
