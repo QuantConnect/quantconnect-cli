@@ -26,13 +26,20 @@ export default class WatchCommand extends BaseCommand {
   protected async execute(): Promise<void> {
     pruneProjectIndex();
 
-    let projectToWatch: QCProject = null;
+    const paths: string[] = [];
     if (this.flags.project !== undefined) {
-      projectToWatch = await this.parseProjectFlag();
+      const project = await this.parseProjectFlag();
+      paths.push(path.join(getProjectPath(project), '**/*'));
+    } else {
+      const projectIndex = config.get('projectIndex');
+
+      for (const name in projectIndex) {
+        const projectPath = getProjectPath(name);
+        paths.push(projectPath, path.join(projectPath, '**/*'));
+      }
     }
 
-    const glob = projectToWatch !== null ? path.join(getProjectPath(projectToWatch), '**/*') : '**/*';
-    const watcher = chokidar.watch(glob, {
+    const watcher = chokidar.watch(paths, {
       ignoreInitial: true,
       cwd: process.cwd(),
       usePolling: this.flags.poll,
@@ -44,7 +51,8 @@ export default class WatchCommand extends BaseCommand {
       .on('ready', () => logger.info('Started watching for changes'))
       .on('add', file => queue.add(() => this.onChange(file)))
       .on('change', file => queue.add(() => this.onChange(file)))
-      .on('unlink', file => queue.add(() => this.onDelete(file)));
+      .on('unlink', file => queue.add(() => this.onDelete(file)))
+      .on('error', err => logger.error(`Watcher error: ${err.message}`));
   }
 
   private async onChange(file: string): Promise<void> {
