@@ -26,17 +26,21 @@ export default class WatchCommand extends BaseCommand {
   protected async execute(): Promise<void> {
     pruneProjectIndex();
 
-    const paths: string[] = [];
+    const projects: string[] = [];
     if (this.flags.project !== undefined) {
       const project = await this.parseProjectFlag();
-      paths.push(path.join(getProjectPath(project), '**/*'));
+      projects.push(project.name);
     } else {
       const projectIndex = config.get('projectIndex');
-
       for (const name in projectIndex) {
-        const projectPath = getProjectPath(name);
-        paths.push(projectPath, path.join(projectPath, '**/*'));
+        projects.push(name);
       }
+    }
+
+    const paths: string[] = [];
+    for (const project of projects) {
+      const projectPath = getProjectPath(project);
+      paths.push(projectPath, path.join(projectPath, '**/*'));
     }
 
     const watcher = chokidar.watch(paths, {
