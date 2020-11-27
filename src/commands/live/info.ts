@@ -20,7 +20,10 @@ export default class LiveInfoCommand extends BaseCommand {
     logger.info(`Brokerage: ${formatBrokerage(deployment.brokerage)}`);
     logger.info(`Status: ${formatLiveAlgorithmStatus(deployment.status)}`);
     logger.info(`Launched: ${formatDate(deployment.launched)}`);
-    logger.info(`Stopped: ${deployment.stopped ? formatDate(deployment.stopped) : 'N/A'}`);
+
+    if (deployment.stopped) {
+      logger.info(`Stopped: ${formatDate(deployment.stopped)}`);
+    }
 
     if (deployment.error) {
       logger.info('Error:');
