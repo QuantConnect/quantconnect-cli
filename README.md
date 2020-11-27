@@ -48,6 +48,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface or wit
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
 * [`qcli live:list`](#qcli-livelist)
+* [`qcli live:start`](#qcli-livestart)
 * [`qcli live:stop`](#qcli-livestop)
 * [`qcli nodes:delete`](#qcli-nodesdelete)
 * [`qcli nodes:list`](#qcli-nodeslist)
@@ -322,6 +323,24 @@ OPTIONS
 ```
 
 _See code: [src/commands/live/list.ts](src/commands/live/list.ts)_
+
+## `qcli live:start`
+
+start live trading for a project
+
+```
+USAGE
+  $ qcli live:start
+
+OPTIONS
+  -h, --help             display usage information
+  -n, --node=node        node id or name (optional, interactive selector opens if not specified)
+  -p, --project=project  project id or name (optional, interactive selector opens if not specified)
+  -v, --version          display version information
+  --verbose              display API requests as they happen
+```
+
+_See code: [src/commands/live/start.ts](src/commands/live/start.ts)_
 
 ## `qcli live:stop`
 

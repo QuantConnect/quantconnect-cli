@@ -73,7 +73,7 @@ class Logger {
       message,
       validate: (input: string) => {
         if (input.trim().length === 0) {
-          return 'Password cannot be blank';
+          return 'Input cannot be blank';
         }
 
         return true;
@@ -81,18 +81,22 @@ class Logger {
     });
   }
 
-  public askAutocomplete(message: string, options: string[]): Promise<string> {
-    return this.promptInquirer('autocomplete', {
+  public async askAutocomplete<T>(message: string, options: [option: T, label: string][]): Promise<T> {
+    const labels = options.map(option => option[1]);
+
+    const selectedLabel = await this.promptInquirer('autocomplete', {
       message,
       source: async (answersSoFar: string[], input: string) => {
         if (input === undefined) {
-          return options;
+          return labels;
         }
 
         input = input.toLowerCase();
-        return options.filter(option => option.toLowerCase().includes(input));
+        return labels.filter(label => label.toLowerCase().includes(input));
       },
     });
+
+    return options.find(option => option[1] === selectedLabel)[0];
   }
 
   public isVerbose(): boolean {

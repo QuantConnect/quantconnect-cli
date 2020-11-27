@@ -86,7 +86,7 @@ export abstract class BaseCommand extends Command {
     return {
       organization: flags.string({
         char: 'o',
-        // TODO(jmerle): Allow organization name as input when the API endpoint for organizations is live
+        // TODO: Allow organization name as input when the API endpoint for organizations is live
         description: 'organization id (optional, interactive selector opens if not specified)',
       }),
     };
@@ -131,7 +131,7 @@ export abstract class BaseCommand extends Command {
     const projects = await this.api.projects.getAll();
     const organizations = [...new Set(projects.map(project => project.organizationId))];
 
-    // TODO(jmerle): Improve selector to show names alongside ids when the API endpoint for organizations is live
+    // TODO: Improve selector to show names alongside ids when the API endpoint for organizations is live
     return await this.selectItem(
       'organization',
       organizations,
@@ -142,9 +142,9 @@ export abstract class BaseCommand extends Command {
     );
   }
 
-  protected async parseNodeFlag(organizationId: string): Promise<QCNode> {
+  protected async parseNodeFlag(organizationId: string, type?: keyof QCNodeList): Promise<QCNode> {
     const nodes = await this.api.nodes.getAll(organizationId);
-    const allNodes = nodes.backtest.concat(nodes.research).concat(nodes.live);
+    const allNodes = type !== undefined ? nodes[type] : nodes.backtest.concat(nodes.research).concat(nodes.live);
 
     return await this.selectItem(
       'node',
@@ -200,18 +200,13 @@ export abstract class BaseCommand extends Command {
       throw new Error(`No ${itemName}s found to select from`);
     }
 
-    const options: Array<[string, T]> = allItems
+    const options: Array<[T, string]> = allItems
       .sort((a, b) => itemSorter(a, b))
-      .map(item => [itemLabeler(item), item]);
+      .map(item => [item, itemLabeler(item)]);
 
     const aStr = 'aeiou'.split('').includes(itemName[0]) ? 'an' : 'a';
 
-    const selectedOption = await logger.askAutocomplete(
-      `Select ${aStr} ${itemName}`,
-      options.map(option => option[0]),
-    );
-
-    return options.find(option => option[0] === selectedOption)[1];
+    return await logger.askAutocomplete(`Select ${aStr} ${itemName}`, options);
   }
 
   protected static formatExamples(examples: string[]): string[] {

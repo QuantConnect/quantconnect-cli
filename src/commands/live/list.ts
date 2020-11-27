@@ -1,7 +1,7 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
 import { logger } from '../../utils/logger';
-import { formatAmount, formatDate, formatLiveAlgorithmStatus } from '../../utils/format';
+import { formatAmount, formatBrokerage, formatDate, formatLiveAlgorithmStatus } from '../../utils/format';
 
 export default class ListLiveCommand extends BaseCommand {
   public static description = 'list all live projects';
@@ -37,10 +37,10 @@ export default class ListLiveCommand extends BaseCommand {
       rows.push([
         project.projectId,
         project.deployId,
-        project.brokerage,
+        formatBrokerage(project.brokerage),
         formatLiveAlgorithmStatus(project.status),
         formatDate(project.launched),
-        project.stopped ? formatDate(project.stopped) : 'Still running',
+        project.stopped ? formatDate(project.stopped) : 'N/A',
       ]);
     }
 

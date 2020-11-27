@@ -1,19 +1,3 @@
-type QCLanguage = 'C#' | 'F#' | 'VB' | 'Ja' | 'Py';
-type QCCompileState = 'InQueue' | 'BuildSuccess' | 'BuildError';
-type QCLiveAlgorithmStatus =
-  | 'DeployError'
-  | 'InQueue'
-  | 'Running'
-  | 'Stopped'
-  | 'Liquidated'
-  | 'Deleted'
-  | 'Completed'
-  | 'RuntimeError'
-  | 'Invalid'
-  | 'LoggingIn'
-  | 'Initializing'
-  | 'History';
-
 interface QCCollaborator {
   id: number;
   uid: number;
@@ -47,6 +31,8 @@ interface QCLiveResults {
   sErrorMessage: string;
 }
 
+type QCLanguage = 'C#' | 'F#' | 'VB' | 'Ja' | 'Py';
+
 interface QCProject {
   projectId: number;
   organizationId: string;
@@ -78,6 +64,8 @@ interface QCCompileParameterContainer {
   file: string;
   parameters: QCCompileParameter[];
 }
+
+type QCCompileState = 'InQueue' | 'BuildSuccess' | 'BuildError';
 
 interface QCCompile {
   compileId: string;
@@ -126,6 +114,20 @@ interface QCNodeList {
   research: QCNode[];
   live: QCNode[];
 }
+
+type QCLiveAlgorithmStatus =
+  | 'DeployError'
+  | 'InQueue'
+  | 'Running'
+  | 'Stopped'
+  | 'Liquidated'
+  | 'Deleted'
+  | 'Completed'
+  | 'RuntimeError'
+  | 'Invalid'
+  | 'LoggingIn'
+  | 'Initializing'
+  | 'History';
 
 interface QCLiveAlgorithm {
   projectId: number;

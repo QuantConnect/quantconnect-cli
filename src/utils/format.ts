@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
+import { brokerages } from '../brokerages';
 
 export function formatString(thing: any): string {
   if (thing === null) {
@@ -38,6 +39,10 @@ export function formatLiveAlgorithmStatus(status: QCLiveAlgorithmStatus): string
     default:
       return status;
   }
+}
+
+export function formatBrokerage(id: string): string {
+  return brokerages.find(brokerage => brokerage.id === id).name;
 }
 
 export function formatDate(date: Date): string {

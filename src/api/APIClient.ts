@@ -131,7 +131,11 @@ export class APIClient {
 
   private processData(obj: any): any {
     for (const key of Object.keys(obj)) {
-      if (obj[key] !== null && typeof obj[key] === 'object') {
+      if (obj[key] === null) {
+        continue;
+      }
+
+      if (typeof obj[key] === 'object') {
         this.processData(obj[key]);
       } else {
         if (key === 'modified' || key === 'created' || key === 'launched' || key === 'stopped') {

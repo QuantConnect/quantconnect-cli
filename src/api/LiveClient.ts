@@ -18,6 +18,35 @@ export class LiveClient {
     return data.live;
   }
 
+  public async start(
+    projectId: number,
+    compileId: string,
+    nodeId: string,
+    brokerageSettings: any,
+    priceDataHandler: string,
+    tiingoToken?: string,
+  ): Promise<QCLiveAlgorithm> {
+    const parameters: any = {
+      projectId,
+      compileId,
+      nodeId,
+      brokerage: brokerageSettings,
+      dataHandler: priceDataHandler,
+      versionId: '-1',
+    };
+
+    if (tiingoToken !== undefined) {
+      parameters.addOnDataFeed = {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        TiingoNews: {
+          token: tiingoToken,
+        },
+      };
+    }
+
+    return await this.api.post('live/create', parameters);
+  }
+
   public async stop(projectId: number): Promise<void> {
     await this.api.post('live/update/stop', { projectId });
   }
