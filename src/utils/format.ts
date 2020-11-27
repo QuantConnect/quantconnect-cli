@@ -25,6 +25,21 @@ export function formatLanguage(language: QCLanguage): string {
   }
 }
 
+export function formatLiveAlgorithmStatus(status: QCLiveAlgorithmStatus): string {
+  switch (status) {
+    case 'DeployError':
+      return 'Deploy Error';
+    case 'InQueue':
+      return 'In Queue';
+    case 'RuntimeError':
+      return 'Runtime Error';
+    case 'LoggingIn':
+      return 'Logging In';
+    default:
+      return status;
+  }
+}
+
 export function formatDate(date: Date): string {
   return formatDistanceToNow(date, { addSuffix: true });
 }
@@ -39,4 +54,8 @@ export function pluralize(amount: number, single: string, multiple: string = sin
 
 export function formatAmount(amount: number, single: string, multiple?: string): string {
   return `${formatNumber(amount)} ${pluralize(amount, single, multiple)}`;
+}
+
+export function toUnixTimestamp(date: Date): number {
+  return Math.floor(date.getTime() / 1000);
 }

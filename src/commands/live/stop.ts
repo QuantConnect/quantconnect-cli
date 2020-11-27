@@ -31,9 +31,9 @@ export class StopLiveCommand extends BaseCommand {
     }
 
     if (this.flags.liquidate) {
-      await this.api.projects.liquidateAndStopLive(project.projectId);
+      await this.api.live.liquidateAndStop(project.projectId);
     } else {
-      await this.api.projects.stopLive(project.projectId);
+      await this.api.live.stop(project.projectId);
     }
 
     const successMessage = this.flags.liquidate

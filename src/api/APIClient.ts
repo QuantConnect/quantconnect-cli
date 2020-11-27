@@ -2,11 +2,13 @@ import * as crypto from 'crypto';
 import * as querystring from 'querystring';
 import axios, { AxiosResponse } from 'axios';
 import { logger } from '../utils/logger';
+import { toUnixTimestamp } from '../utils/format';
 import { FileClient } from './FileClient';
 import { ProjectClient } from './ProjectClient';
 import { CompileClient } from './CompileClient';
 import { BacktestClient } from './BacktestClient';
 import { NodeClient } from './NodeClient';
+import { LiveClient } from './LiveClient';
 
 export class APIClient {
   public axios = axios.create({
@@ -20,6 +22,7 @@ export class APIClient {
   public compiles = new CompileClient(this);
   public backtests = new BacktestClient(this);
   public nodes = new NodeClient(this);
+  public live = new LiveClient(this);
 
   public constructor(userId: string, apiToken: string) {
     this.axios.interceptors.request.use(config => {
@@ -43,7 +46,7 @@ export class APIClient {
         }
       }
 
-      const timestamp = Math.floor(new Date().getTime() / 1000);
+      const timestamp = toUnixTimestamp(new Date());
       const hash = crypto.createHash('sha256').update(`${apiToken}:${timestamp}`).digest('hex');
 
       return {
@@ -131,7 +134,7 @@ export class APIClient {
       if (obj[key] !== null && typeof obj[key] === 'object') {
         this.processData(obj[key]);
       } else {
-        if (key === 'modified' || key === 'created') {
+        if (key === 'modified' || key === 'created' || key === 'launched' || key === 'stopped') {
           obj[key] = new Date(Date.parse(obj[key] + ' UTC'));
         }
       }

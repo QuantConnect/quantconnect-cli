@@ -1,5 +1,18 @@
 type QCLanguage = 'C#' | 'F#' | 'VB' | 'Ja' | 'Py';
 type QCCompileState = 'InQueue' | 'BuildSuccess' | 'BuildError';
+type QCLiveAlgorithmStatus =
+  | 'DeployError'
+  | 'InQueue'
+  | 'Running'
+  | 'Stopped'
+  | 'Liquidated'
+  | 'Deleted'
+  | 'Completed'
+  | 'RuntimeError'
+  | 'Invalid'
+  | 'LoggingIn'
+  | 'Initializing'
+  | 'History';
 
 interface QCCollaborator {
   id: number;
@@ -112,4 +125,15 @@ interface QCNodeList {
   backtest: QCNode[];
   research: QCNode[];
   live: QCNode[];
+}
+
+interface QCLiveAlgorithm {
+  projectId: number;
+  deployId: string;
+  status: QCLiveAlgorithmStatus;
+  launched: Date;
+  stopped?: Date;
+  brokerage: string;
+  subscription: string;
+  error: string;
 }

@@ -38,12 +38,4 @@ export class ProjectClient {
   public async delete(projectId: number): Promise<void> {
     await this.api.post('projects/delete', { projectId });
   }
-
-  public async stopLive(projectId: number): Promise<void> {
-    await this.api.post('live/update/stop', { projectId });
-  }
-
-  public async liquidateAndStopLive(projectId: number): Promise<void> {
-    await this.api.post('live/update/liquidate', { projectId });
-  }
 }
