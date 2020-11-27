@@ -1,7 +1,7 @@
 import * as path from 'path';
+import { flags } from '@oclif/command';
 import * as fs from 'fs-extra';
 import * as open from 'open';
-import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
 import { logger } from '../../utils/logger';
 import { sleep } from '../../utils/promises';

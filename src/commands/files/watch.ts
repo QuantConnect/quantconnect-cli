@@ -1,12 +1,12 @@
 import * as path from 'path';
 import { flags } from '@oclif/command';
-import * as fs from 'fs-extra';
 import * as chokidar from 'chokidar';
+import * as fs from 'fs-extra';
 import * as PromiseQueue from 'promise-queue';
 import { BaseCommand } from '../../BaseCommand';
-import { getFilePathRelativeToProject, getProjectName, getProjectPath, pruneProjectIndex } from '../../utils/sync';
 import { config } from '../../utils/config';
 import { logger } from '../../utils/logger';
+import { getFilePathRelativeToProject, getProjectName, getProjectPath, pruneProjectIndex } from '../../utils/sync';
 
 export default class WatchCommand extends BaseCommand {
   public static description = 'watch for local file changes and push them to QuantConnect';

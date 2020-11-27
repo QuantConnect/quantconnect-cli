@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { logger } from '../../utils/logger';
 import { formatLanguage } from '../../utils/format';
+import { logger } from '../../utils/logger';
+import { addToProjectIndex, getProjectPath } from '../../utils/sync';
 import PullCommand from '../files/pull';
 import PushCommand from '../files/push';
-import { addToProjectIndex, getProjectPath } from '../../utils/sync';
 
 export default class NewProjectCommand extends BaseCommand {
   public static description = 'create a new project';

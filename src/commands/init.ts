@@ -1,8 +1,8 @@
 import * as fs from 'fs-extra';
+import { APIClient } from '../api/APIClient';
 import { BaseCommand } from '../BaseCommand';
 import { config } from '../utils/config';
 import { logger } from '../utils/logger';
-import { APIClient } from '../api/APIClient';
 import PullCommand from './files/pull';
 
 export default class InitCommand extends BaseCommand {

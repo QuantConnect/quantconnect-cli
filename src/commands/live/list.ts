@@ -1,7 +1,7 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { logger } from '../../utils/logger';
 import { formatAmount, formatBrokerage, formatDate, formatLiveAlgorithmStatus } from '../../utils/format';
+import { logger } from '../../utils/logger';
 
 export default class ListLiveCommand extends BaseCommand {
   public static description = 'list all live projects';

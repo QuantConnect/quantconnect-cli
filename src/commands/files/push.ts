@@ -1,6 +1,8 @@
 import { flags } from '@oclif/command';
 import * as fs from 'fs-extra';
 import { BaseCommand } from '../../BaseCommand';
+import { config } from '../../utils/config';
+import { logger } from '../../utils/logger';
 import {
   getFilesInProject,
   getProjectFilePath,
@@ -8,8 +10,6 @@ import {
   pruneProjectIndex,
   warnAboutLibraryFiles,
 } from '../../utils/sync';
-import { config } from '../../utils/config';
-import { logger } from '../../utils/logger';
 
 export default class PushCommand extends BaseCommand {
   public static description = 'push local files to QuantConnect';

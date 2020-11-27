@@ -1,7 +1,7 @@
 import { BaseCommand } from '../../BaseCommand';
-import { logger } from '../../utils/logger';
-import { compileProject } from '../../utils/api';
 import { brokerages } from '../../brokerages';
+import { compileProject } from '../../utils/api';
+import { logger } from '../../utils/logger';
 
 export class StartLiveCommand extends BaseCommand {
   public static description = 'start live trading for a project';

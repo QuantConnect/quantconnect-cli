@@ -1,8 +1,8 @@
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
 import { compileProject } from '../../utils/api';
-import { logger } from '../../utils/logger';
 import { generateBacktestName, getBacktestUrl, logBacktestInformation } from '../../utils/backtests';
+import { logger } from '../../utils/logger';
 import { sleep } from '../../utils/promises';
 
 export default class NewBacktestCommand extends BaseCommand {

@@ -1,6 +1,6 @@
 import { BaseCommand } from '../../BaseCommand';
-import { logger } from '../../utils/logger';
 import { formatAmount, formatDate, formatLanguage } from '../../utils/format';
+import { logger } from '../../utils/logger';
 
 export default class ListProjectsCommand extends BaseCommand {
   public static description = 'list all projects';

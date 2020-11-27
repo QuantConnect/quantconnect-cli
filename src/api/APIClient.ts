@@ -1,14 +1,14 @@
 import * as crypto from 'crypto';
 import * as querystring from 'querystring';
 import axios, { AxiosResponse } from 'axios';
-import { logger } from '../utils/logger';
 import { toUnixTimestamp } from '../utils/format';
-import { FileClient } from './FileClient';
-import { ProjectClient } from './ProjectClient';
-import { CompileClient } from './CompileClient';
+import { logger } from '../utils/logger';
 import { BacktestClient } from './BacktestClient';
-import { NodeClient } from './NodeClient';
+import { CompileClient } from './CompileClient';
+import { FileClient } from './FileClient';
 import { LiveClient } from './LiveClient';
+import { NodeClient } from './NodeClient';
+import { ProjectClient } from './ProjectClient';
 
 export class APIClient {
   public axios = axios.create({

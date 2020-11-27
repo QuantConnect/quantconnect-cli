@@ -1,6 +1,6 @@
 import { BaseCommand } from '../../BaseCommand';
-import { logger } from '../../utils/logger';
 import { formatDate, formatLanguage } from '../../utils/format';
+import { logger } from '../../utils/logger';
 
 export default class InfoProjectCommand extends BaseCommand {
   public static description = 'display useful information about a project';

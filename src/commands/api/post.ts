@@ -1,5 +1,5 @@
-import highlight from 'cli-highlight';
 import { flags } from '@oclif/command';
+import highlight from 'cli-highlight';
 import { BaseCommand } from '../../BaseCommand';
 
 export default class APIPostCommand extends BaseCommand {

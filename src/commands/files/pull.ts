@@ -1,5 +1,5 @@
-import * as fs from 'fs-extra';
 import { flags } from '@oclif/command';
+import * as fs from 'fs-extra';
 import { BaseCommand } from '../../BaseCommand';
 import { config } from '../../utils/config';
 import { logger } from '../../utils/logger';

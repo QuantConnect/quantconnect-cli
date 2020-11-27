@@ -1,10 +1,10 @@
+import { AlpacaBrokerage } from './AlpacaBrokerage';
 import { BaseBrokerage } from './BaseBrokerage';
-import { PaperTradingBrokerage } from './PaperTradingBrokerage';
-import { InteractiveBrokersBrokerage } from './InteractiveBrokersBrokerage';
-import { FXCMBrokerage } from './FXCMBrokerage';
 import { BitfinexBrokerage } from './BitfinexBrokerage';
 import { CoinbaseProBrokerage } from './CoinbaseProBrokerage';
-import { AlpacaBrokerage } from './AlpacaBrokerage';
+import { FXCMBrokerage } from './FXCMBrokerage';
+import { InteractiveBrokersBrokerage } from './InteractiveBrokersBrokerage';
+import { PaperTradingBrokerage } from './PaperTradingBrokerage';
 
 export const brokerages: BaseBrokerage[] = [
   new PaperTradingBrokerage(),

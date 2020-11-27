@@ -1,6 +1,6 @@
 import { BaseCommand } from '../../BaseCommand';
-import { logger } from '../../utils/logger';
 import { formatNumber } from '../../utils/format';
+import { logger } from '../../utils/logger';
 
 export default class ListNodesCommand extends BaseCommand {
   public static description = 'list all nodes in an organization';

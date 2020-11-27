@@ -1,9 +1,9 @@
 import Command, { flags } from '@oclif/command';
 import { OutputArgs, OutputFlags } from '@oclif/parser';
-import { logger } from './utils/logger';
-import { config } from './utils/config';
 import { APIClient } from './api/APIClient';
+import { config } from './utils/config';
 import { formatDate } from './utils/format';
+import { logger } from './utils/logger';
 
 type Flag<T> = { [key: string]: flags.IOptionFlag<T> };
 
