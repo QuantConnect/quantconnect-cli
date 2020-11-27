@@ -2,7 +2,7 @@ import Command, { flags } from '@oclif/command';
 import { OutputArgs, OutputFlags } from '@oclif/parser';
 import { APIClient } from './api/APIClient';
 import { config } from './utils/config';
-import { formatDate } from './utils/format';
+import { formatBrokerage, formatDate, formatLiveAlgorithmStatus } from './utils/format';
 import { logger } from './utils/logger';
 
 type Flag<T> = { [key: string]: flags.IOptionFlag<T> };
@@ -101,6 +101,15 @@ export abstract class BaseCommand extends Command {
     };
   }
 
+  protected static createDeploymentFlag(): Flag<string> {
+    return {
+      deployment: flags.string({
+        char: 'd',
+        description: 'deployment id (optional, interactive selector opens if not specified)',
+      }),
+    };
+  }
+
   protected async parseProjectFlag(): Promise<QCProject> {
     const projects = await this.api.projects.getAll();
 
@@ -117,7 +126,7 @@ export abstract class BaseCommand extends Command {
   protected async parseBacktestFlag(projectId: number): Promise<QCBacktest> {
     const backtests = await this.api.backtests.getAll(projectId);
 
-    return await this.selectItem(
+    return this.selectItem(
       'backtest',
       backtests,
       this.flags.backtest,
@@ -132,7 +141,7 @@ export abstract class BaseCommand extends Command {
     const organizations = [...new Set(projects.map(project => project.organizationId))];
 
     // TODO: Improve selector to show names alongside ids when the API endpoint for organizations is live
-    return await this.selectItem(
+    return this.selectItem(
       'organization',
       organizations,
       this.flags.organization,
@@ -146,7 +155,7 @@ export abstract class BaseCommand extends Command {
     const nodes = await this.api.nodes.getAll(organizationId);
     const allNodes = type !== undefined ? nodes[type] : nodes.backtest.concat(nodes.research).concat(nodes.live);
 
-    return await this.selectItem(
+    return this.selectItem(
       'node',
       allNodes,
       this.flags.node,
@@ -170,6 +179,36 @@ export abstract class BaseCommand extends Command {
         }
 
         return `${type} node - ${node.id} - ${node.name} - ${node.description}`;
+      },
+    );
+  }
+
+  protected async parseDeploymentFlag(): Promise<QCLiveAlgorithm> {
+    const liveProjects = await this.api.live.getAll();
+    const allProjects = await this.api.projects.getAll();
+
+    return this.selectItem(
+      'deployment',
+      liveProjects,
+      this.flags.deployment,
+      (project, input) => project.deployId === input,
+      (a, b) => a.deployId.localeCompare(b.deployId),
+      liveProject => {
+        const fullProject = allProjects.find(project => project.projectId === liveProject.projectId);
+
+        const parts = [
+          liveProject.deployId,
+          fullProject ? fullProject.name : `Project ${liveProject.projectId}`,
+          formatBrokerage(liveProject.brokerage),
+          formatLiveAlgorithmStatus(liveProject.status),
+          `launched ${formatDate(liveProject.launched)}`,
+        ];
+
+        if (liveProject.stopped) {
+          parts.push(`stopped ${formatDate(liveProject.stopped)}`);
+        }
+
+        return parts.join(' - ');
       },
     );
   }
@@ -206,7 +245,7 @@ export abstract class BaseCommand extends Command {
 
     const aStr = 'aeiou'.split('').includes(itemName[0]) ? 'an' : 'a';
 
-    return await logger.askAutocomplete(`Select ${aStr} ${itemName}`, options);
+    return logger.askAutocomplete(`Select ${aStr} ${itemName}`, options);
   }
 
   protected static formatExamples(examples: string[]): string[] {
