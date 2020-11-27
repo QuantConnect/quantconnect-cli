@@ -47,6 +47,7 @@ Whenever you create a new algorithm or Alpha Stream via the web interface or wit
 * [`qcli files:watch`](#qcli-fileswatch)
 * [`qcli help [COMMAND]`](#qcli-help-command)
 * [`qcli init`](#qcli-init)
+* [`qcli live:info`](#qcli-liveinfo)
 * [`qcli live:list`](#qcli-livelist)
 * [`qcli live:logs`](#qcli-livelogs)
 * [`qcli live:start`](#qcli-livestart)
@@ -307,6 +308,23 @@ OPTIONS
 ```
 
 _See code: [src/commands/init.ts](src/commands/init.ts)_
+
+## `qcli live:info`
+
+display useful information about a live deployment
+
+```
+USAGE
+  $ qcli live:info
+
+OPTIONS
+  -d, --deployment=deployment  deployment id (optional, interactive selector opens if not specified)
+  -h, --help                   display usage information
+  -v, --version                display version information
+  --verbose                    display API requests as they happen
+```
+
+_See code: [src/commands/live/info.ts](src/commands/live/info.ts)_
 
 ## `qcli live:list`
 

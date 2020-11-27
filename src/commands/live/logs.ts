@@ -30,6 +30,6 @@ export default class LiveLogCommand extends BaseCommand {
       new Date(this.flags.end),
     );
 
-    logger.info(logs.trim().length > 0 ? logs : 'No logs found');
+    logger.info(logs.length > 0 ? logs : 'No logs found');
   }
 }
