@@ -42,6 +42,11 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
     while (true) {
       try {
         const report = await this.api.backtests.getReport(project.projectId, backtest.backtestId);
+
+        if (!report.report.includes('html')) {
+          continue;
+        }
+
         fs.writeFileSync(outputPath, report.report);
         break;
       } catch (err) {
