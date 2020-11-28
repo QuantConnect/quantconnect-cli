@@ -84,8 +84,9 @@ interface QCBacktest {
   error?: string;
   stacktrace?: string;
   created: Date;
-  runtimeStatistics?: any;
-  statistics?: any;
+  runtimeStatistics?: Record<string, string>;
+  statistics?: Record<string, string>;
+  totalPerformance?: any;
 }
 
 interface QCBacktestReport {
