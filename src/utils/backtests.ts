@@ -65,11 +65,11 @@ function addStatistic(rows: any[][], statistic: string, value: string): void {
   }
 }
 
-function createStatisticsTable(result: any): string {
+function createStatisticsTable(backtest: QCBacktest): string {
   const rows: any[][] = [['Statistic', 'Value', 'Statistic', 'Value']];
 
-  for (const key of Object.keys(result.RuntimeStatistics)) {
-    let value = result.RuntimeStatistics[key];
+  for (const key of Object.keys(backtest.runtimeStatistics)) {
+    let value = backtest.runtimeStatistics[key];
 
     if (value.includes('-')) {
       value = chalk.red(value);
@@ -82,8 +82,8 @@ function createStatisticsTable(result: any): string {
 
   const splitIndex = rows.length;
 
-  for (const key of Object.keys(result.Statistics)) {
-    const value = result.Statistics[key];
+  for (const key of Object.keys(backtest.statistics)) {
+    const value = backtest.statistics[key];
     addStatistic(rows, key, value);
   }
 
@@ -108,7 +108,7 @@ export async function logBacktestInformation(
   const url = getBacktestUrl(project, backtest);
 
   if (backtest.result !== null) {
-    logger.info(createStatisticsTable(backtest.result));
+    logger.info(createStatisticsTable(backtest));
   }
 
   logger.info(`Backtest id: ${backtest.backtestId}`);

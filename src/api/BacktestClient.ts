@@ -3,11 +3,13 @@ import { APIClient } from './APIClient';
 export class BacktestClient {
   public constructor(private api: APIClient) {}
 
-  public get(projectId: number, backtestId: string): Promise<QCBacktest> {
-    return this.api.get('backtests/read', {
+  public async get(projectId: number, backtestId: string): Promise<QCBacktest> {
+    const data = await this.api.get('backtests/read', {
       projectId,
       backtestId,
     });
+
+    return data.backtest;
   }
 
   public async getAll(projectId: number): Promise<QCBacktest[]> {

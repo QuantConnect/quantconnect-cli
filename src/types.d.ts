@@ -84,6 +84,8 @@ interface QCBacktest {
   error?: string;
   stacktrace?: string;
   created: Date;
+  runtimeStatistics?: any;
+  statistics?: any;
 }
 
 interface QCBacktestReport {

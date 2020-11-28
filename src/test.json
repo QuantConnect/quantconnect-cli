@@ -1,0 +1,12 @@
+{
+  "backtest": {
+    "backtestId": "...",
+    // More information
+    "runtimeStatistics": {
+      // Runtime statistics
+    },
+    "statistics": {
+      // Statistics
+    }
+  }
+}
