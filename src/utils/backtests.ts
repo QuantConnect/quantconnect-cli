@@ -107,7 +107,7 @@ export async function logBacktestInformation(
 ): Promise<void> {
   const url = getBacktestUrl(project, backtest);
 
-  if (backtest.result !== null) {
+  if (backtest.runtimeStatistics !== null) {
     logger.info(createStatisticsTable(backtest));
   }
 

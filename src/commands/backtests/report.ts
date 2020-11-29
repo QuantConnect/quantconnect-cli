@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as open from 'open';
 import { BaseCommand } from '../../BaseCommand';
 import { logger } from '../../utils/logger';
-import { sleep } from '../../utils/promises';
+import { poll } from '../../utils/promises';
 
 export default class DownloadBacktestReportCommand extends BaseCommand {
   public static description = 'download the report of a given backtest';
@@ -39,26 +39,24 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
 
     let generationStarted = false;
 
-    while (true) {
-      try {
-        const report = await this.api.backtests.getReport(project.projectId, backtest.backtestId);
+    const report = await poll(
+      () => this.api.backtests.getReport(project.projectId, backtest.backtestId),
+      data => data.report.includes('html'),
+      err => {
+        if (err.message.includes('please wait')) {
+          if (!generationStarted) {
+            logger.info(`Started generating the report for backtest '${backtest.name}' for project '${project.name}'`);
+            generationStarted = true;
+          }
 
-        if (!report.report.includes('html')) {
-          continue;
+          return true;
         }
 
-        fs.writeFileSync(outputPath, report.report);
-        break;
-      } catch (err) {
-        if (!generationStarted) {
-          logger.info(`Started generating the report for backtest '${backtest.name}' for project '${project.name}'`);
-          generationStarted = true;
-        }
-      }
+        return false;
+      },
+    );
 
-      await sleep(1000);
-    }
-
+    fs.writeFileSync(outputPath, report.report);
     logger.info(`Saved report to ${outputPath}`);
 
     if (this.flags.open) {

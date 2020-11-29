@@ -3,7 +3,7 @@ import { BaseCommand } from '../../BaseCommand';
 import { compileProject } from '../../utils/api';
 import { generateBacktestName, getBacktestUrl, logBacktestInformation } from '../../utils/backtests';
 import { logger } from '../../utils/logger';
-import { sleep } from '../../utils/promises';
+import { poll } from '../../utils/promises';
 
 export default class NewBacktestCommand extends BaseCommand {
   public static description = 'launch a backtest for a project';
@@ -27,7 +27,7 @@ export default class NewBacktestCommand extends BaseCommand {
 
     const compile = await compileProject(this.api, project);
 
-    let backtest = await this.api.backtests.create(
+    const backtest = await this.api.backtests.create(
       project.projectId,
       compile.compileId,
       this.flags.name || generateBacktestName(),
@@ -35,23 +35,18 @@ export default class NewBacktestCommand extends BaseCommand {
 
     logger.info(`Started backtest named '${backtest.name}' for project '${project.name}'`);
 
-    if (!backtest.completed) {
+    if (!backtest.completed || (backtest.runtimeStatistics === null && backtest.error === null)) {
       logger.info(`Backtest url: ${getBacktestUrl(project, backtest)}`);
     }
 
-    while (!backtest.completed) {
-      backtest = await this.api.backtests.get(project.projectId, backtest.backtestId);
+    const finishedBacktest = await poll(
+      () => this.api.backtests.get(project.projectId, backtest.backtestId),
+      data => data.completed && (data.runtimeStatistics !== null || data.error !== null),
+    );
 
-      if (backtest.completed) {
-        break;
-      }
+    await logBacktestInformation(project, finishedBacktest, this.flags.open);
 
-      await sleep(250);
-    }
-
-    await logBacktestInformation(project, backtest, this.flags.open);
-
-    if (backtest.error !== null) {
+    if (finishedBacktest.error !== null) {
       process.exit(1);
     }
   }
