@@ -23,10 +23,10 @@ export async function compileProject(api: APIClient, project: QCProject): Promis
     logger.info('Detected parameters: none');
   }
 
-  const finishedCompile = await poll(
-    () => api.compiles.get(project.projectId, compile.compileId),
-    data => data.state === 'BuildSuccess' || data.state === 'BuildError',
-  );
+  const finishedCompile = await poll({
+    makeRequest: () => api.compiles.get(project.projectId, compile.compileId),
+    isDone: data => data.state === 'BuildSuccess' || data.state === 'BuildError',
+  });
 
   if (finishedCompile.state === 'BuildError') {
     logger.error(finishedCompile.logs.join('\n'));

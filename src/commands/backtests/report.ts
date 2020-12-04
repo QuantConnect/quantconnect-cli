@@ -39,10 +39,10 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
 
     let generationStarted = false;
 
-    const report = await poll(
-      () => this.api.backtests.getReport(project.projectId, backtest.backtestId),
-      data => data.report.includes('html'),
-      err => {
+    const report = await poll({
+      makeRequest: () => this.api.backtests.getReport(project.projectId, backtest.backtestId),
+      isDone: data => data.report.includes('html'),
+      shouldIgnoreError: err => {
         if (err.message.includes('please wait')) {
           if (!generationStarted) {
             logger.info(`Started generating the report for backtest '${backtest.name}' for project '${project.name}'`);
@@ -54,7 +54,7 @@ export default class DownloadBacktestReportCommand extends BaseCommand {
 
         return false;
       },
-    );
+    });
 
     fs.writeFileSync(outputPath, report.report);
     logger.info(`Saved report to ${outputPath}`);

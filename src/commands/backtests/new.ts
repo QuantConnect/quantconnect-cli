@@ -39,10 +39,11 @@ export default class NewBacktestCommand extends BaseCommand {
       logger.info(`Backtest url: ${getBacktestUrl(project, backtest)}`);
     }
 
-    const finishedBacktest = await poll(
-      () => this.api.backtests.get(project.projectId, backtest.backtestId),
-      data => data.completed && (data.runtimeStatistics !== null || data.error !== null),
-    );
+    const finishedBacktest = await poll({
+      makeRequest: () => this.api.backtests.get(project.projectId, backtest.backtestId),
+      isDone: data => data.completed && (data.runtimeStatistics !== null || data.error !== null),
+      getProgress: data => data.progress,
+    });
 
     await logBacktestInformation(project, finishedBacktest, this.flags.open);
 

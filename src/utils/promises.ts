@@ -6,6 +6,13 @@ export function sleep(ms: number): Promise<void> {
   });
 }
 
+interface PollOptions<T> {
+  makeRequest: () => Promise<T>;
+  isDone: (data: T) => boolean;
+  shouldIgnoreError?: (error: Error) => boolean;
+  getProgress?: (data: T) => number;
+}
+
 /**
  * When running certain tasks we need to continuously call the API to retrieve
  * new information and to see if the task is completed. This process can be
@@ -16,11 +23,7 @@ export function sleep(ms: number): Promise<void> {
  *    the amount of requests being made while still delivering results swiftly
  *    if the task is done quickly.
  */
-export async function poll<T>(
-  makeRequest: () => Promise<T>,
-  isDone: (data: T) => boolean,
-  shouldIgnoreError: (error: Error) => boolean = () => false,
-): Promise<T> {
+export async function poll<T>({ makeRequest, isDone, shouldIgnoreError, getProgress }: PollOptions<T>): Promise<T> {
   let retryCounter = 0;
   const maxRetries = 5;
 
@@ -43,6 +46,7 @@ export async function poll<T>(
   let currentIntervalIndex = 0;
 
   let data: T = null;
+  const progressBar = getProgress !== undefined ? logger.progress() : null;
 
   while (true) {
     let skipIsDone = false;
@@ -51,12 +55,16 @@ export async function poll<T>(
       data = await makeRequest();
       retryCounter = 0;
     } catch (err) {
-      if (!shouldIgnoreError(err)) {
+      if (shouldIgnoreError !== undefined && !shouldIgnoreError(err)) {
         retryCounter++;
 
         logger.debug(`Request failed while polling for new information (attempt ${retryCounter}/${maxRetries})`);
 
         if (retryCounter === maxRetries) {
+          if (progressBar !== null) {
+            progressBar.terminate();
+          }
+
           throw err;
         }
       }
@@ -64,7 +72,15 @@ export async function poll<T>(
       skipIsDone = true;
     }
 
+    if (progressBar !== null) {
+      progressBar.update(getProgress(data));
+    }
+
     if (!skipIsDone && isDone(data)) {
+      if (progressBar !== null) {
+        progressBar.update(1.0);
+      }
+
       return data;
     }
 

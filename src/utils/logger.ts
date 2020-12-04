@@ -1,5 +1,6 @@
 import * as chalk from 'chalk';
 import * as inquirer from 'inquirer';
+import * as ProgressBar from 'progress';
 import { table } from 'table';
 import { formatString } from './format';
 
@@ -35,6 +36,20 @@ class Logger {
   public error(message: any): void {
     const prefix = chalk.red(this.padPrefix('error'));
     console.error(this.prefixMessage(prefix, message));
+  }
+
+  public progress(total: number = 100): ProgressBar {
+    const prefix = this.padPrefix('');
+
+    const bar = new ProgressBar(`${prefix}[:bar] :percent`, {
+      complete: '=',
+      incomplete: ' ',
+      width: 50,
+      total,
+    });
+
+    bar.update(0.0);
+    return bar;
   }
 
   public table(rows: any[][]): void {
