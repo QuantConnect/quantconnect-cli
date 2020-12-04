@@ -55,7 +55,7 @@ export async function poll<T>({ makeRequest, isDone, shouldIgnoreError, getProgr
       data = await makeRequest();
       retryCounter = 0;
     } catch (err) {
-      if (shouldIgnoreError !== undefined && !shouldIgnoreError(err)) {
+      if (shouldIgnoreError === undefined || !shouldIgnoreError(err)) {
         retryCounter++;
 
         logger.debug(`Request failed while polling for new information (attempt ${retryCounter}/${maxRetries})`);
