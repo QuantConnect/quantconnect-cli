@@ -17,12 +17,14 @@ export class BacktestClient {
     return data.backtests;
   }
 
-  public create(projectId: number, compileId: string, name: string): Promise<QCBacktest> {
-    return this.api.post('backtests/create', {
+  public async create(projectId: number, compileId: string, name: string): Promise<QCBacktest> {
+    const data = await this.api.post('backtests/create', {
       projectId,
       compileId,
       backtestName: name,
     });
+
+    return data.backtest;
   }
 
   public getReport(projectId: number, backtestId: string): Promise<QCBacktestReport> {
