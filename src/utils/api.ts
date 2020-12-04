@@ -1,4 +1,5 @@
 import { APIClient } from '../api/APIClient';
+import { formatNumber } from './format';
 import { logger } from './logger';
 import { poll } from './promises';
 
@@ -14,7 +15,11 @@ export async function compileProject(api: APIClient, project: QCProject): Promis
   }
 
   if (parameters.length > 0) {
-    logger.info(`Detected parameters (${parameters.length}):`);
+    const parameterCount = parameters
+      .map(parameter => parseInt(parameter.split(' :: ')[1].split(' ')[0], 10))
+      .reduce((acc, val) => acc + val, 0);
+
+    logger.info(`Detected parameters (${formatNumber(parameterCount)}):`);
 
     for (const parameter of parameters) {
       logger.info(parameter);

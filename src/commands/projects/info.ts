@@ -1,5 +1,5 @@
 import { BaseCommand } from '../../BaseCommand';
-import { formatDate, formatLanguage } from '../../utils/format';
+import { formatDate, formatLanguage, formatNumber } from '../../utils/format';
 import { logger } from '../../utils/logger';
 
 export default class InfoProjectCommand extends BaseCommand {
@@ -24,7 +24,7 @@ export default class InfoProjectCommand extends BaseCommand {
 
     logger.info(`Deployed live: ${project.liveResults.eStatus === 'Running' ? 'Yes' : 'No'}`);
 
-    logger.info(`Collaborators (${project.collaborators.length}):`);
+    logger.info(`Collaborators (${formatNumber(project.collaborators.length)}):`);
     for (const collaborator of project.collaborators) {
       const hasLiveControl = collaborator.blivecontrol ? ' (has live control)' : '';
       logger.info(`- ${collaborator.name}${hasLiveControl}`);
@@ -36,7 +36,7 @@ export default class InfoProjectCommand extends BaseCommand {
     } else {
       const projects = await this.api.projects.getAll();
 
-      logger.info(`Linked libraries (${libraryCount}):`);
+      logger.info(`Linked libraries (${formatNumber(libraryCount)}):`);
 
       for (const library of project.libraries) {
         const libraryProject = projects.find(p => p.projectId === library);
@@ -48,7 +48,7 @@ export default class InfoProjectCommand extends BaseCommand {
     if (parameterCount === 0) {
       logger.info('Parameters: none');
     } else {
-      logger.info(`Parameters (${parameterCount}):`);
+      logger.info(`Parameters (${formatNumber(parameterCount)}):`);
       for (const parameter of project.parameters) {
         logger.info(`- ${parameter.key} = '${parameter.value}'`);
       }
