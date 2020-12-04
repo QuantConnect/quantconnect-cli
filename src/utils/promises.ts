@@ -77,10 +77,6 @@ export async function poll<T>({ makeRequest, isDone, shouldIgnoreError, getProgr
     }
 
     if (!skipIsDone && isDone(data)) {
-      if (progressBar !== null) {
-        progressBar.update(1.0);
-      }
-
       return data;
     }
 
