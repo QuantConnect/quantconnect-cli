@@ -4,6 +4,7 @@ import { APIClient } from './api/APIClient';
 import { config } from './utils/config';
 import { formatBrokerage, formatDate, formatLiveAlgorithmStatus } from './utils/format';
 import { logger } from './utils/logger';
+import { terminateProgressBar } from './utils/promises';
 
 type Flag<T> = { [key: string]: flags.IOptionFlag<T> };
 
@@ -44,6 +45,19 @@ export abstract class BaseCommand extends Command {
       logger.enableVerboseMessages();
     }
 
+    process.on('SIGINT', async () => {
+      try {
+        terminateProgressBar();
+        await this.onInterrupt();
+      } catch (err) {
+        if (err.code !== 'EEXIT') {
+          logger.error(err.message);
+        }
+
+        process.exit(2);
+      }
+    });
+
     if (this.constructor.name !== 'InitCommand') {
       if (config.fileExists()) {
         this.api = new APIClient(config.get('userId'), config.get('apiToken'));
@@ -62,6 +76,10 @@ export abstract class BaseCommand extends Command {
 
       process.exit(1);
     }
+  }
+
+  protected async onInterrupt(): Promise<void> {
+    process.exit(2);
   }
 
   protected static createProjectFlag(): Flag<string> {

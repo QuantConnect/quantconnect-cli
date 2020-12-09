@@ -1,3 +1,5 @@
+import * as ProgressBar from 'progress';
+import { BaseCommand } from '../BaseCommand';
 import { logger } from './logger';
 
 export function sleep(ms: number): Promise<void> {
@@ -11,6 +13,24 @@ interface PollOptions<T> {
   isDone: (data: T) => boolean;
   shouldIgnoreError?: (error: Error) => boolean;
   getProgress?: (data: T) => number;
+}
+
+let progressBar: ProgressBar = null;
+
+function updateProgressBar(ratio: number): void {
+  if (progressBar === null || progressBar.complete) {
+    return;
+  }
+
+  progressBar.update(ratio);
+}
+
+export function terminateProgressBar(): void {
+  if (progressBar !== null && !progressBar.complete) {
+    progressBar.terminate();
+  }
+
+  progressBar = null;
 }
 
 /**
@@ -41,7 +61,7 @@ export async function poll<T>({ makeRequest, isDone, shouldIgnoreError, getProgr
   let currentIntervalIndex = 0;
 
   let data: T = null;
-  const progressBar = getProgress !== undefined ? logger.progress() : null;
+  progressBar = getProgress !== undefined ? logger.progress() : null;
 
   while (true) {
     let dataUpdated = true;
@@ -56,15 +76,12 @@ export async function poll<T>({ makeRequest, isDone, shouldIgnoreError, getProgr
       dataUpdated = false;
     }
 
-    if (dataUpdated && progressBar !== null && !progressBar.complete) {
-      progressBar.update(getProgress(data));
+    if (dataUpdated && getProgress !== undefined) {
+      updateProgressBar(getProgress(data));
     }
 
     if (dataUpdated && isDone(data)) {
-      if (progressBar !== null && !progressBar.complete) {
-        progressBar.update(1.0);
-      }
-
+      terminateProgressBar();
       return data;
     }
 

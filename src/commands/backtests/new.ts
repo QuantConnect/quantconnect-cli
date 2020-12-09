@@ -8,7 +8,7 @@ import {
   logBacktestInformation,
 } from '../../utils/backtests';
 import { logger } from '../../utils/logger';
-import { poll } from '../../utils/promises';
+import { poll, terminateProgressBar } from '../../utils/promises';
 
 export default class NewBacktestCommand extends BaseCommand {
   public static description = 'launch a backtest for a project';
@@ -27,6 +27,9 @@ export default class NewBacktestCommand extends BaseCommand {
     }),
   };
 
+  private currentProject: QCProject = null;
+  private runningBacktest: QCBacktest = null;
+
   protected async execute(): Promise<void> {
     const project = await this.parseProjectFlag();
 
@@ -37,6 +40,9 @@ export default class NewBacktestCommand extends BaseCommand {
       compile.compileId,
       this.flags.name || generateBacktestName(),
     );
+
+    this.currentProject = project;
+    this.runningBacktest = backtest;
 
     logger.info(`Started backtest named '${backtest.name}' for project '${project.name}'`);
 
@@ -50,10 +56,31 @@ export default class NewBacktestCommand extends BaseCommand {
       getProgress: data => data.progress,
     });
 
+    this.runningBacktest = null;
+
     await logBacktestInformation(project, finishedBacktest, this.flags.open);
 
     if (finishedBacktest.error !== null) {
       process.exit(1);
     }
+  }
+
+  protected async onInterrupt(): Promise<void> {
+    if (this.isBacktestRunning()) {
+      const confirmation = await logger.askBoolean('Do you want to cancel the backtest?', false);
+      if (confirmation) {
+        if (this.isBacktestRunning()) {
+          await this.api.backtests.delete(this.currentProject.projectId, this.runningBacktest.backtestId);
+        } else {
+          logger.info('Backtest already finished, cancel aborted');
+        }
+      }
+    }
+
+    return super.onInterrupt();
+  }
+
+  private isBacktestRunning(): boolean {
+    return this.runningBacktest !== null && !isBacktestComplete(this.runningBacktest);
   }
 }
