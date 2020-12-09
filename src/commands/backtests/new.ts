@@ -67,10 +67,11 @@ export default class NewBacktestCommand extends BaseCommand {
 
   protected async onInterrupt(): Promise<void> {
     if (this.isBacktestRunning()) {
-      const confirmation = await logger.askBoolean('Do you want to cancel the backtest?', false);
+      const confirmation = await logger.askBoolean('Do you want to cancel and delete the running backtest?', true);
       if (confirmation) {
         if (this.isBacktestRunning()) {
           await this.api.backtests.delete(this.currentProject.projectId, this.runningBacktest.backtestId);
+          logger.info(`Successfully cancelled and deleted backtest '${this.runningBacktest.name}'`);
         } else {
           logger.info('Backtest already finished, cancel aborted');
         }
