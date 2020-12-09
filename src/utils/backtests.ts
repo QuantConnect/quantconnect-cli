@@ -53,6 +53,18 @@ export function generateBacktestName(): string {
   return `${verb} ${color} ${animal}`;
 }
 
+export function isBacktestComplete(backtest: QCBacktest): boolean {
+  if (backtest.error !== null) {
+    return true;
+  }
+
+  if (backtest.completed) {
+    return backtest.runtimeStatistics !== null && backtest.statistics !== null && !Array.isArray(backtest.statistics);
+  }
+
+  return false;
+}
+
 export function getBacktestUrl(project: QCProject, backtest: QCBacktest): string {
   return `https://www.quantconnect.com/terminal/#open/${project.projectId}/${backtest.backtestId}`;
 }

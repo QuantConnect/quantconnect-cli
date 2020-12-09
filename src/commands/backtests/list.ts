@@ -1,4 +1,5 @@
 import { BaseCommand } from '../../BaseCommand';
+import { isBacktestComplete } from '../../utils/backtests';
 import { formatAmount, formatDate } from '../../utils/format';
 import { logger } from '../../utils/logger';
 
@@ -25,7 +26,7 @@ export default class ListBacktestsCommand extends BaseCommand {
     for (const backtest of backtests) {
       let status: string;
 
-      if (backtest.completed) {
+      if (isBacktestComplete(backtest)) {
         if (backtest.error === null) {
           status = 'Successful';
         } else {
