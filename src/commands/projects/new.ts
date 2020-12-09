@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { flags } from '@oclif/command';
 import { BaseCommand } from '../../BaseCommand';
-import { formatLanguage } from '../../utils/format';
+import { formatLanguage, formatProjectName } from '../../utils/format';
 import { logger } from '../../utils/logger';
 import { addToProjectIndex, getProjectPath } from '../../utils/sync';
 import PullCommand from '../files/pull';
@@ -38,20 +38,22 @@ export default class NewProjectCommand extends BaseCommand {
       throw new Error(`There already exists a project with the given path`);
     }
 
+    const name = formatProjectName(this.args.path);
+
     const language = ({
       python: 'Py',
       csharp: 'C#',
     } as Record<string, QCLanguage>)[this.flags.language];
 
-    const newProject = await this.api.projects.create(this.args.path, language);
+    const newProject = await this.api.projects.create(name, language);
 
-    logger.info(`Successfully created ${formatLanguage(language)} project '${this.args.path}'`);
+    logger.info(`Successfully created ${formatLanguage(language)} project '${name}'`);
 
     if (fs.existsSync(newAbsolutePath)) {
       addToProjectIndex(newProject);
-      await PushCommand.run(['-p', this.args.path]);
+      await PushCommand.run(['-p', name]);
     } else {
-      await PullCommand.run(['-p', this.args.path]);
+      await PullCommand.run(['-p', name]);
     }
   }
 }

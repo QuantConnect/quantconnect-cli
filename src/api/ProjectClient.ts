@@ -1,4 +1,5 @@
 import { config } from '../utils/config';
+import { formatProjectName } from '../utils/format';
 import { APIClient } from './APIClient';
 
 export class ProjectClient {
@@ -12,12 +13,12 @@ export class ProjectClient {
       throw new Error('Boot Camp projects are ignored');
     }
 
-    return project;
+    return this.processProject(project);
   }
 
   public async getAll(): Promise<QCProject[]> {
     const data = await this.api.get('projects/read');
-    const projects: QCProject[] = data.projects;
+    const projects = (data.projects as QCProject[]).map(project => this.processProject(project));
 
     if (config.get('hideBootCampProjects')) {
       return projects.filter(project => !project.name.startsWith('Boot Camp/'));
@@ -32,10 +33,15 @@ export class ProjectClient {
       language,
     });
 
-    return data.projects[0];
+    return this.processProject(data.projects[0]);
   }
 
   public async delete(projectId: number): Promise<void> {
     await this.api.post('projects/delete', { projectId });
+  }
+
+  private processProject(project: QCProject): QCProject {
+    project.name = formatProjectName(project.name);
+    return project;
   }
 }

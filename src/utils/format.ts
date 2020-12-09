@@ -41,6 +41,10 @@ export function formatLiveAlgorithmStatus(status: QCLiveAlgorithmStatus): string
   }
 }
 
+export function formatProjectName(name: string): string {
+  return name.replace(/^\/+/g, '');
+}
+
 export function formatBrokerage(id: string): string {
   return brokerages.find(brokerage => brokerage.id === id).name;
 }

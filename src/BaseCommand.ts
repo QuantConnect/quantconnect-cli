@@ -2,7 +2,7 @@ import Command, { flags } from '@oclif/command';
 import { OutputArgs, OutputFlags } from '@oclif/parser';
 import { APIClient } from './api/APIClient';
 import { config } from './utils/config';
-import { formatBrokerage, formatDate, formatLiveAlgorithmStatus } from './utils/format';
+import { formatBrokerage, formatDate, formatLiveAlgorithmStatus, formatProjectName } from './utils/format';
 import { logger } from './utils/logger';
 import { terminateProgressBar } from './utils/promises';
 
@@ -135,7 +135,7 @@ export abstract class BaseCommand extends Command {
       'project',
       projects,
       this.flags.project,
-      (project, input) => project.projectId === Number(input) || project.name === input,
+      (project, input) => project.projectId === Number(input) || project.name === formatProjectName(input),
       (a, b) => b.modified.getTime() - a.modified.getTime(),
       project => `${project.projectId} - ${project.name}`,
     );
