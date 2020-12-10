@@ -8,7 +8,7 @@ import {
   logBacktestInformation,
 } from '../../utils/backtests';
 import { logger } from '../../utils/logger';
-import { poll, terminateProgressBar } from '../../utils/promises';
+import { poll } from '../../utils/promises';
 
 export default class NewBacktestCommand extends BaseCommand {
   public static description = 'launch a backtest for a project';

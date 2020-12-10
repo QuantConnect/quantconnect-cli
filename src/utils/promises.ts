@@ -1,5 +1,4 @@
 import * as ProgressBar from 'progress';
-import { BaseCommand } from '../BaseCommand';
 import { logger } from './logger';
 
 export function sleep(ms: number): Promise<void> {
