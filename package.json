@@ -1,6 +1,6 @@
 {
   "name": "quantconnect-cli",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "CLI aimed at making local development of QuantConnect algorithms easier",
   "repository": "QuantConnect/quantconnect-cli",
   "homepage": "https://github.com/QuantConnect/quantconnect-cli",
