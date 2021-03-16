@@ -1,14 +1,9 @@
-# Deprecated in favor of LEAN Pip Package.
+# Deprecation warning
 
-https://github.com/QuantConnect/lean-cli
+This package is deprecated, please use the new CLI hosted in the [QuantConnect/lean-cli](https://github.com/QuantConnect/lean-cli) repository.
 
-All the same functionality will be provided by via pip for easier distribution. 
+---
 
-
-
-
-
-=====================
 # QuantConnect CLI
 
 [![Build Status](https://github.com/QuantConnect/quantconnect-cli/workflows/Build/badge.svg)](https://github.com/QuantConnect/quantconnect-cli/actions?query=workflow%3ABuild)
